@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { wavveFont } from "@/app/fonts";
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
-
-const inter = Inter({ subsets: ["latin"] });
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn(wavveFont.className)}>
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
