@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { wavveFont } from "@/app/fonts";
+import {
+  cafe24MoyamoyaFont,
+  cafe24SupermagicFont,
+  cafe24OhsquareFont,
+  cafe24OhsquareAirFont,
+} from "@/app/fonts";
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
 import { cn } from "@/lib/utils";
@@ -16,7 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(wavveFont.className)}>
+      <body
+        className={cn(
+          cafe24OhsquareAirFont.variable,
+          cafe24OhsquareFont.variable,
+          cafe24SupermagicFont.variable,
+          cafe24MoyamoyaFont.variable,
+        )}
+      >
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
