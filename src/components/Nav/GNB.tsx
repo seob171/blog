@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "@/shared/Logo";
-import { Button } from "@/components/ui/button";
-import BarIcon from "@/shared/icon/BarIcon";
+import LoginDialog from "@/features/Auth/LoginDialog";
 
 const GNB = () => {
   return (
@@ -10,9 +9,8 @@ const GNB = () => {
     >
       <Logo />
       <div className={"flex items-center gap-1"}>
-        <Button variant={"ghost"} size={"icon"}>
-          <BarIcon className={"size-7"} />
-        </Button>
+        <LoginDialog />
+        {/*<Dropdown />*/}
       </div>
     </nav>
   );

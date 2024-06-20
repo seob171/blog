@@ -13,14 +13,12 @@ const config = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
     screens: {
       xs: "500px",
       sm: "768px",
       md: "1280px",
+      lg: "1440px",
     },
     extend: {
       fontFamily: {
