@@ -18,7 +18,7 @@ type Props = {
 
 const PostCard = ({ title, description }: Props) => {
   return (
-    <Card className={""}>
+    <Card className={"border-0 shadow-none"}>
       <CardHeader>
         <div className={"flex items-center gap-x-2"}>
           <Avatar className={"size-6"}>

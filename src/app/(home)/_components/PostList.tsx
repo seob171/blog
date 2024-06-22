@@ -1,14 +1,23 @@
 import PostCard from "@/components/Card/PostCard";
 import React from "react";
+import Link from "next/link";
+import { Divider, HR } from "@/components/ui/divider";
 
 const PostList = () => {
   return (
-    <ul className={"flex flex-col gap-y-4"}>
+    <ul className={"flex flex-col"}>
       {POST_LIST.map((props, index) => {
         return (
-          <li key={index}>
-            <PostCard {...props} />
-          </li>
+          <>
+            <li key={`post_${index}`}>
+              <Link href={"#"}>
+                <PostCard {...props} />
+              </Link>
+            </li>
+            <Divider className={"px-6 last:hidden"}>
+              <HR />
+            </Divider>
+          </>
         );
       })}
     </ul>
