@@ -1,11 +1,18 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import Logo from "@/shared/Logo";
 import LoginDialog from "@/features/Auth/LoginDialog";
+import { cn } from "@/lib/utils";
 
-const GNB = () => {
+type Props = HTMLAttributes<HTMLDivElement>;
+
+const GNB = ({ className, ...props }: Props) => {
   return (
     <nav
-      className={"flex items-center justify-between gap-2 p-4 bg-background"}
+      className={cn(
+        "flex items-center justify-between gap-2 p-4 bg-background z-general",
+        className,
+      )}
+      {...props}
     >
       <Logo />
       <div className={"flex items-center gap-1"}>

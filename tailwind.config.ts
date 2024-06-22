@@ -20,6 +20,10 @@ const config = {
       md: "1280px",
       lg: "1440px",
     },
+    zIndex: {
+      general: "1",
+      back: "-1",
+    },
     extend: {
       fontFamily: {
         moyamoya: ["var(--font-cafe24-moyamoya)"],
@@ -62,6 +66,7 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
