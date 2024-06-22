@@ -9,7 +9,7 @@ const GNB = ({ className, ...props }: Props) => {
   return (
     <nav
       className={cn(
-        "flex items-center justify-between gap-2 p-4 bg-background z-general",
+        "flex items-center justify-between gap-2 p-4 bg-background",
         className,
       )}
       {...props}
