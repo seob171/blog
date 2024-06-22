@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
-export function LoginForm() {
+const LoginForm = () => {
   return (
-    <Card className="mx-auto w-full p-6 border-0 shadow-none">
+    <Card className={cn("mx-auto w-full border-0 shadow-none h-full")}>
       <CardHeader>
         <CardTitle className="text-2xl">로그인</CardTitle>
       </CardHeader>
@@ -45,4 +46,6 @@ export function LoginForm() {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default LoginForm;
