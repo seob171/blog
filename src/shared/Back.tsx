@@ -1,16 +1,33 @@
 "use client";
 
 import React, { ComponentProps } from "react";
-import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-const Back = (props: Partial<ComponentProps<typeof Button>>) => {
+const Back = ({
+  variant,
+  size,
+  onClick,
+  ...props
+}: Partial<ComponentProps<typeof Button>>) => {
   const { back } = useRouter();
 
   return (
     <Button variant={"ghost"} size={"icon"} onClick={back} {...props}>
-      <ChevronLeft strokeWidth={1.5} />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+        />
+      </svg>
     </Button>
   );
 };

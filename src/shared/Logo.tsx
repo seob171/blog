@@ -1,6 +1,8 @@
 import React, { ComponentProps } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { PATH_NAME } from "@/constants/link";
+import { LOGO_TEXT } from "@/constants/brand";
 
 const Logo = ({
   className,
@@ -10,10 +12,10 @@ const Logo = ({
   return (
     <Link
       className={cn("text-2xl font-bold", className)}
-      href={href ?? "/"}
+      href={href ?? PATH_NAME.home}
       {...props}
     >
-      999°
+      {LOGO_TEXT}
     </Link>
   );
 };

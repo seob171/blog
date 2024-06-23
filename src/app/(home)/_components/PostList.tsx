@@ -14,7 +14,7 @@ const PostList = () => {
                 <PostCard {...props} />
               </Link>
             </li>
-            <Divider className={"my-4 px-6 last:hidden"}>
+            <Divider className={"my-4 px-4 last:hidden"}>
               <HR />
             </Divider>
           </>

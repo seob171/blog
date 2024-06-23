@@ -16,7 +16,7 @@ const TopBar = ({
   return (
     <nav
       className={cn(
-        "flex items-center justify-between gap-2 p-6 bg-background [&>div]:w-full",
+        "flex items-center justify-between gap-2 px-4 py-2 bg-background [&>div]:w-full",
         className,
       )}
       {...props}

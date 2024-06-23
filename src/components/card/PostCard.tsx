@@ -19,7 +19,7 @@ type Props = {
 const PostCard = ({ title, description }: Props) => {
   return (
     <Card className={"border-0 shadow-none"}>
-      <CardHeader className={"px-6 py-2"}>
+      <CardHeader className={"px-4 py-2"}>
         <div className={"flex items-center gap-x-2"}>
           <Avatar className={"size-6 static"}>
             <AvatarFallback>S</AvatarFallback>
@@ -29,7 +29,7 @@ const PostCard = ({ title, description }: Props) => {
       </CardHeader>
       <CardContent
         className={
-          "flex gap-y-4 flex-col px-6 py-2 justify-between sm:flex-row sm:gap-x-4 "
+          "flex gap-y-4 flex-col px-4 py-2 justify-between sm:flex-row sm:gap-x-4 "
         }
       >
         <div className={"flex flex-col gap-y-2"}>
