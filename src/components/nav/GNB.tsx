@@ -2,13 +2,20 @@ import React, { HTMLAttributes } from "react";
 import Logo from "@/shared/Logo";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Heart, User } from "lucide-react";
 import Link from "next/link";
 import { PATH_NAME } from "@/constants/link";
+import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
 
 type Props = HTMLAttributes<HTMLDivElement>;
 
-const GNB = ({ className, ...props }: Props) => {
+const GNB = async ({ className, ...props }: Props) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <nav
       className={cn(
@@ -19,7 +26,7 @@ const GNB = ({ className, ...props }: Props) => {
     >
       <Logo />
       <div className={"flex items-center gap-2"}>
-        <Link href={PATH_NAME.signIn}>
+        <Link href={PATH_NAME.picks}>
           <Button variant={"ghost"} size={"icon"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +44,7 @@ const GNB = ({ className, ...props }: Props) => {
             </svg>
           </Button>
         </Link>
-        <Link href={PATH_NAME.signIn}>
+        <Link href={`${PATH_NAME.profile}/${user?.id}`}>
           <Button variant={"ghost"} size={"icon"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
