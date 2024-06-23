@@ -13,6 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 import ErrorMessage from "@/components/form/ErrorMessage";
 import { passwordRegex } from "@/constants/regex";
+import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   email: string;
@@ -46,6 +48,9 @@ const schema: ZodType<FormData> = z
   );
 
 const SignUpForm = () => {
+  const supabase = createClient();
+  const { replace } = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -59,8 +64,21 @@ const SignUpForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const signUp: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const signUp: SubmitHandler<FormData> = async ({ email, password }) => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        // TODO : 에러 핸들링
+      } else {
+        replace(PATH_NAME.signIn);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -104,14 +122,12 @@ const SignUpForm = () => {
       <Button type="submit" className="w-full text-md">
         회원가입
       </Button>
-      <div className={"flex justify-center items-center gap-x-2"}>
+      <div className={"flex justify-center items-center gap-x-2 text-sm "}>
         <span
-          className={"text-sm text-muted-foreground"}
+          className={"text-muted-foreground"}
         >{`${LOGO_TEXT} 계정이 이미 있으신가요?`}</span>
         <Link href={PATH_NAME.signIn}>
-          <Button variant={"link"} className={"text-md"}>
-            로그인하기
-          </Button>
+          <Button variant={"link"}>로그인하기</Button>
         </Link>
       </div>
     </form>

@@ -13,6 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import ErrorMessage from "@/components/form/ErrorMessage";
+import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   email: string;
@@ -28,10 +30,14 @@ const schema: ZodType<FormData> = z.object({
 });
 
 const SignInForm = () => {
+  const supabase = createClient();
+  const { replace } = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<FormData>({
     defaultValues: {
       email: "",
@@ -40,8 +46,31 @@ const SignInForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const signIn: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const signIn: SubmitHandler<FormData> = async ({ email, password }) => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        if (error.message.includes("Email not confirmed")) {
+          //
+        } else if (error.message.includes("Invalid login credentials")) {
+          console.log("Error: Invalid login credentials");
+          setError("password", {
+            message: "이메일 혹은 비밀번호를 틀렸어요",
+          });
+        } else {
+          console.log("Error:", error.message);
+        }
+      } else {
+        // TODO : nextPath를 관리해서 해당 경로로 렌딩시키기
+        replace(PATH_NAME.home);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -79,14 +108,12 @@ const SignInForm = () => {
       <Button variant="outline" className="w-full text-md">
         구글 로그인
       </Button>
-      <div className={"flex justify-center items-center gap-x-2"}>
+      <div className={"flex justify-center items-center gap-x-2 text-sm"}>
         <span
-          className={"text-sm text-muted-foreground"}
+          className={"text-muted-foreground"}
         >{`아직 ${LOGO_TEXT} 계정이 없으신가요?`}</span>
         <Link href={PATH_NAME.signUp}>
-          <Button variant={"link"} className={"text-md"}>
-            회원가입하기
-          </Button>
+          <Button variant={"link"}>회원가입하기</Button>
         </Link>
       </div>
     </form>
