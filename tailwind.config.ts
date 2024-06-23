@@ -13,23 +13,21 @@ const config = {
     container: {
       center: true,
       padding: "2rem",
-    },
-    screens: {
-      xs: "500px",
-      sm: "768px",
-      md: "1280px",
-      lg: "1440px",
+      screens: {
+        "2xl": "1400px",
+      },
     },
     zIndex: {
       general: "1",
       back: "-1",
     },
+    screens: {
+      sm: "450px",
+      md: "600px",
+    },
     extend: {
       fontFamily: {
-        moyamoya: ["var(--font-cafe24-moyamoya)"],
-        supermagic: ["var(--font-cafe24-supermagic)"],
-        ohsquare: ["var(--font-cafe24-ohsquare)"],
-        ohsquareAir: ["var(--font-cafe24-ohsquareAir)"],
+        line: ["var(--font-line)"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -66,7 +64,6 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

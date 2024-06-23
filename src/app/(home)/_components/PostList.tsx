@@ -1,4 +1,4 @@
-import PostCard from "@/components/Card/PostCard";
+import PostCard from "@/components/card/PostCard";
 import React from "react";
 import Link from "next/link";
 import { Divider, HR } from "@/components/ui/divider";

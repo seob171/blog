@@ -9,11 +9,11 @@ const Logo = ({
 }: Partial<ComponentProps<typeof Link>>) => {
   return (
     <Link
-      className={cn("text-2xl font-ohsquare", className)}
+      className={cn("text-2xl font-bold", className)}
       href={href ?? "/"}
       {...props}
     >
-      블로그
+      999°
     </Link>
   );
 };

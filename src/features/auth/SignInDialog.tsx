@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import LoginForm from "@/features/Auth/LoginForm";
+import SignInForm from "@/features/auth/SignInForm";
 import { useMediaQuery } from "usehooks-ts";
 import {
   Drawer,
@@ -22,9 +22,9 @@ import {
 } from "@/components/ui/drawer";
 import { SCREEN_SIZE } from "@/constants/size";
 
-const LoginDialog = () => {
+const SignInDialog = () => {
   const [open, setOpen] = useState(false);
-  const isScreenXS = useMediaQuery(`(max-width:${SCREEN_SIZE.xs - 1}px)`);
+  const isScreenXS = useMediaQuery(`(max-width:${SCREEN_SIZE.sm - 1}px)`);
 
   if (isScreenXS) {
     return (
@@ -37,7 +37,7 @@ const LoginDialog = () => {
             <DrawerTitle hidden />
             <DrawerDescription hidden />
           </DrawerHeader>
-          <LoginForm />
+          <SignInForm />
         </DrawerContent>
       </Drawer>
     );
@@ -51,10 +51,10 @@ const LoginDialog = () => {
       <DialogContent className="p-0 border-0">
         <DialogTitle className={"sr-only"} hidden />
         <DialogDescription className={"sr-only"} hidden />
-        <LoginForm />
+        <SignInForm />
       </DialogContent>
     </Dialog>
   );
 };
 
-export default LoginDialog;
+export default SignInDialog;

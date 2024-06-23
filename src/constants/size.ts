@@ -1,6 +1,6 @@
 export const SCREEN_SIZE = {
-  xs: 500,
-  sm: 768,
-  md: 1280,
-  lg: 1440,
+  sm: 450,
+  md: 768,
+  lg: 1280,
+  lx: 1440,
 };

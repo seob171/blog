@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import {
-  cafe24MoyamoyaFont,
-  cafe24SupermagicFont,
-  cafe24OhsquareFont,
-  cafe24OhsquareAirFont,
-} from "@/app/fonts";
 import "./globals.css";
+
 import QueryProvider from "@/providers/QueryProvider";
 import { cn } from "@/lib/utils";
+import React from "react";
+import { lineFont } from "@/app/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,15 +18,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          cafe24OhsquareAirFont.variable,
-          cafe24OhsquareFont.variable,
-          cafe24SupermagicFont.variable,
-          cafe24MoyamoyaFont.variable,
-        )}
-      >
-        <QueryProvider>{children}</QueryProvider>
+      <body className={cn(lineFont.variable)}>
+        <QueryProvider>
+          <main className="flex min-h-screen justify-center">
+            <section
+              className={
+                "flex flex-col min-h-screen h-full max-w-screen-md w-full bg-background"
+              }
+            >
+              {children}
+            </section>
+          </main>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -1,50 +1,22 @@
 import LocalFont from "next/font/local";
 
-export const cafe24MoyamoyaFont = LocalFont({
+export const lineFont = LocalFont({
   src: [
     {
-      path: "../fonts/cafe24/Cafe24Moyamoya-Regular-v1.0.woff",
+      path: "../fonts/line/LINESeedKR-Th.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/line/LINESeedKR-Rg.woff2",
       weight: "400",
       style: "normal",
     },
-  ],
-  variable: "--font-cafe24-moyamoya",
-});
-
-export const cafe24SupermagicFont = LocalFont({
-  src: [
     {
-      path: "../fonts/cafe24/Cafe24Supermagic-Bold-v1.0.woff",
+      path: "../fonts/line/LINESeedKR-Bd.woff2",
       weight: "700",
       style: "normal",
     },
-    {
-      path: "../fonts/cafe24/Cafe24Supermagic-Regular-v1.0.woff",
-      weight: "400",
-      style: "normal",
-    },
   ],
-  variable: "--font-cafe24-supermagic",
-});
-
-export const cafe24OhsquareFont = LocalFont({
-  src: [
-    {
-      path: "../fonts/cafe24/Cafe24Ohsquare-v2.0.woff",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--font-cafe24-ohsquare",
-});
-
-export const cafe24OhsquareAirFont = LocalFont({
-  src: [
-    {
-      path: "../fonts/cafe24/Cafe24OhsquareAir-v2.0.woff",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--font-cafe24-ohsquareAir",
+  variable: "--font-line",
 });

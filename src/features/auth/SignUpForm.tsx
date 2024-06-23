@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
-const LoginForm = () => {
+const SignInForm = () => {
   return (
     <Card className={cn("mx-auto w-full border-0 shadow-none h-full")}>
       <CardHeader>
@@ -48,4 +48,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignInForm;
