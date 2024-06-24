@@ -26,6 +26,9 @@ dependencies:
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.3.3)(react@18.3.1)
+  '@supabase/auth-js':
+    specifier: ^2.64.3
+    version: 2.64.3
   '@supabase/ssr':
     specifier: ^0.3.0
     version: 0.3.0(@supabase/supabase-js@2.43.5)
@@ -989,6 +992,12 @@ packages:
 
   /@supabase/auth-js@2.64.2:
     resolution: {integrity: sha512-s+lkHEdGiczDrzXJ1YWt2y3bxRi+qIUnXcgkpLSrId7yjBeaXBFygNjTaoZLG02KNcYwbuZ9qkEIqmj2hF7svw==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/auth-js@2.64.3:
+    resolution: {integrity: sha512-XP2He3rmfYXbgiHjuukvFnlTViIbIRq9sjnZx86vOL1jOi6/Aul77fqxthZ1NyLV7GIaxLfbpuP+/+KpDjKeKA==}
     dependencies:
       '@supabase/node-fetch': 2.6.15
     dev: false

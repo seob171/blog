@@ -15,6 +15,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import ErrorMessage from "@/components/form/ErrorMessage";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { updateUser } from "@/services/auth/client/useUser";
 
 type FormData = {
   email: string;
@@ -30,6 +32,7 @@ const schema: ZodType<FormData> = z.object({
 });
 
 const SignInForm = () => {
+  const queryClient = useQueryClient();
   const supabase = createClient();
   const { replace } = useRouter();
 
@@ -48,7 +51,10 @@ const SignInForm = () => {
 
   const signIn: SubmitHandler<FormData> = async ({ email, password }) => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       });
@@ -64,7 +70,8 @@ const SignInForm = () => {
         } else {
           console.log("Error:", error.message);
         }
-      } else {
+      } else if (user) {
+        updateUser(queryClient, user);
         // TODO : nextPath를 관리해서 해당 경로로 렌딩시키기
         replace(PATH_NAME.home);
       }
