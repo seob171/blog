@@ -26,7 +26,7 @@ const GNB = ({ className, ...props }: Props) => {
     >
       <Logo />
       <div className={"flex items-center gap-2"}>
-        <Link href={PATH_NAME.write} className={user ? "" : "hidden"}>
+        <Link href={`${PATH_NAME.write}`} className={user ? "" : "hidden"}>
           <Button variant={"ghost"} size={"icon"}>
             <PencilSquare />
           </Button>
