@@ -1,15 +1,19 @@
 import React from "react";
-// import Image from "next/image";
 
 import {
   Card,
   CardContent,
   CardDescription,
-  // CardFooter,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import Heart from "@/components/icon/Heart";
+import ChatBubble from "@/components/icon/ChatBubble";
+import PaperAirplane from "@/components/icon/PaperAirplane";
+import BookMark from "@/components/icon/BookMark";
 
 type Props = {
   title: string;
@@ -44,15 +48,23 @@ const PostCard = ({ title, description }: Props) => {
           className={`aspect-video w-full h-fit rounded-md object-cover bg-muted
             sm:aspect-square sm:size-32 sm:w-fit`}
         />
-        {/*<Image*/}
-        {/*  alt="Product image"*/}
-        {/*  className="aspect-square w-full rounded-md object-cover"*/}
-        {/*  height="300"*/}
-        {/*  src="https://img.khan.co.kr/news/2024/03/23/news-p.v1.20240323.c159a4cab6f64473adf462d873e01e43_P1.jpg"*/}
-        {/*  width="300"*/}
-        {/*/>*/}
       </CardContent>
-      {/*<CardFooter></CardFooter>*/}
+      <CardFooter className={"justify-between px-2 pb-2"}>
+        <div className={"flex items-center"}>
+          <Button variant={"none"} size={"icon"}>
+            <Heart />
+          </Button>
+          <Button variant={"none"} size={"icon"}>
+            <ChatBubble />
+          </Button>
+          <Button variant={"none"} size={"icon"}>
+            <PaperAirplane />
+          </Button>
+        </div>
+        <Button variant={"none"} size={"icon"}>
+          <BookMark />
+        </Button>
+      </CardFooter>
     </Card>
   );
 };

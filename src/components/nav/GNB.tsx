@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PATH_NAME } from "@/constants/link";
 import UserCircle from "@/components/icon/UserCircle";
-import Heart from "@/components/icon/Heart";
 import PencilSquare from "@/components/icon/PencilSquare";
 import { useGetUser } from "@/services/auth/useGetUser";
+import BookMark from "@/components/icon/BookMark";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
@@ -26,7 +26,7 @@ const GNB = ({ className, ...props }: Props) => {
     >
       <Logo />
       <div className={"flex items-center gap-2"}>
-        <Link href={PATH_NAME.picks} className={user ? "" : "hidden"}>
+        <Link href={PATH_NAME.write} className={user ? "" : "hidden"}>
           <Button variant={"ghost"} size={"icon"}>
             <PencilSquare />
           </Button>
@@ -34,7 +34,7 @@ const GNB = ({ className, ...props }: Props) => {
 
         <Link href={PATH_NAME.picks}>
           <Button variant={"ghost"} size={"icon"}>
-            <Heart />
+            <BookMark />
           </Button>
         </Link>
         <Link href={`${PATH_NAME.profile}/${user?.id}`}>
