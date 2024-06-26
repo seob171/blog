@@ -7,6 +7,7 @@ import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { redirect } from "next/navigation";
 import { PATH_NAME } from "@/constants/link";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import Editor from "@/components/editor/Editor";
 
 const Page = () => {
   const queryClient = getQueryClient();
@@ -23,10 +24,7 @@ const Page = () => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <TopBar leftRender={<Back />} />
-      저장하기 전 write
-      <span>제목</span>
-      <span>툴</span>
-      <span>텍스트</span>
+      <Editor />
     </HydrationBoundary>
   );
 };
