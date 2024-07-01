@@ -12,6 +12,8 @@
     "@heroicons/react": "^2.1.4",
     "@hookform/resolvers": "^3.6.0",
     "@lexical/react": "^0.16.0",
+    "@lexical/rich-text": "^0.16.0",
+    "@lexical/selection": "^0.16.0",
     "@lexical/utils": "^0.16.0",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.1.0",

@@ -9,7 +9,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { Button } from "@/components/ui/button";
 import { mergeRegister } from "@lexical/utils";
 
-const CustomTextAction = () => {
+const CustomTextActionPlugin = () => {
   const [editor] = useLexicalComposerContext();
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
@@ -106,4 +106,4 @@ const CustomTextAction = () => {
   );
 };
 
-export default CustomTextAction;
+export default CustomTextActionPlugin;
