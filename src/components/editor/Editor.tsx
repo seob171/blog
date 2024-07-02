@@ -13,8 +13,11 @@ import { ComponentProps, useState } from "react";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { EditorState } from "lexical";
 import CustomTextActionPlugin from "@/components/plugin/CustomTextActionPlugin";
-import { HeadingNode } from "@lexical/rich-text";
+import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import CustomBlockTypePlugin from "@/components/plugin/CustomBlockTypePlugin";
+// import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 
 const Editor = () => {
   const config: InitialConfigType = {
@@ -41,7 +44,19 @@ const Editor = () => {
     onError: (error) => {
       console.error(error);
     },
-    nodes: [HeadingNode],
+    nodes: [
+      HeadingNode,
+      // ListNode,
+      // ListItemNode,
+      QuoteNode,
+      // CodeNode,
+      // CodeHighlightNode,
+      // TableNode,
+      // TableCellNode,
+      // TableRowNode,
+      // AutoLinkNode,
+      // LinkNode,
+    ],
   };
 
   const [editorState, setEditorState] = useState<EditorState>();
@@ -76,6 +91,9 @@ const Editor = () => {
       <HistoryPlugin />
       <AutoFocusPlugin />
       <OnChangePlugin onChange={onChange} />
+      <ListPlugin />
+      <LinkPlugin />
+      {/*<MarkdownShortcutPlugin transformers={PLAYGROUND_TRANSFORMERS} />*/}
     </LexicalComposer>
   );
 };
