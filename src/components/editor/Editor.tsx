@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  InitialConfigType,
-  LexicalComposer,
-} from "@lexical/react/LexicalComposer";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -13,14 +10,20 @@ import { ComponentProps, useState } from "react";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { EditorState } from "lexical";
 import CustomTextActionPlugin from "@/components/plugin/CustomTextActionPlugin";
-import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import CustomBlockTypePlugin from "@/components/plugin/CustomBlockTypePlugin";
-// import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
-import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
+import PlaygroundNodes from "@/lib/nodes";
+import {
+  ELEMENT_TRANSFORMERS,
+  TEXT_FORMAT_TRANSFORMERS,
+  TEXT_MATCH_TRANSFORMERS,
+} from "@lexical/markdown";
 
 const Editor = () => {
-  const config: InitialConfigType = {
+  const config = {
     namespace: "editor",
     theme: {
       text: {
@@ -41,22 +44,10 @@ const Editor = () => {
         h6: "text-lg",
       },
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       console.error(error);
     },
-    nodes: [
-      HeadingNode,
-      // ListNode,
-      // ListItemNode,
-      QuoteNode,
-      // CodeNode,
-      // CodeHighlightNode,
-      // TableNode,
-      // TableCellNode,
-      // TableRowNode,
-      // AutoLinkNode,
-      // LinkNode,
-    ],
+    nodes: PlaygroundNodes,
   };
 
   const [editorState, setEditorState] = useState<EditorState>();
@@ -93,7 +84,13 @@ const Editor = () => {
       <OnChangePlugin onChange={onChange} />
       <ListPlugin />
       <LinkPlugin />
-      {/*<MarkdownShortcutPlugin transformers={PLAYGROUND_TRANSFORMERS} />*/}
+      <MarkdownShortcutPlugin
+        transformers={[
+          // ...ELEMENT_TRANSFORMERS,
+          ...TEXT_FORMAT_TRANSFORMERS,
+          // ...TEXT_MATCH_TRANSFORMERS,
+        ]}
+      />
     </LexicalComposer>
   );
 };
