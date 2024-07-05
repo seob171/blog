@@ -7,7 +7,7 @@ import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { redirect } from "next/navigation";
 import { PATH_NAME } from "@/constants/link";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import Editor from "@/components/editor/Editor";
+import Tiptap from "@/components/tiptap/Tiptap";
 
 const Page = () => {
   const queryClient = getQueryClient();
@@ -24,7 +24,9 @@ const Page = () => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <TopBar leftRender={<Back />} />
-      <div className={"flex flex-col w-full px-4 py-2 mt-20"}>편집기!</div>
+      <div className={"flex flex-col w-full px-4 py-2 mt-8"}>
+        <Tiptap />
+      </div>
     </HydrationBoundary>
   );
 };
