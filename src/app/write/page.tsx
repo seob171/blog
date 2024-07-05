@@ -24,9 +24,7 @@ const Page = () => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <TopBar leftRender={<Back />} />
-      <div className={"flex flex-col w-full px-4 py-2 mt-20"}>
-        <Editor />
-      </div>
+      <div className={"flex flex-col w-full px-4 py-2 mt-20"}>편집기!</div>
     </HydrationBoundary>
   );
 };
