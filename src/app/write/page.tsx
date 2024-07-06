@@ -24,7 +24,7 @@ const Page = () => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <TopBar leftRender={<Back />} />
-      <div className={"flex flex-col w-full px-4 py-2 mt-8"}>
+      <div className={"relative flex flex-col flex-1 w-full px-4 pt-2 mt-8"}>
         <Tiptap />
       </div>
     </HydrationBoundary>
