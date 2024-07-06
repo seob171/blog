@@ -15,6 +15,7 @@ import MenuBar from "@/components/tiptap/MenuBar";
 import TextareaAutosize from "react-textarea-autosize";
 import BottomBar from "@/components/nav/BottomBar";
 import { Button } from "@/components/ui/button";
+import Image from "@tiptap/extension-image";
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -33,6 +34,60 @@ const Tiptap = () => {
         autolink: true,
         protocols: ["https", "http"],
       }),
+      Image.configure({ inline: true }),
+      // FileHandler.configure({
+      //   allowedMimeTypes: [
+      //     "image/png",
+      //     "image/jpeg",
+      //     "image/gif",
+      //     "image/webp",
+      //   ],
+      //   onDrop: (currentEditor: Editor, files: File[], pos: number | Range) => {
+      //     files.forEach((file: File) => {
+      //       const fileReader = new FileReader();
+      //
+      //       fileReader.readAsDataURL(file);
+      //       fileReader.onload = () => {
+      //         currentEditor
+      //           .chain()
+      //           .insertContentAt(pos, {
+      //             type: "image",
+      //             attrs: {
+      //               src: fileReader.result,
+      //             },
+      //           })
+      //           .focus()
+      //           .run();
+      //       };
+      //     });
+      //   },
+      //   onPaste: (currentEditor: Editor, files: File[], htmlContent) => {
+      //     files.forEach((file) => {
+      //       if (htmlContent) {
+      //         // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
+      //         // you could extract the pasted file from this url string and upload it to a server for example
+      //         console.log(htmlContent); // eslint-disable-line no-console
+      //         return false;
+      //       }
+      //
+      //       const fileReader = new FileReader();
+      //
+      //       fileReader.readAsDataURL(file);
+      //       fileReader.onload = () => {
+      //         currentEditor
+      //           .chain()
+      //           .insertContentAt(currentEditor.state.selection.anchor, {
+      //             type: "image",
+      //             attrs: {
+      //               src: fileReader.result,
+      //             },
+      //           })
+      //           .focus()
+      //           .run();
+      //       };
+      //     });
+      //   },
+      // }),
       Table.configure({
         resizable: true,
       }),

@@ -15,6 +15,7 @@ import {
   Strikethrough,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ImageUploadMenu from "@/components/tiptap/ImageUploadMenu";
 
 type Props = {
   editor: Editor | null;
@@ -26,6 +27,7 @@ const MenuBar = ({ editor, className }: Props) => {
 
   return (
     <div className={cn("flex gap-2 items-center flex-wrap", className)}>
+      {/*heading*/}
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         variant={
@@ -54,6 +56,7 @@ const MenuBar = ({ editor, className }: Props) => {
         <Heading3 className={"size-5"} />
       </Button>
 
+      {/*text-style*/}
       <Button
         onClick={() => editor.chain().focus().toggleBold().run()}
         variant={editor.isActive("bold") ? "default" : "outline"}
@@ -82,6 +85,9 @@ const MenuBar = ({ editor, className }: Props) => {
       >
         <Highlighter className={"size-5"} />
       </Button>
+      {/*image*/}
+      <ImageUploadMenu editor={editor} />
+      {/*text-align*/}
       <Button
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         variant={editor.isActive({ textAlign: "left" }) ? "default" : "outline"}
