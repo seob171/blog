@@ -16,6 +16,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import BottomBar from "@/components/nav/BottomBar";
 import { Button } from "@/components/ui/button";
 import Image from "@tiptap/extension-image";
+import ThumbnailUploadMenu from "@/components/tiptap/ThumbnailUploadMenu";
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -129,6 +130,7 @@ const Tiptap = () => {
         placeholder={"제목없음"}
         rows={1}
       />
+      <ThumbnailUploadMenu />
       <MenuBar
         editor={editor}
         className={"sticky top-0 py-4 z-general bg-background"}
