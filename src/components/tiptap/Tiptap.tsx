@@ -52,7 +52,7 @@ const Tiptap = () => {
       Youtube.configure({
         inline: true,
         HTMLAttributes: {
-          class: "rounded-lg overflow-hidden",
+          class: "rounded-lg overflow-hidden aspect-video w-full h-auto",
         },
       }),
       Image.configure({
