@@ -2,16 +2,14 @@ import React from "react";
 import { Editor } from "@tiptap/react";
 import { Button } from "@/components/ui/button";
 import {
-  AlignCenter,
-  AlignJustify,
-  AlignLeft,
-  AlignRight,
   Bold,
+  Code,
   Heading1,
   Heading2,
   Heading3,
   Highlighter,
   Italic,
+  ListChecks,
   Strikethrough,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -86,46 +84,27 @@ const MenuBar = ({ editor, className }: Props) => {
       >
         <Highlighter className={"size-5"} />
       </Button>
+      <Button
+        onClick={() => editor.chain().focus().setCodeBlock().run()}
+        variant={editor.isActive("codeBlock") ? "default" : "outline"}
+        size={"icon"}
+      >
+        <Code className={"size-5"} />
+      </Button>
+
+      <Button
+        onClick={() => editor.chain().focus().toggleTaskList().run()}
+        variant={editor.isActive("taskList") ? "default" : "outline"}
+        size={"icon"}
+      >
+        <ListChecks className={"size-5"} />
+      </Button>
+
       {/*image*/}
       <ImageUploadMenu editor={editor} />
 
       {/*youtube embed*/}
       <YoutubeEmbedMenu editor={editor} />
-      {/*text-align*/}
-      <Button
-        onClick={() => editor.chain().focus().setTextAlign("left").run()}
-        variant={editor.isActive({ textAlign: "left" }) ? "default" : "outline"}
-        size={"icon"}
-      >
-        <AlignLeft className={"size-5"} />
-      </Button>
-      <Button
-        onClick={() => editor.chain().focus().setTextAlign("center").run()}
-        variant={
-          editor.isActive({ textAlign: "center" }) ? "default" : "outline"
-        }
-        size={"icon"}
-      >
-        <AlignCenter className={"size-5"} />
-      </Button>
-      <Button
-        onClick={() => editor.chain().focus().setTextAlign("right").run()}
-        variant={
-          editor.isActive({ textAlign: "right" }) ? "default" : "outline"
-        }
-        size={"icon"}
-      >
-        <AlignRight className={"size-5"} />
-      </Button>
-      <Button
-        onClick={() => editor.chain().focus().setTextAlign("justify").run()}
-        variant={
-          editor.isActive({ textAlign: "justify" }) ? "default" : "outline"
-        }
-        size={"icon"}
-      >
-        <AlignJustify className={"size-5"} />
-      </Button>
     </div>
   );
 };

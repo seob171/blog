@@ -14,7 +14,7 @@ const ThumbnailUploadMenu = () => {
       trigger={
         <Button
           variant={"outline"}
-          className={"w-fit h-auto p-0 my-4 rounded-2xl overflow-hidden"}
+          className={"w-fit h-auto p-0 my-4 rounded-lg overflow-hidden"}
         >
           <div className={"relative w-44 aspect-video"}>
             <img

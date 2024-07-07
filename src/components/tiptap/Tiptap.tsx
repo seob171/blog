@@ -17,6 +17,8 @@ import BottomBar from "@/components/nav/BottomBar";
 import { Button } from "@/components/ui/button";
 import Image from "@tiptap/extension-image";
 import Youtube from "@tiptap/extension-youtube";
+import TaskItem from "@tiptap/extension-task-item";
+import TaskList from "@tiptap/extension-task-list";
 import ThumbnailUploadMenu from "@/components/tiptap/ThumbnailUploadMenu";
 
 const Tiptap = () => {
@@ -28,6 +30,7 @@ const Tiptap = () => {
             class: "my-3",
           },
         },
+        horizontalRule: { HTMLAttributes: { class: "my-3" } },
       }),
       Focus.configure({
         className: "has-focus",
@@ -42,8 +45,22 @@ const Tiptap = () => {
         autolink: true,
         protocols: ["https", "http"],
       }),
-      Youtube.configure({ inline: true }),
-      Image.configure({ inline: true }),
+      TaskList.configure({}),
+      TaskItem.configure({
+        nested: true,
+      }),
+      Youtube.configure({
+        inline: true,
+        HTMLAttributes: {
+          class: "rounded-lg overflow-hidden",
+        },
+      }),
+      Image.configure({
+        inline: true,
+        HTMLAttributes: {
+          class: "rounded-lg",
+        },
+      }),
       // FileHandler.configure({
       //   allowedMimeTypes: [
       //     "image/png",
