@@ -11,6 +11,7 @@ import {
   Italic,
   ListChecks,
   Strikethrough,
+  Underline,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ImageUploadMenu from "@/components/tiptap/ImageUploadMenu";
@@ -76,6 +77,13 @@ const MenuBar = ({ editor, className }: Props) => {
         size={"icon"}
       >
         <Strikethrough className={"size-5"} />
+      </Button>
+      <Button
+        onClick={() => editor.chain().focus().toggleUnderline().run()}
+        variant={editor.isActive("underline") ? "default" : "outline"}
+        size={"icon"}
+      >
+        <Underline className={"size-5"} />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHighlight().run()}
