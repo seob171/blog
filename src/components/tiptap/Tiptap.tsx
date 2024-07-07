@@ -16,12 +16,19 @@ import TextareaAutosize from "react-textarea-autosize";
 import BottomBar from "@/components/nav/BottomBar";
 import { Button } from "@/components/ui/button";
 import Image from "@tiptap/extension-image";
+import Youtube from "@tiptap/extension-youtube";
 import ThumbnailUploadMenu from "@/components/tiptap/ThumbnailUploadMenu";
 
 const Tiptap = () => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        paragraph: {
+          HTMLAttributes: {
+            class: "my-3",
+          },
+        },
+      }),
       Focus.configure({
         className: "has-focus",
         mode: "all",
@@ -35,6 +42,7 @@ const Tiptap = () => {
         autolink: true,
         protocols: ["https", "http"],
       }),
+      Youtube.configure({ inline: true }),
       Image.configure({ inline: true }),
       // FileHandler.configure({
       //   allowedMimeTypes: [
@@ -114,6 +122,20 @@ const Tiptap = () => {
     content: "",
     autofocus: "start",
     editable: true,
+    onUpdate: ({ editor }) => {
+      const { selection } = editor.state;
+
+      if (!selection.empty) {
+        // Do not scroll into view when we're doing a mass update (e.g. underlining text)
+        // We only want the scrolling to happen during actual user input
+        return;
+      }
+
+      const viewportCoords = editor.view.coordsAtPos(selection.from);
+      const absoluteOffset = window.scrollY + viewportCoords.top;
+
+      window.scrollTo(window.scrollX, absoluteOffset - window.innerHeight / 2);
+    },
     editorProps: {
       attributes: {
         class: "prose mt-5 focus:outline-none",

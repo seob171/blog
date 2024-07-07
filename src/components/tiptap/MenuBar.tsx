@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ImageUploadMenu from "@/components/tiptap/ImageUploadMenu";
+import YoutubeEmbedMenu from "@/components/tiptap/YoutubeEmbedMenu";
 
 type Props = {
   editor: Editor | null;
@@ -87,6 +88,9 @@ const MenuBar = ({ editor, className }: Props) => {
       </Button>
       {/*image*/}
       <ImageUploadMenu editor={editor} />
+
+      {/*youtube embed*/}
+      <YoutubeEmbedMenu editor={editor} />
       {/*text-align*/}
       <Button
         onClick={() => editor.chain().focus().setTextAlign("left").run()}

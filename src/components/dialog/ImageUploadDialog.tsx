@@ -61,9 +61,9 @@ const ImageUploadDialog = ({ trigger, fileUpload, ...dialogProps }: Props) => {
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>이미지 업로드</DialogTitle>
+          <DialogTitle>이미지</DialogTitle>
           <DialogDescription>
-            URL을 입력하거나 이미지 파일을 업로드하세요.
+            링크를 임베드하거나 파일을 업로드하세요.
           </DialogDescription>
         </DialogHeader>
         <form
@@ -73,7 +73,7 @@ const ImageUploadDialog = ({ trigger, fileUpload, ...dialogProps }: Props) => {
           <div className="flex items-center space-x-2">
             <div className="grid flex-1 gap-2">
               <Label htmlFor="url" className="sr-only">
-                Image URL
+                이미지 링크
               </Label>
               <Input {...register("url")} id="url" type="url" required />
             </div>
@@ -93,7 +93,7 @@ const ImageUploadDialog = ({ trigger, fileUpload, ...dialogProps }: Props) => {
           </div>
           <DialogFooter>
             <Button type="submit" variant="default">
-              업로드
+              이미지 임베드
             </Button>
           </DialogFooter>
         </form>
