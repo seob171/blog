@@ -11,9 +11,12 @@ datasource db {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Post {
-  id         String   @id(map: "post_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  title      String   @default("")
-  content    String   @default("")
-  thumbnail  String?
+  id          String   @id(map: "post_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  title       String   @default("")
+  content     String   @default("")
+  thumbnail   String?
+  description String?
+  updated_at  DateTime @default(now()) @db.Timestamptz(6)
+  published   Boolean  @default(false)
 }
