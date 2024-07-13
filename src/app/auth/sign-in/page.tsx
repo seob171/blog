@@ -3,7 +3,7 @@ import TopBar from "@/components/nav/TopBar";
 import Back from "@/shared/Back";
 import SignInForm from "@/app/auth/sign-in/_components/SignInForm";
 import { getQueryClient } from "@/utils/queryClient";
-import getUser from "@/services/auth/server/getUser";
+import { getUser } from "@/services/auth/server/route";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { redirect } from "next/navigation";
 import { PATH_NAME } from "@/constants/link";

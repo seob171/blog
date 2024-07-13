@@ -3,7 +3,7 @@ import GNB from "@/components/nav/GNB";
 import PostList from "@/app/(home)/_components/PostList";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { getQueryClient } from "@/utils/queryClient";
-import getUser from "@/services/auth/server/getUser";
+import { getUser } from "@/services/auth/server/route";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 
 const Page = () => {

@@ -2,7 +2,7 @@ import React, { use } from "react";
 import TopBar from "@/components/nav/TopBar";
 import Back from "@/shared/Back";
 import { getQueryClient } from "@/utils/queryClient";
-import getUser from "@/services/auth/server/getUser";
+import { getUser } from "@/services/auth/server/route";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 

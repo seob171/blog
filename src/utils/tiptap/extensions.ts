@@ -1,4 +1,4 @@
-import { Extensions } from "@tiptap/core";
+import type { Extensions } from "@tiptap/core";
 import Focus from "@tiptap/extension-focus";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Link } from "@tiptap/extension-link";
@@ -25,7 +25,7 @@ import Code from "@tiptap/extension-code";
 import Italic from "@tiptap/extension-italic";
 import Strike from "@tiptap/extension-strike";
 
-export const extensions: Extensions = [
+export const EXTENSIONS: Extensions = [
   Focus.configure({
     className: "has-focus",
     mode: "all",

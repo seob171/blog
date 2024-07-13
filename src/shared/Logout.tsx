@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { PATH_NAME } from "@/constants/link";
 import { useQueryClient } from "@tanstack/react-query";
-import { clearUser } from "@/services/auth/client/useUser";
+import { clearUser } from "@/services/auth/client/route";
 
 const Logout = () => {
   const queryClient = useQueryClient();

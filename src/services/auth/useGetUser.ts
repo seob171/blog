@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { getUser } from "@/services/auth/client/useUser";
+import { getUser } from "@/services/auth/client/route";
 import { User } from "@supabase/auth-js";
 
 export const useGetUser = <TData = User | null>(

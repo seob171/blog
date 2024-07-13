@@ -16,7 +16,7 @@ import ErrorMessage from "@/components/form/ErrorMessage";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { updateUser } from "@/services/auth/client/useUser";
+import { updateUser } from "@/services/auth/client/route";
 
 type FormData = {
   email: string;

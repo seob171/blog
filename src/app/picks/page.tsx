@@ -1,7 +1,7 @@
 import React, { use } from "react";
 import TopBar from "@/components/nav/TopBar";
 import Back from "@/shared/Back";
-import getUser from "@/services/auth/server/getUser";
+import { getUser } from "@/services/auth/server/route";
 import { getQueryClient } from "@/utils/queryClient";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { redirect } from "next/navigation";
