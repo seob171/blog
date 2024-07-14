@@ -20,7 +20,6 @@ export const PATCH = async (
   { params: { id: postId } }: { params: { id: string } },
 ) => {
   const data = await request.json();
-  console.log("patch id => ", postId);
 
   if (!isValidBody(data))
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });

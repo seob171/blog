@@ -17,7 +17,7 @@ const Page = () => {
   );
 
   // 포스트 id를 통해 본인여부 체크
-  console.log(user);
+  // console.log(user);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

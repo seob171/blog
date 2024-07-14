@@ -16,20 +16,19 @@ import PostUploadForm from "@/app/write/_components/form/PostUploadForm";
 const DraftEditor = () => {
   const { replace } = useRouter();
   const [title, setTitle] = useState("");
-  const [isEmpty, setIsEmpty] = useState(true);
-  const { mutateAsync: createPost } = useCreatePost({
-    retryDelay: 5000,
+  const { mutate: createPost } = useCreatePost({
+    retry: false,
     onSuccess: ({ id }) => {
       replace(`${PATH_NAME.write}/${id}`);
     },
   });
 
-  const handleCreate: ComponentProps<
-    typeof EditorComponent
-  >["onUpdate"] = async ({ editor }) => {
+  const handleCreate: ComponentProps<typeof EditorComponent>["onUpdate"] = ({
+    editor,
+  }) => {
     if (title.trim() === "") return;
     const content = JSON.stringify(editor.state.doc.toJSON());
-    await createPost({ title, content });
+    createPost({ title, content });
   };
 
   const debouncedCreate = useDebounceCallback(handleCreate, 10_000);
@@ -44,21 +43,13 @@ const DraftEditor = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <EditorComponent
-        onUpdate={(e) => {
-          setIsEmpty(e.editor.isEmpty);
-          debouncedCreate(e);
-        }}
-        editable={true}
-      />
+      <EditorComponent onUpdate={debouncedCreate} editable={true} />
       <BottomBar
         className={"sticky bottom-0 border border-muted rounded-t-2xl"}
         rightRender={
           <div className={"flex justify-end"}>
             <PostUploadButton
-              trigger={
-                <Button disabled={isEmpty || !Boolean(title)}>업로드</Button>
-              }
+              trigger={<Button disabled={!Boolean(title)}>업로드</Button>}
             >
               <PostUploadForm uploadPost={(data) => console.log(data)} />
             </PostUploadButton>

@@ -19,7 +19,6 @@ const SavedEditor = () => {
   const { data } = useGetPost();
 
   const [title, setTitle] = useState(data?.title ?? "");
-  const [isEmpty, setIsEmpty] = useState(false);
 
   const { mutateAsync: updatePost } = useUpdatePost();
   const [content] = useState(data?.content ?? "");
@@ -65,10 +64,7 @@ const SavedEditor = () => {
       />
       <EditorComponent
         onCreate={handleCreate}
-        onUpdate={(e) => {
-          setIsEmpty(e.editor.isEmpty);
-          debouncedUpdate(e);
-        }}
+        onUpdate={debouncedUpdate}
         editable={true}
       />
       <BottomBar
@@ -76,9 +72,7 @@ const SavedEditor = () => {
         rightRender={
           <div className={"flex justify-end"}>
             <PostUploadButton
-              trigger={
-                <Button disabled={isEmpty || !Boolean(title)}>업로드</Button>
-              }
+              trigger={<Button disabled={!Boolean(title)}>업로드</Button>}
             >
               <PostUploadForm uploadPost={handleUpload} />
             </PostUploadButton>
