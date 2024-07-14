@@ -28,7 +28,7 @@ const YoutubeEmbedForm = ({ videoEmbed }: Props) => {
 
   return (
     <form
-      className={"flex flex-col gap-y-4"}
+      className={"flex flex-col gap-y-2"}
       onSubmit={handleSubmit(videoEmbed)}
     >
       <div className="flex items-center space-x-2">

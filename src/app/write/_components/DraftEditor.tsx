@@ -5,16 +5,17 @@ import TextareaAutosize from "react-textarea-autosize";
 import BottomBar from "@/components/nav/BottomBar";
 import { Button } from "@/components/ui/button";
 
-import ThumbnailUploadMenu from "@/components/tiptap/ThumbnailUploadMenu";
 import { useDebounceCallback } from "usehooks-ts";
 import EditorComponent from "@/components/tiptap/EditorComponent";
 import useCreatePost from "@/services/post/useCreatePost";
 import { useRouter } from "next/navigation";
 import { PATH_NAME } from "@/constants/link";
+import PostUploadButton from "@/app/write/_components/PostUploadButton";
 
 const DraftEditor = () => {
   const { replace } = useRouter();
   const [title, setTitle] = useState("");
+  const [isEmpty, setIsEmpty] = useState(true);
   const { mutateAsync: createPost } = useCreatePost({
     onSuccess: ({ id }) => {
       replace(`${PATH_NAME.write}/${id}`);
@@ -29,27 +30,36 @@ const DraftEditor = () => {
     await createPost({ title, content });
   };
 
-  const debouncedUpdate = useDebounceCallback(handleUpdate, 3000);
+  const debouncedUpdate = useDebounceCallback(handleUpdate, 10_000);
 
   return (
     <>
       <TextareaAutosize
-        className={
-          "py-2 text-5xl font-bold placeholder-muted outline-none resize-none"
-        }
+        className={"py-2 text-5xl font-bold outline-none resize-none"}
         placeholder={"제목없음"}
         rows={1}
         autoFocus
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <ThumbnailUploadMenu />
-      <EditorComponent onUpdate={debouncedUpdate} editable={true} />
+      <EditorComponent
+        onUpdate={(e) => {
+          setIsEmpty(e.editor.isEmpty);
+          debouncedUpdate(e);
+        }}
+        editable={true}
+      />
       <BottomBar
         className={"sticky bottom-0 border border-muted rounded-t-2xl"}
         rightRender={
           <div className={"flex justify-end"}>
-            <Button>공개</Button>
+            <PostUploadButton
+              trigger={
+                <Button disabled={isEmpty || !Boolean(title)}>업로드</Button>
+              }
+            >
+              {/*form*/}
+            </PostUploadButton>
           </div>
         }
       />

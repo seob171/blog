@@ -44,7 +44,7 @@ const ImageUploadForm = ({ fileUpload }: Props) => {
   });
   return (
     <form
-      className={"flex flex-col gap-y-4"}
+      className={"flex flex-col gap-y-2"}
       onSubmit={handleSubmit(fileUpload)}
     >
       <div className="flex items-center space-x-2">

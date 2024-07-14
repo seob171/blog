@@ -28,8 +28,8 @@ const CustomDrawer = ({
   return (
     <Drawer {...drawerProps}>
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader className="text-left">
+      <DrawerContent className={"px-4"}>
+        <DrawerHeader className="text-left px-0">
           <DrawerTitle>{title}</DrawerTitle>
           <DrawerDescription>{description}</DrawerDescription>
         </DrawerHeader>

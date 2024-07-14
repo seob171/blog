@@ -127,7 +127,7 @@ export const EXTENSIONS: Extensions = [
   Placeholder.configure({
     // emptyEditorClass: "prose-empty",
     emptyNodeClass:
-      "before:content-[attr(data-placeholder)] before:float-left before:pointer-events-none before:text-muted before:h-0",
+      "before:content-[attr(data-placeholder)] before:float-left before:pointer-events-none before:text-muted-foreground before:h-0",
     // Use a placeholder:
     // placeholder: "Write something …",
     // Use different placeholders depending on the node type:
