@@ -4,28 +4,37 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FileUpload from "@/components/icon/FileUpload";
 import { cn } from "@/lib/utils";
+import Global from "@/components/icon/Global";
+import LockClosed from "@/components/icon/LockClosed";
 
 type Props = {
-  uploadPost: SubmitHandler<FormData>;
+  uploadPost: SubmitHandler<PostUploadFormData>;
 };
 
 const schema = z.object({
   description: z.string().optional(),
-  thumbnail: z.string().url(),
+  thumbnailUrl: z.string().url(),
+  isPublic: z.boolean(),
 });
 
-type FormData = z.infer<typeof schema>;
+export type PostUploadFormData = z.infer<typeof schema>;
 
 const PostUploadForm = ({ uploadPost }: Props) => {
-  const { register, handleSubmit } = useForm<FormData>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { isSubmitting, isValid },
+  } = useForm<PostUploadFormData>({
     defaultValues: {
       description: "",
-      thumbnail: "",
+      thumbnailUrl: "",
+      isPublic: false,
     },
     resolver: zodResolver(schema),
   });
@@ -37,12 +46,12 @@ const PostUploadForm = ({ uploadPost }: Props) => {
     >
       <div className="flex items-center space-x-2">
         <div className="grid flex-1 gap-2">
-          <Label htmlFor="url" className="sr-only">
+          <Label htmlFor={register("thumbnailUrl").name} className="sr-only">
             이미지 링크
           </Label>
           <Input
-            {...register("thumbnail")}
-            id="url"
+            {...register("thumbnailUrl")}
+            id={register("thumbnailUrl").name}
             type="url"
             required
             placeholder={"썸네일로 지정할 이미지 링크를 입력해주세요."}
@@ -69,7 +78,7 @@ const PostUploadForm = ({ uploadPost }: Props) => {
             포스트 설명
           </Label>
           <textarea
-            // rows={3}
+            rows={3}
             className={cn(
               "flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
               "py-2 outline-none resize-none",
@@ -80,7 +89,70 @@ const PostUploadForm = ({ uploadPost }: Props) => {
           />
         </div>
       </div>
-      <Button type="submit" variant="default">
+      <Controller
+        control={control}
+        name="isPublic"
+        render={({ field: { onChange, value, name, ref, onBlur } }) => {
+          const isPublic = value;
+
+          return (
+            <div className={"flex items-center gap-x-2 justify-end my-4"}>
+              <Button
+                type={"button"}
+                variant={isPublic ? "default" : "muted"}
+                className={"p-0"}
+              >
+                <label
+                  className={
+                    "flex items-center gap-x-2 w-full h-full px-4 py-2 cursor-pointer"
+                  }
+                >
+                  <Global />
+                  <span>전체공개</span>
+
+                  <input
+                    type="radio"
+                    ref={ref}
+                    checked={value === true}
+                    onBlur={onBlur} // notify when input is touched
+                    onChange={() => onChange(true)}
+                    className={"sr-only"}
+                  />
+                </label>
+              </Button>
+
+              <Button
+                type={"button"}
+                variant={!isPublic ? "default" : "muted"}
+                className={"p-0"}
+              >
+                <label
+                  className={
+                    "flex items-center gap-x-2 w-full h-full px-4 py-2 cursor-pointer"
+                  }
+                >
+                  <LockClosed />
+                  <span>비공개</span>
+
+                  <input
+                    type="radio"
+                    ref={ref}
+                    checked={value === false}
+                    onBlur={onBlur} // notify when input is touched
+                    onChange={() => onChange(false)}
+                    className={"sr-only"}
+                  />
+                </label>
+              </Button>
+            </div>
+          );
+        }}
+      />
+      <Button
+        type="submit"
+        variant="default"
+        disabled={isSubmitting || !isValid}
+      >
         포스트 업로드
       </Button>
     </form>

@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 type Props = {
-  fileUpload: SubmitHandler<FormData>;
+  fileUpload: SubmitHandler<ImageUploadFormData>;
 };
 
 // const MAX_FILE_SIZE = 1024 * 1024 * 5;
@@ -33,10 +33,10 @@ const schema = z.object({
   //   }, "Only .jpg, .jpeg, .png and .webp formats are supported."),
 });
 
-type FormData = z.infer<typeof schema>;
+type ImageUploadFormData = z.infer<typeof schema>;
 
 const ImageUploadForm = ({ fileUpload }: Props) => {
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, handleSubmit } = useForm<ImageUploadFormData>({
     defaultValues: {
       url: "https://assets.lummi.ai/assets/QmfP4B4bLwJMT5SQ6BVuzjLM8YNFtgxF4mUedfX5bB6kZS?auto=format&w=1500",
     },

@@ -12,15 +12,9 @@ const useUpdatePost = (): UseMutationResult<
   const { id: postId } = useParams<{ id: string }>();
 
   return useMutation({
-    mutationFn: ({
-      title,
-      content,
-      thumbnail,
-    }: Partial<PrismaModels["Post"]>) =>
+    mutationFn: (props: Partial<PrismaModels["Post"]>) =>
       axiosInstance.patch(`/post/${postId}`, {
-        title,
-        content,
-        thumbnail,
+        ...props,
       }),
   });
 };

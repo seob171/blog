@@ -14,6 +14,7 @@ type Props = {
   trigger: React.ReactNode;
   title: string;
   description: string;
+  preventInteractOutside?: boolean;
 } & ComponentProps<typeof Dialog>;
 
 const CustomDialog = ({
@@ -21,12 +22,18 @@ const CustomDialog = ({
   children,
   title,
   description,
+  preventInteractOutside = false,
   ...dialogProps
 }: Props) => {
   return (
     <Dialog {...dialogProps}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent
+        className="sm:max-w-md"
+        onInteractOutside={(e) => {
+          if (preventInteractOutside) e.preventDefault();
+        }}
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

@@ -21,6 +21,7 @@ const useGetPost = (
   return useQuery({
     queryKey: POST_QUERY_KEY.item(postId),
     queryFn: () => getPost(postId),
+    enabled: Boolean(postId),
     ...options,
   });
 };

@@ -19,6 +19,7 @@ const PostUploadButton = ({ trigger, children }: Props) => {
       trigger={trigger}
       title={TITLE}
       description={DESCRIPTION}
+      preventInteractOutside={true}
     >
       {children}
     </ResponsiveModal>

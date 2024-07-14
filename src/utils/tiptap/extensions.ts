@@ -8,6 +8,8 @@ import Youtube from "@tiptap/extension-youtube";
 import Image from "@tiptap/extension-image";
 import { Placeholder } from "@tiptap/extension-placeholder";
 
+import History from "@tiptap/extension-history";
+
 import Blockquote from "@tiptap/extension-blockquote";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
@@ -71,6 +73,7 @@ export const EXTENSIONS: Extensions = [
       class: "rounded-lg",
     },
   }),
+  History,
   // FileHandler.configure({
   //   allowedMimeTypes: [
   //     "image/png",

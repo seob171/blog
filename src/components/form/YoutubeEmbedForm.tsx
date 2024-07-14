@@ -9,17 +9,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 type Props = {
-  videoEmbed: SubmitHandler<FormData>;
+  embedVideo: SubmitHandler<YoutubeEmbedFormData>;
 };
 
 const schema = z.object({
   url: z.string().url(),
 });
 
-type FormData = z.infer<typeof schema>;
+type YoutubeEmbedFormData = z.infer<typeof schema>;
 
-const YoutubeEmbedForm = ({ videoEmbed }: Props) => {
-  const { register, handleSubmit } = useForm<FormData>({
+const YoutubeEmbedForm = ({ embedVideo }: Props) => {
+  const { register, handleSubmit } = useForm<YoutubeEmbedFormData>({
     defaultValues: {
       url: "https://www.youtube.com/watch?v=Q3K0TOvTOno",
     },
@@ -29,7 +29,7 @@ const YoutubeEmbedForm = ({ videoEmbed }: Props) => {
   return (
     <form
       className={"flex flex-col gap-y-2"}
-      onSubmit={handleSubmit(videoEmbed)}
+      onSubmit={handleSubmit(embedVideo)}
     >
       <div className="flex items-center space-x-2">
         <div className="grid flex-1 gap-2">

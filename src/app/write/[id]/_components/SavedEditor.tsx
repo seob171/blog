@@ -10,30 +10,49 @@ import EditorComponent from "@/components/tiptap/EditorComponent";
 import useUpdatePost from "@/services/post/useUpdatePost";
 import useGetPost from "@/services/post/useGetPost";
 import PostUploadButton from "@/app/write/_components/PostUploadButton";
-import PostUploadForm from "@/app/write/_components/form/PostUploadForm";
+import PostUploadForm, {
+  PostUploadFormData,
+} from "@/app/write/_components/form/PostUploadForm";
+import { SubmitHandler } from "react-hook-form";
 
 const SavedEditor = () => {
   const { data } = useGetPost();
-  const [title, setTitle] = useState(data?.title ?? "");
-  const [isEmpty, setIsEmpty] = useState(true);
 
-  const { mutate: updatePost } = useUpdatePost();
+  const [title, setTitle] = useState(data?.title ?? "");
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  const { mutateAsync: updatePost } = useUpdatePost();
   const [content] = useState(data?.content ?? "");
 
   const handleCreate: ComponentProps<typeof EditorComponent>["onCreate"] = ({
     editor,
   }) => {
-    if (content) editor.commands.setContent(JSON.parse(content));
+    if (content) {
+      editor.commands.setContent(JSON.parse(content));
+      editor.chain().focus().run();
+    }
   };
 
-  const handleUpdate: ComponentProps<typeof EditorComponent>["onUpdate"] = ({
-    editor,
-  }) => {
+  const handleUpdate: ComponentProps<
+    typeof EditorComponent
+  >["onUpdate"] = async ({ editor }) => {
     const content = JSON.stringify(editor.state.doc.toJSON());
-    updatePost({ title, content });
+    await updatePost({ title, content });
   };
 
-  const debouncedUpdate = useDebounceCallback(handleUpdate, 3_000);
+  const handleUpload: SubmitHandler<PostUploadFormData> = async ({
+    description,
+    thumbnailUrl,
+    isPublic,
+  }) => {
+    await updatePost({
+      description,
+      thumbnail_url: thumbnailUrl,
+      published: isPublic,
+    });
+  };
+
+  const debouncedUpdate = useDebounceCallback(handleUpdate, 5_000);
 
   return (
     <>
@@ -41,7 +60,6 @@ const SavedEditor = () => {
         className={"py-2 text-5xl font-bold outline-none resize-none"}
         placeholder={"제목없음"}
         rows={1}
-        autoFocus
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
@@ -62,7 +80,7 @@ const SavedEditor = () => {
                 <Button disabled={isEmpty || !Boolean(title)}>업로드</Button>
               }
             >
-              <PostUploadForm uploadPost={(data) => console.log(data)} />
+              <PostUploadForm uploadPost={handleUpload} />
             </PostUploadButton>
           </div>
         }

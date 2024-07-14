@@ -30,7 +30,7 @@ const YoutubeEmbedMenu = ({ editor }: Props) => {
       description={DESCRIPTION}
     >
       <YoutubeEmbedForm
-        videoEmbed={({ url }) => {
+        embedVideo={({ url }) => {
           editor.commands.setYoutubeVideo({
             src: url,
           });

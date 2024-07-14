@@ -17,6 +17,7 @@ interface Props extends PropsWithChildren {
 
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  preventInteractOutside?: boolean;
 }
 
 const ResponsiveModal = ({
@@ -26,6 +27,7 @@ const ResponsiveModal = ({
   open,
   setOpen,
   children,
+  preventInteractOutside,
 }: Props) => {
   const isScreenXS = useMediaQuery(`(max-width:${SCREEN_SIZE.sm - 1}px)`);
 
@@ -50,6 +52,7 @@ const ResponsiveModal = ({
       trigger={trigger}
       title={title}
       description={description}
+      preventInteractOutside={preventInteractOutside}
     >
       {children}
     </CustomDialog>

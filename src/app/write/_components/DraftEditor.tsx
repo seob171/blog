@@ -11,18 +11,20 @@ import useCreatePost from "@/services/post/useCreatePost";
 import { useRouter } from "next/navigation";
 import { PATH_NAME } from "@/constants/link";
 import PostUploadButton from "@/app/write/_components/PostUploadButton";
+import PostUploadForm from "@/app/write/_components/form/PostUploadForm";
 
 const DraftEditor = () => {
   const { replace } = useRouter();
   const [title, setTitle] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
   const { mutateAsync: createPost } = useCreatePost({
+    retryDelay: 5000,
     onSuccess: ({ id }) => {
       replace(`${PATH_NAME.write}/${id}`);
     },
   });
 
-  const handleUpdate: ComponentProps<
+  const handleCreate: ComponentProps<
     typeof EditorComponent
   >["onUpdate"] = async ({ editor }) => {
     if (title.trim() === "") return;
@@ -30,7 +32,7 @@ const DraftEditor = () => {
     await createPost({ title, content });
   };
 
-  const debouncedUpdate = useDebounceCallback(handleUpdate, 10_000);
+  const debouncedCreate = useDebounceCallback(handleCreate, 10_000);
 
   return (
     <>
@@ -45,7 +47,7 @@ const DraftEditor = () => {
       <EditorComponent
         onUpdate={(e) => {
           setIsEmpty(e.editor.isEmpty);
-          debouncedUpdate(e);
+          debouncedCreate(e);
         }}
         editable={true}
       />
@@ -58,7 +60,7 @@ const DraftEditor = () => {
                 <Button disabled={isEmpty || !Boolean(title)}>업로드</Button>
               }
             >
-              {/*form*/}
+              <PostUploadForm uploadPost={(data) => console.log(data)} />
             </PostUploadButton>
           </div>
         }

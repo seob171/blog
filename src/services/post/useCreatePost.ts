@@ -20,15 +20,10 @@ const useCreatePost = (
 > => {
   return useMutation({
     ...options,
-    mutationFn: async ({
-      title,
-      content,
-      thumbnail,
-    }: Partial<PrismaModels["Post"]>) => {
+    mutationFn: async ({ title, content }: Partial<PrismaModels["Post"]>) => {
       const res = await axiosInstance.post("/post", {
         title,
         content,
-        thumbnail,
       });
       return res.data;
     },

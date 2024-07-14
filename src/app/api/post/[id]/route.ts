@@ -4,11 +4,10 @@ import { isValidBody } from "@/types/post.type";
 
 const prisma = new PrismaClient();
 
-export const GET = async ({
-  params: { id: postId },
-}: {
-  params: { id: string };
-}) => {
+export const GET = async (
+  request: Request,
+  { params: { id: postId } }: { params: { id: string } },
+) => {
   const post = await prisma.post.findUnique({
     where: { id: postId },
   });
@@ -21,6 +20,7 @@ export const PATCH = async (
   { params: { id: postId } }: { params: { id: string } },
 ) => {
   const data = await request.json();
+  console.log("patch id => ", postId);
 
   if (!isValidBody(data))
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
