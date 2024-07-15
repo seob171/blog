@@ -45,7 +45,7 @@ const EditorComponent = ({
     <>
       <MenuBar
         editor={editor}
-        className={"sticky top-0 py-4 z-general bg-background"}
+        className={`sticky top-0 py-4 z-general bg-background ${!editable ? "hidden" : ""}`}
       />
       <EditorContent
         editor={editor}

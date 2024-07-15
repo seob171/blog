@@ -1,12 +1,18 @@
 import React, { use } from "react";
-import TopBar from "@/components/nav/TopBar";
-import Back from "@/shared/Back";
 import { getQueryClient } from "@/utils/queryClient";
 import { getUser } from "@/services/auth/server/route";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import Post from "@/app/post/[id]/_components/Post";
+import { getPost } from "@/services/post/route";
+import { POST_QUERY_KEY } from "@/services/post/queryOptions";
+import GNB from "@/components/nav/GNB";
 
-const Page = () => {
+type Props = {
+  params: { id: string };
+};
+
+const Page = ({ params: { id: postId } }: Props) => {
   const queryClient = getQueryClient();
 
   const user = use(
@@ -19,10 +25,17 @@ const Page = () => {
   // 포스트 id를 통해 본인여부 체크
   // console.log(user);
 
+  use(
+    queryClient.prefetchQuery({
+      queryFn: () => getPost(postId),
+      queryKey: POST_QUERY_KEY.item(postId),
+    }),
+  );
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <TopBar leftRender={<Back />} />
-      <div>포스트 페이지</div>
+      <GNB className={"sticky top-0"} />
+      <Post />
     </HydrationBoundary>
   );
 };

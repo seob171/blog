@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps, useState } from "react";
+import { ComponentProps, useCallback, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import BottomBar from "@/components/nav/BottomBar";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ const SavedEditor = () => {
   const [title, setTitle] = useState(data?.title ?? "");
 
   const { mutateAsync: updatePost } = useUpdatePost();
-  const [content] = useState(data?.content ?? "");
+  const [content, setContent] = useState(data?.content ?? "");
 
   const handleCreate: ComponentProps<typeof EditorComponent>["onCreate"] = ({
     editor,
@@ -36,20 +36,22 @@ const SavedEditor = () => {
     typeof EditorComponent
   >["onUpdate"] = async ({ editor }) => {
     const content = JSON.stringify(editor.state.doc.toJSON());
+    setContent(content);
     await updatePost({ title, content });
   };
 
-  const handleUpload: SubmitHandler<PostUploadFormData> = async ({
-    description,
-    thumbnailUrl,
-    isPublic,
-  }) => {
-    await updatePost({
-      description,
-      thumbnail_url: thumbnailUrl,
-      published: isPublic,
-    });
-  };
+  const handleUpload: SubmitHandler<PostUploadFormData> = useCallback(
+    async ({ description, thumbnailUrl, isPublic }) => {
+      await updatePost({
+        title,
+        content,
+        description,
+        thumbnail_url: thumbnailUrl,
+        published: isPublic,
+      });
+    },
+    [content, title, updatePost],
+  );
 
   const debouncedUpdate = useDebounceCallback(handleUpdate, 5_000);
 

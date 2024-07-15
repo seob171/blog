@@ -22,7 +22,7 @@ const YoutubeEmbedMenu = ({ editor }: Props) => {
       open={open}
       setOpen={setOpen}
       trigger={
-        <Button variant={"outline"} size={"icon"}>
+        <Button variant={"outline"} size={"icon"} tabIndex={-1}>
           <Youtube className={"size-5"} />
         </Button>
       }

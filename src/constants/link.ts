@@ -5,4 +5,5 @@ export const PATH_NAME = {
   profile: "/profile",
   picks: "/picks",
   write: "/write",
+  post: "/post",
 };

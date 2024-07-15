@@ -62,13 +62,11 @@ export const EXTENSIONS: Extensions = [
     nested: true,
   }),
   Youtube.configure({
-    inline: true,
     HTMLAttributes: {
       class: "rounded-lg overflow-hidden aspect-video w-full h-auto",
     },
   }),
   Image.configure({
-    inline: true,
     HTMLAttributes: {
       class: "rounded-lg",
     },

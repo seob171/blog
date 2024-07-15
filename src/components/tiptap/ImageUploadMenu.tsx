@@ -20,7 +20,7 @@ const ImageUploadMenu = ({ editor }: Props) => {
       open={open}
       setOpen={setOpen}
       trigger={
-        <Button variant={"outline"} size={"icon"}>
+        <Button variant={"outline"} size={"icon"} tabIndex={-1}>
           <ImageIcon className={"size-5"} />
         </Button>
       }
