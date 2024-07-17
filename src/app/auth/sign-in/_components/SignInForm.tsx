@@ -16,7 +16,6 @@ import { Label } from "@/components/ui/label";
 import { LOGO_TEXT } from "@/constants/brand";
 import { PATH_NAME } from "@/constants/link";
 import { passwordRegex } from "@/constants/regex";
-
 import { updateUser } from "@/services/auth/client/route";
 import { createClient } from "@/utils/supabase/client";
 

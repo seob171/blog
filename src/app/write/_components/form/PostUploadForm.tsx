@@ -89,7 +89,7 @@ function PostUploadForm({ uploadPost }: Props) {
       <Controller
         control={control}
         name="isPublic"
-        render={({ field: { onChange, value, name, ref, onBlur } }) => {
+        render={({ field: { onChange, value, ref, onBlur } }) => {
           const isPublic = value;
 
           return (

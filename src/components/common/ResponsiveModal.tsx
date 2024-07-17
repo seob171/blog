@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  PropsWithChildren,
-  ReactNode,
-  SetStateAction,
-  useState,
-} from "react";
+import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from "react";
 
 import { useMediaQuery } from "usehooks-ts";
 

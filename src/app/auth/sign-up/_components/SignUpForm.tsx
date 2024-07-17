@@ -67,7 +67,7 @@ function SignUpForm() {
 
   const signUp: SubmitHandler<FormData> = async ({ email, password }) => {
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
       });

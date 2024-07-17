@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Image from "next/image";
+
 import ResponsiveModal from "@/components/common/ResponsiveModal";
 import ImageUploadForm from "@/components/form/ImageUploadForm";
 import FileUpload from "@/components/icon/FileUpload";
@@ -22,9 +24,9 @@ function ThumbnailUploadMenu() {
           className="w-fit h-auto p-0 my-4 rounded-lg overflow-hidden"
         >
           <div className="relative w-44 aspect-video">
-            <img
+            <Image
               src={thumbnailImage}
-              alt="Thumbnail image"
+              alt="uploaded thumbnail"
               className={`${thumbnailImage ? "" : "hidden"}`}
             />
             <div

@@ -25,7 +25,7 @@ function Page({ params: { id: postId } }: Props) {
   );
 
   // 포스트 id를 통해 본인여부 체크
-  // console.log(user);
+  console.log(user);
 
   use(
     queryClient.prefetchQuery({

@@ -1,11 +1,11 @@
+import React from "react";
+
 import type { Metadata } from "next";
 import "./globals.css";
 
 import { lineFont } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import QueryProvider from "@/providers/QueryProvider";
-
-import React from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
