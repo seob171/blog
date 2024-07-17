@@ -1,4 +1,5 @@
 import React, { HTMLAttributes, ReactNode } from "react";
+
 import { cn } from "@/lib/utils";
 
 interface TopBarProps extends HTMLAttributes<HTMLDivElement> {
@@ -6,13 +7,13 @@ interface TopBarProps extends HTMLAttributes<HTMLDivElement> {
   rightRender?: ReactNode;
 }
 
-const TopBar = ({
+function TopBar({
   children,
   className,
   leftRender = null,
   rightRender,
   ...props
-}: TopBarProps) => {
+}: TopBarProps) {
   return (
     <nav
       className={cn(
@@ -26,6 +27,6 @@ const TopBar = ({
       <div>{rightRender}</div>
     </nav>
   );
-};
+}
 
 export default TopBar;

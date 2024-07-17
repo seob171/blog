@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import QueryProvider from "@/providers/QueryProvider";
-import { cn } from "@/lib/utils";
-import React from "react";
 import { lineFont } from "@/app/fonts";
+import { cn } from "@/lib/utils";
+import QueryProvider from "@/providers/QueryProvider";
+
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,11 +22,7 @@ export default function RootLayout({
       <body className={cn(lineFont.variable)}>
         <QueryProvider>
           <main className="flex min-h-screen justify-center">
-            <section
-              className={
-                "flex flex-col min-h-screen h-full max-w-screen-md w-full bg-background"
-              }
-            >
+            <section className="flex flex-col min-h-screen h-full max-w-screen-md w-full bg-background">
               {children}
             </section>
           </main>

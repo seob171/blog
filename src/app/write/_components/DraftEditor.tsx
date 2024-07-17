@@ -1,19 +1,20 @@
 "use client";
 
 import { ComponentProps, useState } from "react";
-import TextareaAutosize from "react-textarea-autosize";
-import BottomBar from "@/components/nav/BottomBar";
-import { Button } from "@/components/ui/button";
 
-import { useDebounceCallback } from "usehooks-ts";
-import EditorComponent from "@/components/tiptap/EditorComponent";
-import useCreatePost from "@/services/post/useCreatePost";
 import { useRouter } from "next/navigation";
-import { PATH_NAME } from "@/constants/link";
-import PostUploadButton from "@/app/write/_components/PostUploadButton";
-import PostUploadForm from "@/app/write/_components/form/PostUploadForm";
+import TextareaAutosize from "react-textarea-autosize";
+import { useDebounceCallback } from "usehooks-ts";
 
-const DraftEditor = () => {
+import PostUploadForm from "@/app/write/_components/form/PostUploadForm";
+import PostUploadButton from "@/app/write/_components/PostUploadButton";
+import BottomBar from "@/components/nav/BottomBar";
+import EditorComponent from "@/components/tiptap/EditorComponent";
+import { Button } from "@/components/ui/button";
+import { PATH_NAME } from "@/constants/link";
+import useCreatePost from "@/services/post/useCreatePost";
+
+function DraftEditor() {
   const { replace } = useRouter();
   const [title, setTitle] = useState("");
   const { mutate: createPost } = useCreatePost({
@@ -36,20 +37,20 @@ const DraftEditor = () => {
   return (
     <>
       <TextareaAutosize
-        className={"py-2 text-5xl font-bold outline-none resize-none"}
-        placeholder={"제목없음"}
+        className="py-2 text-5xl font-bold outline-none resize-none"
+        placeholder="제목없음"
         rows={1}
         autoFocus
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <EditorComponent onUpdate={debouncedCreate} editable={true} />
+      <EditorComponent onUpdate={debouncedCreate} editable />
       <BottomBar
-        className={"sticky bottom-0 border border-muted rounded-t-2xl"}
+        className="sticky bottom-0 border border-muted rounded-t-2xl"
         rightRender={
-          <div className={"flex justify-end"}>
+          <div className="flex justify-end">
             <PostUploadButton
-              trigger={<Button disabled={!Boolean(title)}>업로드</Button>}
+              trigger={<Button disabled={!title}>업로드</Button>}
             >
               <PostUploadForm uploadPost={(data) => console.log(data)} />
             </PostUploadButton>
@@ -58,6 +59,6 @@ const DraftEditor = () => {
       />
     </>
   );
-};
+}
 
 export default DraftEditor;

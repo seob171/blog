@@ -1,14 +1,14 @@
 "use client";
 
+import { PropsWithChildren } from "react";
+
 import {
-  isServer,
   QueryClient,
   QueryClientProvider,
+  isServer,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
-
-import { PropsWithChildren } from "react";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -20,15 +20,14 @@ function makeQueryClient() {
   });
 }
 
-let browserQueryClient: QueryClient | undefined = undefined;
+let browserQueryClient: QueryClient | undefined;
 
 function getQueryClient() {
   if (isServer) {
     return makeQueryClient();
-  } else {
-    if (!browserQueryClient) browserQueryClient = makeQueryClient();
-    return browserQueryClient;
   }
+  if (!browserQueryClient) browserQueryClient = makeQueryClient();
+  return browserQueryClient;
 }
 
 export default function QueryProvider({ children }: PropsWithChildren) {

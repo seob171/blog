@@ -5,10 +5,12 @@ import {
   SetStateAction,
   useState,
 } from "react";
+
 import { useMediaQuery } from "usehooks-ts";
-import { SCREEN_SIZE } from "@/constants/size";
-import CustomDrawer from "@/components/drawer/CustomDrawer";
+
 import CustomDialog from "@/components/dialog/CustomDialog";
+import CustomDrawer from "@/components/drawer/CustomDrawer";
+import { SCREEN_SIZE } from "@/constants/size";
 
 interface Props extends PropsWithChildren {
   trigger: ReactNode;
@@ -20,7 +22,7 @@ interface Props extends PropsWithChildren {
   preventInteractOutside?: boolean;
 }
 
-const ResponsiveModal = ({
+function ResponsiveModal({
   trigger,
   title,
   description,
@@ -28,7 +30,7 @@ const ResponsiveModal = ({
   setOpen,
   children,
   preventInteractOutside,
-}: Props) => {
+}: Props) {
   const isScreenXS = useMediaQuery(`(max-width:${SCREEN_SIZE.sm - 1}px)`);
 
   if (isScreenXS) {
@@ -57,6 +59,6 @@ const ResponsiveModal = ({
       {children}
     </CustomDialog>
   );
-};
+}
 
 export default ResponsiveModal;

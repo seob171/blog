@@ -1,20 +1,21 @@
 "use client";
 
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { LOGO_TEXT } from "@/constants/brand";
-import Link from "next/link";
-import { PATH_NAME } from "@/constants/link";
-import { SubmitHandler, useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z, ZodType } from "zod";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ZodType, z } from "zod";
+
 import ErrorMessage from "@/components/form/ErrorMessage";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { LOGO_TEXT } from "@/constants/brand";
+import { PATH_NAME } from "@/constants/link";
 import { passwordRegex } from "@/constants/regex";
 import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
 
 type FormData = {
   email: string;
@@ -47,7 +48,7 @@ const schema: ZodType<FormData> = z
     },
   );
 
-const SignUpForm = () => {
+function SignUpForm() {
   const supabase = createClient();
   const { replace } = useRouter();
 
@@ -67,8 +68,8 @@ const SignUpForm = () => {
   const signUp: SubmitHandler<FormData> = async ({ email, password }) => {
     try {
       const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
+        email,
+        password,
       });
 
       if (error) {
@@ -86,35 +87,31 @@ const SignUpForm = () => {
       className="grid gap-4 w-full px-4 py-2"
       onSubmit={handleSubmit(signUp)}
     >
-      <span className={"text-2xl font-bold mb-2"}>회원가입</span>
+      <span className="text-2xl font-bold mb-2">회원가입</span>
       <div className="grid gap-2">
-        <Label className={"text-muted-foreground"}>이메일</Label>
+        <Label className="text-muted-foreground">이메일</Label>
         <Input
           {...register("email")}
           placeholder="m@example.com"
-          className={"text-md"}
+          className="text-md"
         />
         <ErrorMessage>{errors.email?.message}</ErrorMessage>
       </div>
       <div className="grid gap-2">
         <div className="flex items-center">
-          <Label className={"text-muted-foreground"}>비밀번호</Label>
+          <Label className="text-muted-foreground">비밀번호</Label>
         </div>
-        <Input
-          {...register("password")}
-          type={"password"}
-          className={"text-md"}
-        />
+        <Input {...register("password")} type="password" className="text-md" />
         <ErrorMessage>{errors.password?.message}</ErrorMessage>
       </div>
       <div className="grid gap-2">
         <div className="flex items-center">
-          <Label className={"text-muted-foreground"}>비밀번호 확인</Label>
+          <Label className="text-muted-foreground">비밀번호 확인</Label>
         </div>
         <Input
           {...register("confirmPassword")}
-          type={"password"}
-          className={"text-md"}
+          type="password"
+          className="text-md"
         />
         <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
       </div>
@@ -122,16 +119,14 @@ const SignUpForm = () => {
       <Button type="submit" className="w-full text-md">
         회원가입
       </Button>
-      <div className={"flex justify-center items-center gap-x-2 text-sm "}>
-        <span
-          className={"text-muted-foreground"}
-        >{`${LOGO_TEXT} 계정이 이미 있으신가요?`}</span>
+      <div className="flex justify-center items-center gap-x-2 text-sm ">
+        <span className="text-muted-foreground">{`${LOGO_TEXT} 계정이 이미 있으신가요?`}</span>
         <Link href={PATH_NAME.signIn}>
-          <Button variant={"link"}>로그인하기</Button>
+          <Button variant="link">로그인하기</Button>
         </Link>
       </div>
     </form>
   );
-};
+}
 
 export default SignUpForm;

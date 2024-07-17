@@ -1,6 +1,7 @@
 "use client";
 
 import React, { ComponentProps } from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -17,14 +18,14 @@ type Props = {
   preventInteractOutside?: boolean;
 } & ComponentProps<typeof Dialog>;
 
-const CustomDialog = ({
+function CustomDialog({
   trigger,
   children,
   title,
   description,
   preventInteractOutside = false,
   ...dialogProps
-}: Props) => {
+}: Props) {
   return (
     <Dialog {...dialogProps}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -42,6 +43,6 @@ const CustomDialog = ({
       </DialogContent>
     </Dialog>
   );
-};
+}
 
 export default CustomDialog;

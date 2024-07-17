@@ -1,14 +1,16 @@
 import React, { Suspense, use } from "react";
-import GNB from "@/components/nav/GNB";
-import PostList from "@/app/(home)/_components/PostList";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { getQueryClient } from "@/utils/queryClient";
-import { getUser } from "@/services/auth/server/route";
-import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { getManyPost } from "@/services/post/route";
-import { POST_QUERY_KEY } from "@/services/post/queryOptions";
 
-const Page = () => {
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+
+import PostList from "@/app/(home)/_components/PostList";
+import GNB from "@/components/nav/GNB";
+import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
+import { getUser } from "@/services/auth/server/route";
+import { POST_QUERY_KEY } from "@/services/post/queryOptions";
+import { getManyPost } from "@/services/post/route";
+import { getQueryClient } from "@/utils/queryClient";
+
+function Page() {
   const queryClient = getQueryClient();
 
   use(
@@ -27,12 +29,12 @@ const Page = () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <GNB className={"sticky top-0"} />
+      <GNB className="sticky top-0" />
       <Suspense>
         <PostList />
       </Suspense>
     </HydrationBoundary>
   );
-};
+}
 
 export default Page;

@@ -1,8 +1,9 @@
 "use server";
 
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import { type User } from "@supabase/auth-js";
+import { cookies } from "next/headers";
+
+import { createClient } from "@/utils/supabase/server";
 
 export const getUser = async (): Promise<User | null> => {
   const cookieStore = cookies();

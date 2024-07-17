@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
 
-const Youtube = (props: ComponentProps<"svg">) => {
+function Youtube(props: ComponentProps<"svg">) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +19,6 @@ const Youtube = (props: ComponentProps<"svg">) => {
       <path d="m10 15 5-3-5-3z" />
     </svg>
   );
-};
+}
 
 export default Youtube;

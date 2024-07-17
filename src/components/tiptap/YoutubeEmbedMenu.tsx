@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+
 import { Editor } from "@tiptap/react";
-import Youtube from "@/components/icon/Youtube";
-import YoutubeEmbedForm from "@/components/form/YoutubeEmbedForm";
+
 import ResponsiveModal from "@/components/common/ResponsiveModal";
+import YoutubeEmbedForm from "@/components/form/YoutubeEmbedForm";
+import Youtube from "@/components/icon/Youtube";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   editor: Editor;
@@ -14,7 +16,7 @@ type Props = {
 const TITLE = "유튜브";
 const DESCRIPTION = "링크를 임베드하세요.";
 
-const YoutubeEmbedMenu = ({ editor }: Props) => {
+function YoutubeEmbedMenu({ editor }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,8 +24,8 @@ const YoutubeEmbedMenu = ({ editor }: Props) => {
       open={open}
       setOpen={setOpen}
       trigger={
-        <Button variant={"outline"} size={"icon"} tabIndex={-1}>
-          <Youtube className={"size-5"} />
+        <Button variant="outline" size="icon" tabIndex={-1}>
+          <Youtube className="size-5" />
         </Button>
       }
       title={TITLE}
@@ -39,6 +41,6 @@ const YoutubeEmbedMenu = ({ editor }: Props) => {
       />
     </ResponsiveModal>
   );
-};
+}
 
 export default YoutubeEmbedMenu;

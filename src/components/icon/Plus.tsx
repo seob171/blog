@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
 
-const Plus = (props: ComponentProps<"svg">) => {
+function Plus(props: ComponentProps<"svg">) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +18,6 @@ const Plus = (props: ComponentProps<"svg">) => {
       />
     </svg>
   );
-};
+}
 
 export default Plus;

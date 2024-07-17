@@ -1,10 +1,12 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { SubmitHandler, useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Props = {
   fileUpload: SubmitHandler<ImageUploadFormData>;
@@ -35,7 +37,7 @@ const schema = z.object({
 
 type ImageUploadFormData = z.infer<typeof schema>;
 
-const ImageUploadForm = ({ fileUpload }: Props) => {
+function ImageUploadForm({ fileUpload }: Props) {
   const { register, handleSubmit } = useForm<ImageUploadFormData>({
     defaultValues: {
       url: "https://assets.lummi.ai/assets/QmfP4B4bLwJMT5SQ6BVuzjLM8YNFtgxF4mUedfX5bB6kZS?auto=format&w=1500",
@@ -43,10 +45,7 @@ const ImageUploadForm = ({ fileUpload }: Props) => {
     resolver: zodResolver(schema),
   });
   return (
-    <form
-      className={"flex flex-col gap-y-2"}
-      onSubmit={handleSubmit(fileUpload)}
-    >
+    <form className="flex flex-col gap-y-2" onSubmit={handleSubmit(fileUpload)}>
       <div className="flex items-center space-x-2">
         <div className="grid flex-1 gap-2">
           <Label htmlFor="url" className="sr-only">
@@ -54,25 +53,25 @@ const ImageUploadForm = ({ fileUpload }: Props) => {
           </Label>
           <Input {...register("url")} id="url" type="url" required />
         </div>
-        {/*TODO : 파일 업로드 기능 구현*/}
-        {/*<Button type={"button"} variant={"outline"} size={"icon"}>*/}
-        {/*  <span className="sr-only">File</span>*/}
-        {/*  <Label*/}
-        {/*    htmlFor="imageFile"*/}
-        {/*    className={*/}
-        {/*      "flex items-center justify-center w-full h-full cursor-pointer"*/}
-        {/*    }*/}
-        {/*  >*/}
-        {/*    <FileUpload />*/}
-        {/*  </Label>*/}
-        {/*  <Input id="imageFile" type="file" className={"hidden"} />*/}
-        {/*</Button>*/}
+        {/* TODO : 파일 업로드 기능 구현 */}
+        {/* <Button type={"button"} variant={"outline"} size={"icon"}> */}
+        {/*  <span className="sr-only">File</span> */}
+        {/*  <Label */}
+        {/*    htmlFor="imageFile" */}
+        {/*    className={ */}
+        {/*      "flex items-center justify-center w-full h-full cursor-pointer" */}
+        {/*    } */}
+        {/*  > */}
+        {/*    <FileUpload /> */}
+        {/*  </Label> */}
+        {/*  <Input id="imageFile" type="file" className={"hidden"} /> */}
+        {/* </Button> */}
       </div>
       <Button type="submit" variant="default">
         이미지 임베드
       </Button>
     </form>
   );
-};
+}
 
 export default ImageUploadForm;

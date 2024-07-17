@@ -1,11 +1,12 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
-const SignInForm = () => {
+function SignInForm() {
   return (
     <Card className={cn("mx-auto w-full border-0 shadow-none h-full")}>
       <CardHeader>
@@ -25,9 +26,9 @@ const SignInForm = () => {
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">비밀번호</Label>
-              {/*<Link href="#" className="ml-auto inline-block text-sm underline">*/}
-              {/*  Forgot your password?*/}
-              {/*</Link>*/}
+              {/* <Link href="#" className="ml-auto inline-block text-sm underline"> */}
+              {/*  Forgot your password? */}
+              {/* </Link> */}
             </div>
             <Input id="password" type="password" required />
           </div>
@@ -39,12 +40,12 @@ const SignInForm = () => {
           </Button>
         </div>
         <div className="mt-4 text-center">
-          {/*Don&apos;t have an account?{" "}*/}
+          {/* Don&apos;t have an account?{" "} */}
           <Link href="#">Sign up</Link>
         </div>
       </CardContent>
     </Card>
   );
-};
+}
 
 export default SignInForm;

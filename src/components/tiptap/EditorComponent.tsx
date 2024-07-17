@@ -1,15 +1,17 @@
 "use client";
 
 import React from "react";
-import MenuBar from "@/components/tiptap/MenuBar";
+
 import { EditorContent, EditorOptions, useEditor } from "@tiptap/react";
+
+import MenuBar from "@/components/tiptap/MenuBar";
 import { EXTENSIONS } from "@/utils/tiptap/extensions";
 
-const EditorComponent = ({
+function EditorComponent({
   onUpdate,
   editable = false,
   ...editorOptions
-}: Partial<EditorOptions>) => {
+}: Partial<EditorOptions>) {
   const editor = useEditor({
     extensions: EXTENSIONS,
     editable,
@@ -49,13 +51,13 @@ const EditorComponent = ({
       />
       <EditorContent
         editor={editor}
-        className={"flex-1 cursor-text"}
+        className="flex-1 cursor-text"
         onClick={() => {
           editor?.chain().focus().run();
         }}
       />
     </>
   );
-};
+}
 
 export default EditorComponent;

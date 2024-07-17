@@ -1,18 +1,20 @@
 import React, { use } from "react";
-import { getQueryClient } from "@/utils/queryClient";
-import { getUser } from "@/services/auth/server/route";
-import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+
 import Post from "@/app/post/[id]/_components/Post";
-import { getPost } from "@/services/post/route";
-import { POST_QUERY_KEY } from "@/services/post/queryOptions";
 import GNB from "@/components/nav/GNB";
+import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
+import { getUser } from "@/services/auth/server/route";
+import { POST_QUERY_KEY } from "@/services/post/queryOptions";
+import { getPost } from "@/services/post/route";
+import { getQueryClient } from "@/utils/queryClient";
 
 type Props = {
   params: { id: string };
 };
 
-const Page = ({ params: { id: postId } }: Props) => {
+function Page({ params: { id: postId } }: Props) {
   const queryClient = getQueryClient();
 
   const user = use(
@@ -34,10 +36,10 @@ const Page = ({ params: { id: postId } }: Props) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <GNB className={"sticky top-0"} />
+      <GNB className="sticky top-0" />
       <Post />
     </HydrationBoundary>
   );
-};
+}
 
 export default Page;

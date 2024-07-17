@@ -1,8 +1,9 @@
-import axiosInstance from "@/lib/api";
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
-import { PrismaModels } from "@/lib/prisma";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useParams } from "next/navigation";
+
+import axiosInstance from "@/lib/api";
+import { PrismaModels } from "@/lib/prisma";
 
 const useUpdatePost = (): UseMutationResult<
   void,

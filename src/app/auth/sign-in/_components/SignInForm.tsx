@@ -1,22 +1,24 @@
 "use client";
 
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { LOGO_TEXT } from "@/constants/brand";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ZodType, z } from "zod";
+
+import ErrorMessage from "@/components/form/ErrorMessage";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { LOGO_TEXT } from "@/constants/brand";
 import { PATH_NAME } from "@/constants/link";
 import { passwordRegex } from "@/constants/regex";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z, ZodType } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import ErrorMessage from "@/components/form/ErrorMessage";
-import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import { updateUser } from "@/services/auth/client/route";
+import { createClient } from "@/utils/supabase/client";
 
 type FormData = {
   email: string;
@@ -31,7 +33,7 @@ const schema: ZodType<FormData> = z.object({
     .regex(passwordRegex, "영문, 숫자, 특수문자를 모두 포함해주세요."),
 });
 
-const SignInForm = () => {
+function SignInForm() {
   const queryClient = useQueryClient();
   const supabase = createClient();
   const { replace } = useRouter();
@@ -55,8 +57,8 @@ const SignInForm = () => {
         data: { user },
         error,
       } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
+        email,
+        password,
       });
 
       if (error) {
@@ -85,28 +87,24 @@ const SignInForm = () => {
       className="grid gap-4 w-full px-4 py-2"
       onSubmit={handleSubmit(signIn)}
     >
-      <span className={"text-2xl font-bold mb-2"}>로그인</span>
+      <span className="text-2xl font-bold mb-2">로그인</span>
       <div className="grid gap-2">
-        <Label className={"text-muted-foreground"}>이메일</Label>
+        <Label className="text-muted-foreground">이메일</Label>
         <Input
           {...register("email")}
           placeholder="m@example.com"
-          className={"text-md"}
+          className="text-md"
         />
         <ErrorMessage>{errors.email?.message}</ErrorMessage>
       </div>
       <div className="grid gap-2">
         <div className="flex items-center">
-          <Label className={"text-muted-foreground"}>비밀번호</Label>
-          {/*<Link href="#" className="ml-auto inline-block text-sm underline">*/}
-          {/*  Forgot your password?*/}
-          {/*</Link>*/}
+          <Label className="text-muted-foreground">비밀번호</Label>
+          {/* <Link href="#" className="ml-auto inline-block text-sm underline"> */}
+          {/*  Forgot your password? */}
+          {/* </Link> */}
         </div>
-        <Input
-          {...register("password")}
-          type="password"
-          className={"text-md"}
-        />
+        <Input {...register("password")} type="password" className="text-md" />
         <ErrorMessage>{errors.password?.message}</ErrorMessage>
       </div>
       <Button type="submit" className="w-full text-md">
@@ -115,16 +113,14 @@ const SignInForm = () => {
       <Button variant="outline" className="w-full text-md">
         구글 로그인
       </Button>
-      <div className={"flex justify-center items-center gap-x-2 text-sm"}>
-        <span
-          className={"text-muted-foreground"}
-        >{`아직 ${LOGO_TEXT} 계정이 없으신가요?`}</span>
+      <div className="flex justify-center items-center gap-x-2 text-sm">
+        <span className="text-muted-foreground">{`아직 ${LOGO_TEXT} 계정이 없으신가요?`}</span>
         <Link href={PATH_NAME.signUp}>
-          <Button variant={"link"}>회원가입하기</Button>
+          <Button variant="link">회원가입하기</Button>
         </Link>
       </div>
     </form>
   );
-};
+}
 
 export default SignInForm;

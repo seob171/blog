@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import FileUpload from "@/components/icon/FileUpload";
-import ImageUploadForm from "@/components/form/ImageUploadForm";
+
 import ResponsiveModal from "@/components/common/ResponsiveModal";
+import ImageUploadForm from "@/components/form/ImageUploadForm";
+import FileUpload from "@/components/icon/FileUpload";
+import { Button } from "@/components/ui/button";
 
 const TITLE = "이미지";
 const DESCRIPTION = "링크를 임베드하거나 파일을 업로드하세요.";
 
-const ThumbnailUploadMenu = () => {
+function ThumbnailUploadMenu() {
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -17,20 +18,20 @@ const ThumbnailUploadMenu = () => {
       setOpen={setOpen}
       trigger={
         <Button
-          variant={"outline"}
-          className={"w-fit h-auto p-0 my-4 rounded-lg overflow-hidden"}
+          variant="outline"
+          className="w-fit h-auto p-0 my-4 rounded-lg overflow-hidden"
         >
-          <div className={"relative w-44 aspect-video"}>
+          <div className="relative w-44 aspect-video">
             <img
               src={thumbnailImage}
-              alt={"Thumbnail image"}
+              alt="Thumbnail image"
               className={`${thumbnailImage ? "" : "hidden"}`}
             />
             <div
               className={`${thumbnailImage ? "hidden" : "flex gap-x-2 items-center justify-center w-full h-full"}`}
             >
               <span>썸네일 업로드</span>
-              <FileUpload className={"size-4"} />
+              <FileUpload className="size-4" />
             </div>
           </div>
         </Button>
@@ -46,6 +47,6 @@ const ThumbnailUploadMenu = () => {
       />
     </ResponsiveModal>
   );
-};
+}
 
 export default ThumbnailUploadMenu;

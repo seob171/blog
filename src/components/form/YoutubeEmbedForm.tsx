@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { SubmitHandler, useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Props = {
   embedVideo: SubmitHandler<YoutubeEmbedFormData>;
@@ -18,7 +20,7 @@ const schema = z.object({
 
 type YoutubeEmbedFormData = z.infer<typeof schema>;
 
-const YoutubeEmbedForm = ({ embedVideo }: Props) => {
+function YoutubeEmbedForm({ embedVideo }: Props) {
   const { register, handleSubmit } = useForm<YoutubeEmbedFormData>({
     defaultValues: {
       url: "https://www.youtube.com/watch?v=Q3K0TOvTOno",
@@ -27,10 +29,7 @@ const YoutubeEmbedForm = ({ embedVideo }: Props) => {
   });
 
   return (
-    <form
-      className={"flex flex-col gap-y-2"}
-      onSubmit={handleSubmit(embedVideo)}
-    >
+    <form className="flex flex-col gap-y-2" onSubmit={handleSubmit(embedVideo)}>
       <div className="flex items-center space-x-2">
         <div className="grid flex-1 gap-2">
           <Label htmlFor="url" className="sr-only">
@@ -44,6 +43,6 @@ const YoutubeEmbedForm = ({ embedVideo }: Props) => {
       </Button>
     </form>
   );
-};
+}
 
 export default YoutubeEmbedForm;

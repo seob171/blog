@@ -1,13 +1,15 @@
 import React, { use } from "react";
-import TopBar from "@/components/nav/TopBar";
-import Back from "@/shared/Back";
-import { getUser } from "@/services/auth/server/route";
-import { getQueryClient } from "@/utils/queryClient";
-import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { redirect } from "next/navigation";
-import { PATH_NAME } from "@/constants/link";
 
-const Page = () => {
+import { redirect } from "next/navigation";
+
+import TopBar from "@/components/nav/TopBar";
+import { PATH_NAME } from "@/constants/link";
+import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
+import { getUser } from "@/services/auth/server/route";
+import Back from "@/shared/Back";
+import { getQueryClient } from "@/utils/queryClient";
+
+function Page() {
   const queryClient = getQueryClient();
 
   const user = use(
@@ -26,6 +28,6 @@ const Page = () => {
       <h3>Picks</h3>
     </>
   );
-};
+}
 
 export default Page;

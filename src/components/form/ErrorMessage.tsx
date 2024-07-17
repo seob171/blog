@@ -1,11 +1,12 @@
 import React, { HTMLAttributes } from "react";
+
 import { cn } from "@/lib/utils";
 
-const ErrorMessage = ({
+function ErrorMessage({
   children,
   className,
   ...props
-}: HTMLAttributes<HTMLSpanElement>) => {
+}: HTMLAttributes<HTMLSpanElement>) {
   return (
     <span
       className={cn(
@@ -18,6 +19,6 @@ const ErrorMessage = ({
       {children}
     </span>
   );
-};
+}
 
 export default ErrorMessage;

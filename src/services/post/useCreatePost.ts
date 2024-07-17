@@ -1,11 +1,12 @@
-import axiosInstance from "@/lib/api";
 import {
-  useMutation,
   UseMutationOptions,
   UseMutationResult,
+  useMutation,
 } from "@tanstack/react-query";
-import { PrismaModels } from "@/lib/prisma";
 import { AxiosError } from "axios";
+
+import axiosInstance from "@/lib/api";
+import { PrismaModels } from "@/lib/prisma";
 
 const useCreatePost = (
   options: UseMutationOptions<

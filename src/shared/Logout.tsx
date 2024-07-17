@@ -1,14 +1,16 @@
 "use client";
 
 import React from "react";
-import { createClient } from "@/utils/supabase/client";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { PATH_NAME } from "@/constants/link";
-import { useQueryClient } from "@tanstack/react-query";
-import { clearUser } from "@/services/auth/client/route";
 
-const Logout = () => {
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
+import { PATH_NAME } from "@/constants/link";
+import { clearUser } from "@/services/auth/client/route";
+import { createClient } from "@/utils/supabase/client";
+
+function Logout() {
   const queryClient = useQueryClient();
   const { replace } = useRouter();
   const supabase = createClient();
@@ -25,10 +27,10 @@ const Logout = () => {
   };
 
   return (
-    <Button variant={"ghost"} onClick={logout}>
+    <Button variant="ghost" onClick={logout}>
       로그아웃
     </Button>
   );
-};
+}
 
 export default Logout;

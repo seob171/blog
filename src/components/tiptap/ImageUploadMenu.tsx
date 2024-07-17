@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+
 import { Editor } from "@tiptap/react";
-import { Button } from "@/components/ui/button";
 import { Image as ImageIcon } from "lucide-react";
-import ImageUploadForm from "@/components/form/ImageUploadForm";
+
 import ResponsiveModal from "@/components/common/ResponsiveModal";
+import ImageUploadForm from "@/components/form/ImageUploadForm";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   editor: Editor;
@@ -12,7 +14,7 @@ type Props = {
 const TITLE = "이미지";
 const DESCRIPTION = "링크를 임베드하거나 파일을 업로드하세요.";
 
-const ImageUploadMenu = ({ editor }: Props) => {
+function ImageUploadMenu({ editor }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,8 +22,8 @@ const ImageUploadMenu = ({ editor }: Props) => {
       open={open}
       setOpen={setOpen}
       trigger={
-        <Button variant={"outline"} size={"icon"} tabIndex={-1}>
-          <ImageIcon className={"size-5"} />
+        <Button variant="outline" size="icon" tabIndex={-1}>
+          <ImageIcon className="size-5" />
         </Button>
       }
       title={TITLE}
@@ -35,6 +37,6 @@ const ImageUploadMenu = ({ editor }: Props) => {
       />
     </ResponsiveModal>
   );
-};
+}
 
 export default ImageUploadMenu;

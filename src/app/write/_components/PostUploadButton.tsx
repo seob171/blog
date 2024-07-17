@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, ReactNode, useState } from "react";
+
 import ResponsiveModal from "@/components/common/ResponsiveModal";
 
 interface Props extends PropsWithChildren {
@@ -9,7 +10,7 @@ interface Props extends PropsWithChildren {
 const TITLE = "업로드";
 const DESCRIPTION = "썸네일과 간략한 설명을 추가해주세요.";
 
-const PostUploadButton = ({ trigger, children }: Props) => {
+function PostUploadButton({ trigger, children }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -19,11 +20,11 @@ const PostUploadButton = ({ trigger, children }: Props) => {
       trigger={trigger}
       title={TITLE}
       description={DESCRIPTION}
-      preventInteractOutside={true}
+      preventInteractOutside
     >
       {children}
     </ResponsiveModal>
   );
-};
+}
 
 export default PostUploadButton;

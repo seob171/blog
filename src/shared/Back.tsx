@@ -1,19 +1,21 @@
 "use client";
 
 import React, { ComponentProps } from "react";
-import { Button } from "@/components/ui/button";
+
 import { useRouter } from "next/navigation";
 
-const Back = ({
+import { Button } from "@/components/ui/button";
+
+function Back({
   variant,
   size,
   onClick,
   ...props
-}: Partial<ComponentProps<typeof Button>>) => {
+}: Partial<ComponentProps<typeof Button>>) {
   const { back } = useRouter();
 
   return (
-    <Button variant={"ghost"} size={"icon"} onClick={back} {...props}>
+    <Button variant="ghost" size="icon" onClick={back} {...props}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -30,6 +32,6 @@ const Back = ({
       </svg>
     </Button>
   );
-};
+}
 
 export default Back;

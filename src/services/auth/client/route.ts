@@ -1,6 +1,7 @@
-import { QueryClient } from "@tanstack/react-query";
-import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { User } from "@supabase/auth-js";
+import { QueryClient } from "@tanstack/react-query";
+
+import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { createClient } from "@/utils/supabase/client";
 
 export const getUser = async (): Promise<User | null> => {

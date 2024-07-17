@@ -18,17 +18,17 @@ type Props = {
   description: string;
 } & ComponentProps<typeof Drawer>;
 
-const CustomDrawer = ({
+function CustomDrawer({
   trigger,
   title,
   description,
   children,
   ...drawerProps
-}: Props) => {
+}: Props) {
   return (
     <Drawer {...drawerProps}>
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
-      <DrawerContent className={"px-4"}>
+      <DrawerContent className="px-4">
         <DrawerHeader className="text-left px-0">
           <DrawerTitle>{title}</DrawerTitle>
           <DrawerDescription>{description}</DrawerDescription>
@@ -38,6 +38,6 @@ const CustomDrawer = ({
       </DrawerContent>
     </Drawer>
   );
-};
+}
 
 export default CustomDrawer;

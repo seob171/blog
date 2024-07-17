@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+
 import { isValidBody } from "@/types/post.type";
 
 const prisma = new PrismaClient();

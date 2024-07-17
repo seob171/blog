@@ -1,8 +1,9 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { POST_QUERY_KEY } from "@/services/post/queryOptions";
-import { useParams } from "next/navigation";
-import { PrismaModels } from "@/lib/prisma";
+import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { useParams } from "next/navigation";
+
+import { PrismaModels } from "@/lib/prisma";
+import { POST_QUERY_KEY } from "@/services/post/queryOptions";
 import { getPost } from "@/services/post/route";
 
 const useGetPost = (

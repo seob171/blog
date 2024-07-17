@@ -1,5 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
+
 import { isValidBody } from "@/types/post.type";
 
 const prisma = new PrismaClient();
@@ -26,7 +27,7 @@ export const PATCH = async (
 
   await prisma.post.update({
     where: { id: postId },
-    data: data,
+    data,
   });
 
   return NextResponse.json(null, { status: 201 });

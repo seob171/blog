@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
 
-const BookMark = (props: ComponentProps<"svg">) => {
+function BookMark(props: ComponentProps<"svg">) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +18,6 @@ const BookMark = (props: ComponentProps<"svg">) => {
       />
     </svg>
   );
-};
+}
 
 export default BookMark;
