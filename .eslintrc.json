@@ -41,9 +41,12 @@
     "no-console": "off", // airbnb 규칙에선 no-console 규칙을 어기면 warn이나, error로 설정함.
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
-    "jsx-a11y/label-has-associated-control": [ 2, {
-      "some": [ "nesting", "id" ]
-    }],
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "some": ["nesting", "id"]
+      }
+    ],
     "sort-imports": [
       "warn",
       {
