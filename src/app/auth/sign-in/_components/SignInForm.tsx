@@ -4,7 +4,6 @@ import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
@@ -13,7 +12,6 @@ import ErrorMessage from "@/components/form/ErrorMessage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { LOGO_TEXT } from "@/constants/brand";
 import { PATH_NAME } from "@/constants/link";
 import { passwordRegex } from "@/constants/regex";
 import { updateUser } from "@/services/auth/client/route";
@@ -109,15 +107,6 @@ function SignInForm() {
       <Button type="submit" className="w-full text-md">
         로그인
       </Button>
-      <Button variant="outline" className="w-full text-md">
-        구글 로그인
-      </Button>
-      <div className="flex justify-center items-center gap-x-2 text-sm">
-        <span className="text-muted-foreground">{`아직 ${LOGO_TEXT} 계정이 없으신가요?`}</span>
-        <Link href={PATH_NAME.signUp}>
-          <Button variant="link">회원가입하기</Button>
-        </Link>
-      </div>
     </form>
   );
 }
