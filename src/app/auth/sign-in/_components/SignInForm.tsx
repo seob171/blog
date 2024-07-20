@@ -3,7 +3,6 @@
 import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
@@ -14,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PATH_NAME } from "@/constants/link";
 import { passwordRegex } from "@/constants/regex";
-import { updateUser } from "@/services/auth/client/route";
 import { createClient } from "@/utils/supabase/client";
 
 type FormData = {
@@ -31,7 +29,6 @@ const schema: ZodType<FormData> = z.object({
 });
 
 function SignInForm() {
-  const queryClient = useQueryClient();
   const supabase = createClient();
   const { replace } = useRouter();
 
@@ -70,7 +67,6 @@ function SignInForm() {
           console.log("Error:", error.message);
         }
       } else if (user) {
-        updateUser(queryClient, user);
         // TODO : nextPath를 관리해서 해당 경로로 렌딩시키기
         replace(PATH_NAME.home);
       }

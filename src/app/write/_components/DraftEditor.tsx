@@ -12,11 +12,13 @@ import BottomBar from "@/components/nav/BottomBar";
 import EditorComponent from "@/components/tiptap/EditorComponent";
 import { Button } from "@/components/ui/button";
 import { PATH_NAME } from "@/constants/link";
+import { useGetUser } from "@/services/auth/useGetUser";
 import useCreatePost from "@/services/post/useCreatePost";
 
 function DraftEditor() {
   const { replace } = useRouter();
   const [title, setTitle] = useState("");
+  const { data: user } = useGetUser();
   const { mutate: createPost } = useCreatePost({
     retry: false,
     onSuccess: ({ id }) => {
@@ -27,9 +29,9 @@ function DraftEditor() {
   const handleCreate: ComponentProps<typeof EditorComponent>["onUpdate"] = ({
     editor,
   }) => {
-    if (title.trim() === "") return;
+    if (title.trim() === "" || !user) return;
     const content = JSON.stringify(editor.state.doc.toJSON());
-    createPost({ title, content });
+    createPost({ title, content, user_id: user.id });
   };
 
   const debouncedCreate = useDebounceCallback(handleCreate, 10_000);

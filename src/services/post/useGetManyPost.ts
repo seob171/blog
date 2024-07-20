@@ -8,9 +8,9 @@ import { getManyPost } from "@/services/post/route";
 const useGetManyPost = (
   options?: Omit<
     UseQueryOptions<
-      Array<PrismaModels["Post"]>,
+      Array<PrismaModels["posts"]>,
       AxiosError,
-      Array<PrismaModels["Post"]>,
+      Array<PrismaModels["posts"]>,
       ReturnType<typeof POST_QUERY_KEY.itemList>
     >,
     "queryKey" | "queryFn"

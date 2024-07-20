@@ -17,10 +17,11 @@ import {
 
 type Props = {
   title: string;
-  description: string;
+  description: string | null;
+  userId: string;
 };
 
-function PostCard({ title, description }: Props) {
+function PostCard({ title, description, userId }: Props) {
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="px-4 py-2">

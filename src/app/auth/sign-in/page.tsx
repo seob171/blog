@@ -4,15 +4,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import GithubSignIn from "@/app/auth/sign-in/_components/GithubSignIn";
-import GoogleSignIn from "@/app/auth/sign-in/_components/GoogleSignIn";
 import SignInForm from "@/app/auth/sign-in/_components/SignInForm";
+import Back from "@/components/common/Back";
 import TopBar from "@/components/nav/TopBar";
 import { Button } from "@/components/ui/button";
 import { LOGO_TEXT } from "@/constants/brand";
 import { PATH_NAME } from "@/constants/link";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { getUser } from "@/services/auth/server/route";
-import Back from "@/shared/Back";
 import { getQueryClient } from "@/utils/queryClient";
 
 function Page() {
@@ -35,7 +34,8 @@ function Page() {
           <SignInForm />
           <div className="flex flex-col gap-y-4 w-full px-4 py-2">
             <GithubSignIn />
-            <GoogleSignIn />
+            {/* TODO : 다른 oauth 로그인 구현하기 */}
+            {/* <GoogleSignIn /> */}
             <div className="flex justify-center items-center gap-x-2 text-sm">
               <span className="text-muted-foreground">{`아직 ${LOGO_TEXT} 계정이 없으신가요?`}</span>
               <Link href={PATH_NAME.signUp}>

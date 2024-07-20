@@ -42,13 +42,13 @@ function SavedEditor() {
   };
 
   const handleUpload: SubmitHandler<PostUploadFormData> = useCallback(
-    async ({ description, thumbnailUrl, isPublic }) => {
+    async ({ description, thumbnailUrl, published }) => {
       await updatePost({
         title,
         content,
         description,
         thumbnail_url: thumbnailUrl,
-        published: isPublic,
+        published,
       });
     },
     [content, title, updatePost],

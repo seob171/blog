@@ -21,7 +21,7 @@ type Props = {
 const schema = z.object({
   description: z.string().optional(),
   thumbnailUrl: z.string().url(),
-  isPublic: z.boolean(),
+  published: z.boolean(),
 });
 
 export type PostUploadFormData = z.infer<typeof schema>;
@@ -36,7 +36,7 @@ function PostUploadForm({ uploadPost }: Props) {
     defaultValues: {
       description: "",
       thumbnailUrl: "",
-      isPublic: false,
+      published: false,
     },
     resolver: zodResolver(schema),
   });
@@ -88,15 +88,15 @@ function PostUploadForm({ uploadPost }: Props) {
       </div>
       <Controller
         control={control}
-        name="isPublic"
+        name="published"
         render={({ field: { onChange, value, ref, onBlur } }) => {
-          const isPublic = value;
+          const published = value;
 
           return (
             <div className="flex items-center gap-x-2 justify-end my-4">
               <Button
                 type="button"
-                variant={isPublic ? "default" : "muted"}
+                variant={published ? "default" : "muted"}
                 className="p-0"
               >
                 <label className="flex items-center gap-x-2 w-full h-full px-4 py-2 cursor-pointer">
@@ -116,7 +116,7 @@ function PostUploadForm({ uploadPost }: Props) {
 
               <Button
                 type="button"
-                variant={!isPublic ? "default" : "muted"}
+                variant={!published ? "default" : "muted"}
                 className="p-0"
               >
                 <label className="flex items-center gap-x-2 w-full h-full px-4 py-2 cursor-pointer">

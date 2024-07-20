@@ -9,9 +9,9 @@ import { getPost } from "@/services/post/route";
 const useGetPost = (
   options?: Omit<
     UseQueryOptions<
-      PrismaModels["Post"],
+      PrismaModels["posts"],
       AxiosError,
-      PrismaModels["Post"],
+      PrismaModels["posts"],
       ReturnType<typeof POST_QUERY_KEY.item>
     >,
     "queryKey" | "queryFn"

@@ -13,14 +13,18 @@ function PostList() {
 
   return (
     <ul className="flex flex-col gap-y-2">
-      {data?.map(({ id, title, description }) => {
+      {data?.map(({ id, title, description, user_id }) => {
         return (
           <li
             key={`post_${id}`}
             className="border border-border rounded-lg p-2"
           >
             <Link href={`${PATH_NAME.post}/${id}`}>
-              <PostCard title={title} description={description} />
+              <PostCard
+                title={title}
+                description={description}
+                userId={user_id}
+              />
             </Link>
           </li>
         );

@@ -2,11 +2,11 @@ import React, { use } from "react";
 
 import { redirect } from "next/navigation";
 
+import Back from "@/components/common/Back";
 import TopBar from "@/components/nav/TopBar";
 import { PATH_NAME } from "@/constants/link";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { getUser } from "@/services/auth/server/route";
-import Back from "@/shared/Back";
 import { getQueryClient } from "@/utils/queryClient";
 
 function Page() {
