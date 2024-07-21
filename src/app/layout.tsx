@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { lineFont } from "@/app/fonts";
+import AuthEventListener from "@/components/auth/AuthEventListener";
 import { cn } from "@/lib/utils";
 import QueryProvider from "@/providers/QueryProvider";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
               {children}
             </section>
           </main>
+          <AuthEventListener />
         </QueryProvider>
       </body>
     </html>

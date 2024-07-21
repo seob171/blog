@@ -4,13 +4,13 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { notFound, redirect } from "next/navigation";
 
 import SavedEditor from "@/app/write/[id]/_components/SavedEditor";
+import Back from "@/components/common/Back";
 import TopBar from "@/components/nav/TopBar";
 import { PATH_NAME } from "@/constants/link";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { getUser } from "@/services/auth/server/route";
+import { getAuthUser } from "@/services/auth/server/route";
 import { POST_QUERY_KEY } from "@/services/post/queryOptions";
 import { getPost } from "@/services/post/route";
-import Back from "@/shared/Back";
 import { getQueryClient } from "@/utils/queryClient";
 
 function Page({ params: { id: postId } }: { params: { id: string } }) {
@@ -18,7 +18,7 @@ function Page({ params: { id: postId } }: { params: { id: string } }) {
 
   const user = use(
     queryClient.fetchQuery({
-      queryFn: getUser,
+      queryFn: getAuthUser,
       queryKey: AUTH_QUERY_KEY.user(),
     }),
   );
@@ -27,12 +27,12 @@ function Page({ params: { id: postId } }: { params: { id: string } }) {
 
   const post = use(
     queryClient.fetchQuery({
-      queryFn: () => getPost(postId),
-      queryKey: POST_QUERY_KEY.item(postId),
+      queryFn: () => getPost({ id: postId }),
+      queryKey: POST_QUERY_KEY.item({ id: postId }),
     }),
   );
 
-  if (!post) notFound();
+  if (!post || post.user_id !== user.id) notFound();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

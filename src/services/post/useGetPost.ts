@@ -9,9 +9,9 @@ import { getPost } from "@/services/post/route";
 const useGetPost = (
   options?: Omit<
     UseQueryOptions<
-      PrismaModels["Post"],
+      PrismaModels["posts"],
       AxiosError,
-      PrismaModels["Post"],
+      PrismaModels["posts"],
       ReturnType<typeof POST_QUERY_KEY.item>
     >,
     "queryKey" | "queryFn"
@@ -20,8 +20,8 @@ const useGetPost = (
   const { id: postId } = useParams<{ id: string }>();
 
   return useQuery({
-    queryKey: POST_QUERY_KEY.item(postId),
-    queryFn: () => getPost(postId),
+    queryKey: POST_QUERY_KEY.item({ id: postId }),
+    queryFn: () => getPost({ id: postId }),
     enabled: Boolean(postId),
     ...options,
   });

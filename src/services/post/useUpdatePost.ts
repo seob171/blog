@@ -8,12 +8,12 @@ import { PrismaModels } from "@/lib/prisma";
 const useUpdatePost = (): UseMutationResult<
   void,
   AxiosError,
-  Partial<PrismaModels["Post"]>
+  Partial<PrismaModels["posts"]>
 > => {
   const { id: postId } = useParams<{ id: string }>();
 
   return useMutation({
-    mutationFn: (props: Partial<PrismaModels["Post"]>) =>
+    mutationFn: (props: Partial<PrismaModels["posts"]>) =>
       axiosInstance.patch(`/post/${postId}`, {
         ...props,
       }),

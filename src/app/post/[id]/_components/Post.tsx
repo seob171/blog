@@ -3,6 +3,7 @@
 import React from "react";
 
 import dayjs from "dayjs";
+import Link from "next/link";
 
 import BookMark from "@/components/icon/BookMark";
 import ChatBubble from "@/components/icon/ChatBubble";
@@ -11,28 +12,39 @@ import PaperAirplane from "@/components/icon/PaperAirplane";
 import EditorComponent from "@/components/tiptap/EditorComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { PATH_NAME } from "@/constants/link";
 import useGetPost from "@/services/post/useGetPost";
+import useGetUser from "@/services/user/useGetUser";
 
 function Post() {
-  const { data } = useGetPost();
+  const { data: post } = useGetPost();
+  const { data: author } = useGetUser(
+    { id: post!.user_id },
+    { enabled: Boolean(post?.user_id) },
+  );
 
   return (
     <div className="flex flex-col gap-y-6 mt-24 px-4">
-      <span className="text-5xl font-bold">{data?.title}</span>
-      <span className="text-muted-foreground">{data?.description}</span>
+      <span className="text-5xl font-bold">{post?.title}</span>
+      <span className="text-muted-foreground">{post?.description}</span>
       <div className="flex items-center justify-between">
         <div className="flex gap-x-2 items-center">
           <div className="flex items-center gap-x-2">
             <Avatar className="size-8 static">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>S</AvatarFallback>
+              <AvatarImage
+                src={author?.avatar_url ?? ""}
+                alt="post author avatar"
+              />
+              <AvatarFallback>{author?.name?.substring(0, 1)}</AvatarFallback>
             </Avatar>
-            <Button variant="link" className="text-sm px-0">
-              ShimYuSeob
-            </Button>
+            <Link href={`${PATH_NAME.profile}/${author?.id}`}>
+              <Button variant="link" className="text-sm px-0">
+                {author?.name}
+              </Button>
+            </Link>
           </div>
           <span className="text-sm text-muted-foreground">
-            {dayjs(data?.created_at).format("YYYY.MM.DD")}
+            {dayjs(post?.created_at).format("YYYY.MM.DD")}
           </span>
         </div>
         {/* <Button variant={"link"}>팔로우</Button> */}
@@ -55,7 +67,7 @@ function Post() {
       </div>
       <EditorComponent
         editable={false}
-        content={JSON.parse(data?.content ?? "")}
+        content={JSON.parse(post?.content ?? "")}
       />
     </div>
   );

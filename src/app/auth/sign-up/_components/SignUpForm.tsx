@@ -70,6 +70,12 @@ function SignUpForm() {
       const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            name: email.split("@")[0],
+            avatar_url: null,
+          },
+        },
       });
 
       if (error) {

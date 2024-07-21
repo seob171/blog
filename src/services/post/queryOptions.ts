@@ -1,5 +1,14 @@
+import { PrismaModels } from "@/lib/prisma";
+
 export const POST_QUERY_KEY = {
   all: ["post"],
-  itemList: () => [...POST_QUERY_KEY.all, "list"],
-  item: (id: string) => [...POST_QUERY_KEY.itemList(), id],
+  itemList: (params?: Partial<PrismaModels["posts"]>) => [
+    ...POST_QUERY_KEY.all,
+    "list",
+    params,
+  ],
+  item: ({ id }: Pick<PrismaModels["posts"], "id">) => [
+    ...POST_QUERY_KEY.itemList(),
+    id,
+  ],
 } as const;
