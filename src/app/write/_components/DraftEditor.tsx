@@ -12,13 +12,13 @@ import BottomBar from "@/components/nav/BottomBar";
 import EditorComponent from "@/components/tiptap/EditorComponent";
 import { Button } from "@/components/ui/button";
 import { PATH_NAME } from "@/constants/link";
-import { useGetUser } from "@/services/auth/useGetUser";
+import { useGetAuthUser } from "@/services/auth/useGetAuthUser";
 import useCreatePost from "@/services/post/useCreatePost";
 
 function DraftEditor() {
   const { replace } = useRouter();
   const [title, setTitle] = useState("");
-  const { data: user } = useGetUser();
+  const { data: user } = useGetAuthUser();
   const { mutate: createPost } = useCreatePost({
     retry: false,
     onSuccess: ({ id }) => {

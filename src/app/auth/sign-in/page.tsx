@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { LOGO_TEXT } from "@/constants/brand";
 import { PATH_NAME } from "@/constants/link";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { getUser } from "@/services/auth/server/route";
+import { getAuthUser } from "@/services/auth/server/route";
 import { getQueryClient } from "@/utils/queryClient";
 
 function Page() {
@@ -19,7 +19,7 @@ function Page() {
 
   const user = use(
     queryClient.fetchQuery({
-      queryFn: getUser,
+      queryFn: getAuthUser,
       queryKey: AUTH_QUERY_KEY.user(),
     }),
   );

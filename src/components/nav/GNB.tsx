@@ -11,12 +11,12 @@ import UserCircle from "@/components/icon/UserCircle";
 import { Button } from "@/components/ui/button";
 import { PATH_NAME } from "@/constants/link";
 import { cn } from "@/lib/utils";
-import { useGetUser } from "@/services/auth/useGetUser";
+import { useGetAuthUser } from "@/services/auth/useGetAuthUser";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 function GNB({ className, ...props }: Props) {
-  const { data: user } = useGetUser();
+  const { data: user } = useGetAuthUser();
 
   return (
     <nav

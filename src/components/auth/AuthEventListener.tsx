@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import axiosInstance from "@/lib/api";
 import { PrismaModels } from "@/lib/prisma";
-import { clearUser, updateUser } from "@/services/auth/client/route";
+import { clearUser, updateAuthUser } from "@/services/auth/client/route";
 import { createClient } from "@/utils/supabase/client";
 
 const AuthEventListener = () => {
@@ -19,7 +19,7 @@ const AuthEventListener = () => {
         `user/${userId}`,
       );
 
-      updateUser(queryClient, user.data);
+      updateAuthUser(queryClient, user.data);
     };
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
