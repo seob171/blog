@@ -1,14 +1,43 @@
 import { PrismaClient } from "@prisma/client";
+import { jwtDecode } from "jwt-decode";
 import { NextRequest, NextResponse } from "next/server";
 
 import { isValidBody } from "@/types/post.type";
 
 const prisma = new PrismaClient();
 
-export const GET = async () => {
-  const posts = await prisma.posts.findMany();
+export const GET = async (request: NextRequest) => {
+  const authorId = request.nextUrl.searchParams.get("user_id");
 
-  return NextResponse.json(posts, { status: 200 });
+  if (authorId) {
+    const authorization = request.headers.get("Authorization") ?? "";
+    const [, accessToken] = authorization.split(" ");
+    const { sub: uuid } = jwtDecode(accessToken);
+
+    const isVerified = authorId === uuid;
+
+    try {
+      const posts = await prisma.posts.findMany({
+        where: { user_id: authorId, published: isVerified ? undefined : true },
+        orderBy: { created_at: "desc" },
+      });
+
+      return NextResponse.json(posts, { status: 200 });
+    } catch (error) {
+      return NextResponse.json({ error }, { status: 500 });
+    }
+  }
+
+  try {
+    const posts = await prisma.posts.findMany({
+      where: { published: true },
+      orderBy: { created_at: "desc" },
+    });
+
+    return NextResponse.json(posts, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
 };
 
 export const POST = async (request: NextRequest) => {

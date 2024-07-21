@@ -20,8 +20,8 @@ const useGetPost = (
   const { id: postId } = useParams<{ id: string }>();
 
   return useQuery({
-    queryKey: POST_QUERY_KEY.item(postId),
-    queryFn: () => getPost(postId),
+    queryKey: POST_QUERY_KEY.item({ id: postId }),
+    queryFn: () => getPost({ id: postId }),
     enabled: Boolean(postId),
     ...options,
   });

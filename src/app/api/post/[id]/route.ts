@@ -6,7 +6,7 @@ import { isValidBody } from "@/types/post.type";
 const prisma = new PrismaClient();
 
 export const GET = async (
-  request: Request,
+  request: NextRequest,
   { params: { id: postId } }: { params: { id: string } },
 ) => {
   const post = await prisma.posts.findUnique({

@@ -6,6 +6,7 @@ import { POST_QUERY_KEY } from "@/services/post/queryOptions";
 import { getManyPost } from "@/services/post/route";
 
 const useGetManyPost = (
+  params?: Partial<PrismaModels["posts"]>,
   options?: Omit<
     UseQueryOptions<
       Array<PrismaModels["posts"]>,
@@ -17,8 +18,8 @@ const useGetManyPost = (
   >,
 ) => {
   return useQuery({
-    queryKey: POST_QUERY_KEY.itemList(),
-    queryFn: () => getManyPost(),
+    queryKey: POST_QUERY_KEY.itemList(params),
+    queryFn: () => getManyPost({ params }),
     ...options,
   });
 };

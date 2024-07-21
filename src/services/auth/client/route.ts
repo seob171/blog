@@ -5,7 +5,9 @@ import { PrismaModels } from "@/lib/prisma";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { createClient } from "@/utils/supabase/client";
 
-export const getUser = async (): Promise<PrismaModels["profiles"] | null> => {
+export const getAuthUser = async (): Promise<
+  PrismaModels["profiles"] | null
+> => {
   const supabase = createClient();
   const {
     data: { user },
@@ -22,7 +24,7 @@ export const getUser = async (): Promise<PrismaModels["profiles"] | null> => {
   return null;
 };
 
-export const updateUser = (
+export const updateAuthUser = (
   queryClient: QueryClient,
   user: PrismaModels["profiles"],
 ) => {

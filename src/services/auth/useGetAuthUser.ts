@@ -1,10 +1,10 @@
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 
 import { PrismaModels } from "@/lib/prisma";
-import { getUser } from "@/services/auth/client/route";
+import { getAuthUser } from "@/services/auth/client/route";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 
-export const useGetUser = <TData = PrismaModels["profiles"] | null>(
+export const useGetAuthUser = <TData = PrismaModels["profiles"] | null>(
   options?: Omit<
     UseQueryOptions<
       PrismaModels["profiles"] | null,
@@ -17,7 +17,7 @@ export const useGetUser = <TData = PrismaModels["profiles"] | null>(
 ) => {
   return useQuery({
     queryKey: AUTH_QUERY_KEY.user(),
-    queryFn: getUser,
+    queryFn: getAuthUser,
     ...options,
   });
 };
