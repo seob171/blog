@@ -18,12 +18,12 @@ import {
 type Props = {
   title: string;
   description: string | null;
-  userId: string;
+  // userId: string;
 };
 
-function PostCard({ title, description, userId }: Props) {
+function PostCard({ title, description }: Props) {
   return (
-    <Card className="border-0 shadow-none">
+    <Card className="shadow-none border border-border rounded-lg p-2">
       <CardHeader className="px-4 py-2">
         <div className="flex items-center gap-x-2">
           <Avatar className="size-6 static">
