@@ -4,6 +4,8 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 import Post from "@/app/post/[id]/_components/Post";
 import GNB from "@/components/nav/GNB";
+import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
+import { getAuthUser } from "@/services/auth/server/route";
 import { POST_QUERY_KEY } from "@/services/post/queryOptions";
 import { getPost } from "@/services/post/route";
 import { USER_QUERY_KEY } from "@/services/user/queryOptions";
@@ -28,6 +30,13 @@ function Page({ params: { id: postId } }: Props) {
     queryClient.prefetchQuery({
       queryFn: () => getUser({ id: post.user_id }),
       queryKey: USER_QUERY_KEY.item({ id: post.user_id }),
+    }),
+  );
+
+  use(
+    queryClient.prefetchQuery({
+      queryFn: () => getAuthUser(),
+      queryKey: AUTH_QUERY_KEY.user(),
     }),
   );
 

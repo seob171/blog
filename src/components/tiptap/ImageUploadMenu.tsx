@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 
 import { Editor } from "@tiptap/react";
@@ -30,7 +32,7 @@ function ImageUploadMenu({ editor }: Props) {
       description={DESCRIPTION}
     >
       <ImageUploadForm
-        fileUpload={({ url }) => {
+        fileUpload={async ({ url }) => {
           editor.chain().focus().setImage({ src: url }).run();
           setOpen(false);
         }}
