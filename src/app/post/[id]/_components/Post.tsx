@@ -13,6 +13,7 @@ import EditorComponent from "@/components/tiptap/EditorComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { PATH_NAME } from "@/constants/link";
+import { useGetAuthUser } from "@/services/auth/useGetAuthUser";
 import useGetPost from "@/services/post/useGetPost";
 import useGetUser from "@/services/user/useGetUser";
 
@@ -22,6 +23,9 @@ function Post() {
     { id: post!.user_id },
     { enabled: Boolean(post?.user_id) },
   );
+  const { data: loggedInUser } = useGetAuthUser();
+
+  const isAuthor = Boolean(loggedInUser && post?.user_id === loggedInUser.id);
 
   return (
     <div className="flex flex-col gap-y-6 mt-24 px-4">
@@ -47,7 +51,11 @@ function Post() {
             {dayjs(post?.created_at).format("YYYY.MM.DD")}
           </span>
         </div>
-        {/* <Button variant={"link"}>팔로우</Button> */}
+        {isAuthor && (
+          <Link href={`${PATH_NAME.write}/${post?.id}`}>
+            <Button variant="link">편집</Button>
+          </Link>
+        )}
       </div>
       <div className="flex items-center justify-between border-secondary border-y py-4">
         <div className="flex items-center">
