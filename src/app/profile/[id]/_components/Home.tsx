@@ -17,14 +17,10 @@ const Home = ({ user: { id } }: Props) => {
   const { data } = useGetManyPost({ user_id: id });
 
   return (
-    <ul className="flex flex-col gap-y-2">
-      {data?.map(({ id, title, description }) => (
-        <Link key={id} href={`${PATH_NAME.post}/${id}`}>
-          <PostCard
-            title={title}
-            description={description}
-            // userId={user_id}
-          />
+    <ul className="flex flex-col gap-y-2 mb-40">
+      {data?.map((post) => (
+        <Link key={post.id} href={`${PATH_NAME.post}/${post.id}`}>
+          <PostCard data={post} />
         </Link>
       ))}
     </ul>

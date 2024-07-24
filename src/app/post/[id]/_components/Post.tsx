@@ -3,6 +3,7 @@
 import React from "react";
 
 import dayjs from "dayjs";
+import Image from "next/image";
 import Link from "next/link";
 
 import BookMark from "@/components/icon/BookMark";
@@ -57,6 +58,16 @@ function Post() {
           </Link>
         )}
       </div>
+      {post?.thumbnail_url && (
+        <div className="relative aspect-video rounded-md overflow-hidden">
+          <Image
+            src={post.thumbnail_url}
+            alt={`${post.title} thumbnail`}
+            fill
+            className="object-fit"
+          />
+        </div>
+      )}
       <div className="flex items-center justify-between border-secondary border-y py-4">
         <div className="flex items-center">
           <Button variant="none" size="icon">
