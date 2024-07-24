@@ -1,18 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import ErrorMessage from "@/components/form/ErrorMessage";
 import FileUpload from "@/components/icon/FileUpload";
 import Global from "@/components/icon/Global";
 import LockClosed from "@/components/icon/LockClosed";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { fileSchema } from "@/constants/image";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/client";
 
 type Props = {
   uploadPost: SubmitHandler<PostUploadFormData>;
@@ -27,10 +31,14 @@ const schema = z.object({
 export type PostUploadFormData = z.infer<typeof schema>;
 
 function PostUploadForm({ uploadPost }: Props) {
+  const [imageFileErrorMessage, setImageFileErrorMessage] = useState("");
+
+  const supabase = createClient();
   const {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { isSubmitting, isValid },
   } = useForm<PostUploadFormData>({
     defaultValues: {
@@ -57,7 +65,6 @@ function PostUploadForm({ uploadPost }: Props) {
             className="placeholder-muted"
           />
         </div>
-        {/* TODO : 파일 업로드 기능 구현 */}
         <Button type="button" variant="outline" size="icon">
           <span className="sr-only">File</span>
           <Label
@@ -66,9 +73,47 @@ function PostUploadForm({ uploadPost }: Props) {
           >
             <FileUpload />
           </Label>
-          <Input id="imageFile" type="file" className="hidden" />
+          <Input
+            id="imageFile"
+            type="file"
+            className="hidden"
+            // accept="image/*"
+            onChange={async (e) => {
+              const imageFile = e.target.files?.[0];
+              if (imageFile) {
+                const { success, error } = fileSchema.safeParse({
+                  imageFile,
+                });
+
+                if (success) {
+                  // upleadImg가 존재할 경우 아래 supabase 로직을 실행할 것.
+                  const { data } = await supabase.storage
+                    .from("images")
+                    .upload(
+                      `post/${dayjs()}_${Math.floor(Math.random() * 1000)}`,
+                      imageFile,
+                    );
+
+                  const {
+                    data: { publicUrl },
+                  } = supabase.storage
+                    .from("images")
+                    .getPublicUrl(`${data!.path}`);
+
+                  setValue("thumbnailUrl", publicUrl, { shouldValidate: true });
+                }
+
+                if (error) {
+                  setImageFileErrorMessage(error.issues?.[0].message);
+                }
+              }
+            }}
+          />
         </Button>
       </div>
+      <ErrorMessage hidden={!imageFileErrorMessage}>
+        {imageFileErrorMessage}
+      </ErrorMessage>
       <div className="flex items-center space-x-2">
         <div className="grid flex-1 gap-2">
           <Label htmlFor="url" className="sr-only">

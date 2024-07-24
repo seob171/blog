@@ -1,10 +1,12 @@
 import React from "react";
 
+import Image from "next/image";
+
 import BookMark from "@/components/icon/BookMark";
 import ChatBubble from "@/components/icon/ChatBubble";
 import Heart from "@/components/icon/Heart";
 import PaperAirplane from "@/components/icon/PaperAirplane";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,25 +16,43 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { PrismaModels } from "@/lib/prisma";
+import useGetUser from "@/services/user/useGetUser";
+import { formatRelativeDate } from "@/utils/date";
 
 type Props = {
-  title: string;
-  description: string | null;
-  // userId: string;
+  data: PrismaModels["posts"];
 };
 
-function PostCard({ title, description }: Props) {
+function PostCard({ data }: Props) {
+  const {
+    title,
+    description,
+    user_id: userId,
+    created_at: createdAt,
+    thumbnail_url: thumbnailUrl,
+  } = data;
+  const { data: user } = useGetUser({ id: userId });
   return (
     <Card className="shadow-none border border-border rounded-lg p-2">
-      <CardHeader className="px-4 py-2">
+      <CardHeader className="flex flex-row justify-between items-center px-4 py-2">
         <div className="flex items-center gap-x-2">
           <Avatar className="size-6 static">
-            <AvatarFallback>S</AvatarFallback>
+            <AvatarImage
+              src={user?.avatar_url ?? ""}
+              alt={user?.name ?? "author avatar"}
+            />
+            <AvatarFallback>{user?.name?.substring(0, 1)}</AvatarFallback>
           </Avatar>
-          <span className="text-xs">ShimYuSeob</span>
+          <span className="text-xs">{user?.name}</span>
+        </div>
+        <div className="flex !m-0">
+          <span className="text-sm text-muted-foreground">
+            {formatRelativeDate(createdAt, 3)}
+          </span>
         </div>
       </CardHeader>
-      <CardContent className="flex gap-y-4 flex-col px-4 py-2 justify-between sm:flex-row sm:gap-x-4 ">
+      <CardContent className="flex gap-y-4 flex-col px-4 py-2 justify-between">
         <div className="flex flex-col gap-y-2">
           <CardTitle className="line-clamp-2 leading-snug text-md">
             {title}
@@ -41,10 +61,16 @@ function PostCard({ title, description }: Props) {
             {description}
           </CardDescription>
         </div>
-        <div
-          className={`aspect-video w-full h-fit rounded-md object-cover bg-muted
-            sm:aspect-square sm:size-32 sm:w-fit`}
-        />
+        {thumbnailUrl && (
+          <div className="relative aspect-video rounded-md overflow-hidden">
+            <Image
+              src={thumbnailUrl}
+              alt={`${data.title} thumbnail`}
+              fill
+              className="object-fit"
+            />
+          </div>
+        )}
       </CardContent>
       <CardFooter className="justify-between px-2 pb-2">
         <div className="flex items-center">
