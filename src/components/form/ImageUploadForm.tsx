@@ -10,32 +10,12 @@ import FileUpload from "@/components/icon/FileUpload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { fileSchema } from "@/constants/image";
 import { createClient } from "@/utils/supabase/client";
 
 type Props = {
   fileUpload: SubmitHandler<ImageUploadFormData>;
 };
-
-const MAX_FILE_SIZE = 1024 * 1024 * 5;
-
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
-const fileSchema = z.object({
-  imageFile: z
-    .instanceof(File)
-    .optional()
-    .refine((file) => {
-      return !file || file.size <= MAX_FILE_SIZE;
-    }, "5MB 이하로 업로드 할 수 있어요.")
-    .refine((file) => {
-      return ACCEPTED_IMAGE_TYPES.some((imageType) => imageType === file?.type);
-    }, ".jpg, .jpeg, .png, .webp 확장자만 업로드 할 수 있어요."),
-});
 
 const schema = z.object({
   url: z.string().url(),
