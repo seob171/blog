@@ -1,8 +1,8 @@
 import React from "react";
 
+import { BookmarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
-import BookMark from "@/components/icon/BookMark";
 import ChatBubble from "@/components/icon/ChatBubble";
 import Heart from "@/components/icon/Heart";
 import PaperAirplane from "@/components/icon/PaperAirplane";
@@ -85,7 +85,7 @@ function PostCard({ data }: Props) {
           </Button>
         </div>
         <Button variant="none" size="icon">
-          <BookMark />
+          <BookmarkIcon />
         </Button>
       </CardFooter>
     </Card>

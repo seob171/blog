@@ -2,11 +2,12 @@
 
 import React from "react";
 
+import { BookmarkIcon } from "@heroicons/react/24/outline";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 
-import BookMark from "@/components/icon/BookMark";
+import PostUpdateMenu from "@/app/post/[id]/_components/PostUpdateMenu";
 import ChatBubble from "@/components/icon/ChatBubble";
 import Heart from "@/components/icon/Heart";
 import PaperAirplane from "@/components/icon/PaperAirplane";
@@ -52,11 +53,7 @@ function Post() {
             {dayjs(post?.created_at).format("YYYY.MM.DD")}
           </span>
         </div>
-        {isAuthor && (
-          <Link href={`${PATH_NAME.write}/${post?.id}`}>
-            <Button variant="link">편집</Button>
-          </Link>
-        )}
+        {isAuthor && <PostUpdateMenu />}
       </div>
       {post?.thumbnail_url && (
         <div className="relative aspect-video rounded-md overflow-hidden">
@@ -64,6 +61,8 @@ function Post() {
             src={post.thumbnail_url}
             alt={`${post.title} thumbnail`}
             fill
+            sizes="568px"
+            priority
             className="object-fit"
           />
         </div>
@@ -81,7 +80,7 @@ function Post() {
           </Button>
         </div>
         <Button variant="none" size="icon">
-          <BookMark />
+          <BookmarkIcon />
         </Button>
       </div>
       <EditorComponent
