@@ -32,3 +32,14 @@ export const PATCH = async (
 
   return NextResponse.json(null, { status: 201 });
 };
+
+export const DELETE = async (
+  request: NextRequest,
+  { params: { id: postId } }: { params: { id: string } },
+) => {
+  await prisma.posts.delete({
+    where: { id: postId },
+  });
+
+  return NextResponse.json(null, { status: 200 });
+};
