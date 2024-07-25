@@ -39,7 +39,11 @@ function GNB({ className, ...props }: Props) {
             <BookmarkIcon />
           </Button>
         </Link>
-        <Link href={`${PATH_NAME.profile}/${user?.id}`}>
+        <Link
+          href={
+            user ? `${PATH_NAME.profile}/${user?.id}` : `${PATH_NAME.signIn}`
+          }
+        >
           <Button variant="ghost" size="icon">
             <UserCircle />
           </Button>
