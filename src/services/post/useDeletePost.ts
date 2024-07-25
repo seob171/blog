@@ -1,4 +1,5 @@
 import {
+  UseMutationOptions,
   UseMutationResult,
   useMutation,
   useQueryClient,
@@ -10,17 +11,24 @@ import axiosInstance from "@/lib/api";
 import { PrismaModels } from "@/lib/prisma";
 import { POST_QUERY_KEY } from "@/services/post/queryOptions";
 
-const useDeletePost = (): UseMutationResult<
-  void,
-  AxiosError,
-  Pick<PrismaModels["posts"], "id">
-> => {
+const useDeletePost = <
+  TData extends void,
+  TError extends AxiosError,
+  TVariable extends Pick<PrismaModels["posts"], "id">,
+  TContext extends { previousPostList: Array<PrismaModels["posts"]> },
+>(
+  options?: Omit<
+    UseMutationOptions<TData, TError, TVariable, TContext>,
+    "mutationFn"
+  >,
+): UseMutationResult<TData, TError, TVariable, TContext> => {
   const queryClient = useQueryClient();
   const { id: postId } = useParams<{ id: string }>();
 
-  return useMutation({
+  return useMutation<TData, TError, TVariable, TContext>({
     mutationFn: () => axiosInstance.delete(`/post/${postId}`),
-    onMutate: async ({ id }) => {
+    ...options,
+    onMutate: async (variables): Promise<TContext> => {
       await queryClient.cancelQueries({
         queryKey: [POST_QUERY_KEY.itemList()],
       });
@@ -33,13 +41,13 @@ const useDeletePost = (): UseMutationResult<
         POST_QUERY_KEY.itemList(),
         (postList) => {
           if (postList === undefined) return [];
-          return postList.filter((post) => post.id !== id);
+          return postList.filter((post) => post.id !== variables.id);
         },
       );
 
-      return { previousPostList };
+      return { previousPostList } as TContext;
     },
-    onError: (err, newPost, context) => {
+    onError: (err, variables, context) => {
       queryClient.setQueryData(
         POST_QUERY_KEY.itemList(),
         context?.previousPostList ?? [],
