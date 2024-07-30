@@ -31,7 +31,7 @@ const AuthEventListener = () => {
         // handle sign in event
         if (session) {
           const userId = session.user.id;
-          fetchUser(userId);
+          fetchUser(userId).then();
         }
       } else if (event === "SIGNED_OUT") {
         // handle sign out event

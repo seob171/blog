@@ -52,7 +52,7 @@ function GNB({ className, ...props }: Props) {
               <Avatar className="size-5 static">
                 <AvatarImage
                   src={user?.avatar_url ?? ""}
-                  alt={user?.name ?? "author avatar"}
+                  alt={user?.name ?? "creator avatar"}
                 />
                 <AvatarFallback>{user?.name?.substring(0, 1)}</AvatarFallback>
               </Avatar>

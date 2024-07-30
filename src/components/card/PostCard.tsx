@@ -30,11 +30,11 @@ function PostCard({ data }: Props) {
   const {
     title,
     description,
-    user_id: userId,
+    creator_id: creatorId,
     created_at: createdAt,
     thumbnail_url: thumbnailUrl,
   } = data;
-  const { data: user } = useGetUser({ id: userId });
+  const { data: user } = useGetUser({ id: creatorId });
   return (
     <Card className="shadow-none border border-border rounded-lg p-2">
       <CardHeader className="flex flex-row justify-between items-center px-4 py-2">
@@ -42,7 +42,7 @@ function PostCard({ data }: Props) {
           <Avatar className="size-6 static">
             <AvatarImage
               src={user?.avatar_url ?? ""}
-              alt={user?.name ?? "author avatar"}
+              alt={user?.name ?? "creator avatar"}
             />
             <AvatarFallback>{user?.name?.substring(0, 1)}</AvatarFallback>
           </Avatar>
@@ -69,6 +69,8 @@ function PostCard({ data }: Props) {
               src={thumbnailUrl}
               alt={`${data.title} thumbnail`}
               fill
+              sizes="518px"
+              priority
               className="object-fit"
             />
           </div>

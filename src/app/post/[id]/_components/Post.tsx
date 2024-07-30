@@ -23,13 +23,15 @@ import useGetUser from "@/services/user/useGetUser";
 
 function Post() {
   const { data: post } = useGetPost();
-  const { data: author } = useGetUser(
-    { id: post!.user_id },
-    { enabled: Boolean(post?.user_id) },
+  const { data: creator } = useGetUser(
+    { id: post!.creator_id },
+    { enabled: Boolean(post?.creator_id) },
   );
   const { data: loggedInUser } = useGetAuthUser();
 
-  const isAuthor = Boolean(loggedInUser && post?.user_id === loggedInUser.id);
+  const isMyPost = Boolean(
+    loggedInUser && post?.creator_id === loggedInUser.id,
+  );
 
   return (
     <div className="flex flex-col gap-y-6 mt-24 px-4">
@@ -40,14 +42,14 @@ function Post() {
           <div className="flex items-center gap-x-2">
             <Avatar className="size-8 static">
               <AvatarImage
-                src={author?.avatar_url ?? ""}
-                alt="post author avatar"
+                src={creator?.avatar_url ?? ""}
+                alt="post creator avatar"
               />
-              <AvatarFallback>{author?.name?.substring(0, 1)}</AvatarFallback>
+              <AvatarFallback>{creator?.name?.substring(0, 1)}</AvatarFallback>
             </Avatar>
-            <Link href={`${PATH_NAME.profile}/${author?.id}`}>
+            <Link href={`${PATH_NAME.profile}/${creator?.id}`}>
               <Button variant="link" className="text-sm px-0">
-                {author?.name}
+                {creator?.name}
               </Button>
             </Link>
           </div>
@@ -55,7 +57,7 @@ function Post() {
             {dayjs(post?.created_at).format("YYYY.MM.DD")}
           </span>
         </div>
-        {isAuthor && <PostUpdateMenu />}
+        {isMyPost && <PostUpdateMenu />}
       </div>
       {post?.thumbnail_url && (
         <div className="relative aspect-video rounded-md overflow-hidden">

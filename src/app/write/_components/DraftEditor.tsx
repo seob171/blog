@@ -31,7 +31,7 @@ function DraftEditor() {
   }) => {
     if (title.trim() === "" || !user) return;
     const content = JSON.stringify(editor.state.doc.toJSON());
-    createPost({ title, content, user_id: user.id });
+    createPost({ title, content, creator_id: user.id });
   };
 
   const debouncedCreate = useDebounceCallback(handleCreate, 10_000);

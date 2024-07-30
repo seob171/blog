@@ -329,9 +329,9 @@ model posts {
   thumbnail_url String?
   created_at    DateTime  @default(now()) @db.Timestamptz(6)
   updated_at    DateTime? @default(now()) @db.Timestamptz(6)
-  user_id       String    @default(dbgenerated("auth.uid()")) @db.Uuid
+  creator_id    String    @default(dbgenerated("auth.uid()")) @db.Uuid
   published     Boolean   @default(false)
-  users         profiles  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  profiles      profiles  @relation(fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@schema("public")
 }

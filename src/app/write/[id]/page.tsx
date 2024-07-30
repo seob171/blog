@@ -32,7 +32,7 @@ function Page({ params: { id: postId } }: { params: { id: string } }) {
     }),
   );
 
-  if (!post || post.user_id !== user.id) notFound();
+  if (!post || post.creator_id !== user.id) notFound();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

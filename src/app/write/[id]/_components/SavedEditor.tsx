@@ -2,6 +2,7 @@
 
 import { ComponentProps, useCallback, useState } from "react";
 
+import dayjs from "dayjs";
 import { SubmitHandler } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
 import { useDebounceCallback } from "usehooks-ts";
@@ -38,7 +39,7 @@ function SavedEditor() {
   >["onUpdate"] = async ({ editor }) => {
     const content = JSON.stringify(editor.state.doc.toJSON());
     setContent(content);
-    await updatePost({ title, content });
+    await updatePost({ title, content, updated_at: dayjs().toDate() });
   };
 
   const handleUpload: SubmitHandler<PostUploadFormData> = useCallback(
@@ -49,6 +50,7 @@ function SavedEditor() {
         description,
         thumbnail_url: thumbnailUrl,
         published,
+        updated_at: dayjs().toDate(),
       });
     },
     [content, title, updatePost],
