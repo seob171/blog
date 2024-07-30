@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import Logo from "@/components/common/Logo";
 import PencilSquare from "@/components/icon/PencilSquare";
-import UserCircle from "@/components/icon/UserCircle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { PATH_NAME } from "@/constants/link";
 import { cn } from "@/lib/utils";
@@ -45,7 +45,17 @@ function GNB({ className, ...props }: Props) {
           }
         >
           <Button variant="ghost" size="icon">
-            <UserCircle />
+            {user ? (
+              <Avatar className="size-5 static">
+                <AvatarImage
+                  src={user?.avatar_url ?? ""}
+                  alt={user?.name ?? "author avatar"}
+                />
+                <AvatarFallback>{user?.name?.substring(0, 1)}</AvatarFallback>
+              </Avatar>
+            ) : (
+              <UserCircleIcon />
+            )}
           </Button>
         </Link>
         {/* <SignInDialog /> */}
