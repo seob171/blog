@@ -14,7 +14,7 @@ type Props = {
 };
 
 const Home = ({ user: { id } }: Props) => {
-  const { data } = useGetManyPost({ user_id: id });
+  const { data } = useGetManyPost({ creator_id: id });
 
   return (
     <ul className="flex flex-col gap-y-2 mb-40">

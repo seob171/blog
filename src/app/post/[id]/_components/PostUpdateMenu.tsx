@@ -35,12 +35,12 @@ import useDeletePost from "@/services/post/useDeletePost";
 
 const PostUpdateMenu = () => {
   const { replace } = useRouter();
-  const { data: author } = useGetAuthUser();
+  const { data: creator } = useGetAuthUser();
   const { id: postId } = useParams<{ id: string }>();
   const { mutate: deletePost } = useDeletePost({
     onSuccess: () => {
       console.log("토스트 메시지");
-      replace(`${PATH_NAME.profile}/${author?.id}`);
+      replace(`${PATH_NAME.profile}/${creator?.id}`);
     },
   });
 

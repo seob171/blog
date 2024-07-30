@@ -24,12 +24,12 @@ const useCreatePost = (
     mutationFn: async ({
       title,
       content,
-      user_id,
+      creator_id,
     }: Partial<PrismaModels["posts"]>) => {
       const res = await axiosInstance.post("/post", {
         title,
         content,
-        user_id,
+        creator_id,
       });
       return res.data;
     },

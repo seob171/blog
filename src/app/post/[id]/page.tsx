@@ -28,8 +28,8 @@ function Page({ params: { id: postId } }: Props) {
 
   use(
     queryClient.prefetchQuery({
-      queryFn: () => getUser({ id: post.user_id }),
-      queryKey: USER_QUERY_KEY.item({ id: post.user_id }),
+      queryFn: () => getUser({ id: post.creator_id }),
+      queryKey: USER_QUERY_KEY.item({ id: post.creator_id }),
     }),
   );
 

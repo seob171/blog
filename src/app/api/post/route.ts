@@ -7,18 +7,21 @@ import { isValidBody } from "@/types/post.type";
 const prisma = new PrismaClient();
 
 export const GET = async (request: NextRequest) => {
-  const authorId = request.nextUrl.searchParams.get("user_id");
+  const creatorId = request.nextUrl.searchParams.get("creator_id");
 
-  if (authorId) {
+  if (creatorId) {
     try {
       const authorization = request.headers.get("Authorization") ?? "";
       const [, accessToken] = authorization.split(" ");
       const payload = jwtDecode(accessToken ?? "");
 
-      const isVerified = payload && authorId === payload.sub;
+      const isVerified = payload && creatorId === payload.sub;
 
       const posts = await prisma.posts.findMany({
-        where: { user_id: authorId, ...(!isVerified && { published: true }) },
+        where: {
+          creator_id: creatorId,
+          ...(!isVerified && { published: true }),
+        },
         orderBy: { created_at: "desc" },
       });
 
