@@ -2,15 +2,17 @@
 
 import React from "react";
 
-import { BookmarkIcon } from "@heroicons/react/24/outline";
+import {
+  BookmarkIcon,
+  ChatBubbleOvalLeftIcon,
+  HeartIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/24/outline";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 
 import PostUpdateMenu from "@/app/post/[id]/_components/PostUpdateMenu";
-import ChatBubble from "@/components/icon/ChatBubble";
-import Heart from "@/components/icon/Heart";
-import PaperAirplane from "@/components/icon/PaperAirplane";
 import EditorComponent from "@/components/tiptap/EditorComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -70,13 +72,13 @@ function Post() {
       <div className="flex items-center justify-between border-secondary border-y py-4">
         <div className="flex items-center">
           <Button variant="none" size="icon">
-            <Heart />
+            <HeartIcon />
           </Button>
           <Button variant="none" size="icon">
-            <ChatBubble />
+            <ChatBubbleOvalLeftIcon />
           </Button>
           <Button variant="none" size="icon">
-            <PaperAirplane />
+            <PaperAirplaneIcon />
           </Button>
         </div>
         <Button variant="none" size="icon">

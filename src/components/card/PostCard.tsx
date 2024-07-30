@@ -1,11 +1,13 @@
 import React from "react";
 
-import { BookmarkIcon } from "@heroicons/react/24/outline";
+import {
+  BookmarkIcon,
+  ChatBubbleOvalLeftIcon,
+  HeartIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/24/outline";
 import Image from "next/image";
 
-import ChatBubble from "@/components/icon/ChatBubble";
-import Heart from "@/components/icon/Heart";
-import PaperAirplane from "@/components/icon/PaperAirplane";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -75,13 +77,13 @@ function PostCard({ data }: Props) {
       <CardFooter className="justify-between px-2 pb-2">
         <div className="flex items-center">
           <Button variant="none" size="icon">
-            <Heart />
+            <HeartIcon />
           </Button>
           <Button variant="none" size="icon">
-            <ChatBubble />
+            <ChatBubbleOvalLeftIcon />
           </Button>
           <Button variant="none" size="icon">
-            <PaperAirplane />
+            <PaperAirplaneIcon />
           </Button>
         </div>
         <Button variant="none" size="icon">

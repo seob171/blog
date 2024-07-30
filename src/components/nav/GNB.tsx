@@ -2,11 +2,14 @@
 
 import React, { HTMLAttributes } from "react";
 
-import { BookmarkIcon } from "@heroicons/react/24/outline";
+import {
+  BookmarkIcon,
+  PencilSquareIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import Logo from "@/components/common/Logo";
-import PencilSquare from "@/components/icon/PencilSquare";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { PATH_NAME } from "@/constants/link";
@@ -30,7 +33,7 @@ function GNB({ className, ...props }: Props) {
       <div className="flex items-center gap-2">
         <Link href={`${PATH_NAME.write}`} className={user ? "" : "hidden"}>
           <Button variant="ghost" size="icon">
-            <PencilSquare />
+            <PencilSquareIcon />
           </Button>
         </Link>
 
