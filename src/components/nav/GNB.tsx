@@ -2,10 +2,10 @@
 
 import React, { HTMLAttributes } from "react";
 
+import { BookmarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import Logo from "@/components/common/Logo";
-import BookMark from "@/components/icon/BookMark";
 import PencilSquare from "@/components/icon/PencilSquare";
 import UserCircle from "@/components/icon/UserCircle";
 import { Button } from "@/components/ui/button";
@@ -36,10 +36,14 @@ function GNB({ className, ...props }: Props) {
 
         <Link href={PATH_NAME.picks}>
           <Button variant="ghost" size="icon">
-            <BookMark />
+            <BookmarkIcon />
           </Button>
         </Link>
-        <Link href={`${PATH_NAME.profile}/${user?.id}`}>
+        <Link
+          href={
+            user ? `${PATH_NAME.profile}/${user?.id}` : `${PATH_NAME.signIn}`
+          }
+        >
           <Button variant="ghost" size="icon">
             <UserCircle />
           </Button>

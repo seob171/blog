@@ -10,15 +10,15 @@ export const GET = async (request: NextRequest) => {
   const authorId = request.nextUrl.searchParams.get("user_id");
 
   if (authorId) {
-    const authorization = request.headers.get("Authorization") ?? "";
-    const [, accessToken] = authorization.split(" ");
-    const { sub: uuid } = jwtDecode(accessToken);
-
-    const isVerified = authorId === uuid;
-
     try {
+      const authorization = request.headers.get("Authorization") ?? "";
+      const [, accessToken] = authorization.split(" ");
+      const payload = jwtDecode(accessToken ?? "");
+
+      const isVerified = payload && authorId === payload.sub;
+
       const posts = await prisma.posts.findMany({
-        where: { user_id: authorId, published: isVerified ? undefined : true },
+        where: { user_id: authorId, ...(!isVerified && { published: true }) },
         orderBy: { created_at: "desc" },
       });
 

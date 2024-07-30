@@ -57,6 +57,10 @@
     @apply bg-background text-foreground font-line;
   }
 
+  svg {
+    @apply size-6;
+  }
+
   ul[data-type="taskList"] {
     @apply ml-0 p-0;
     list-style: none;
