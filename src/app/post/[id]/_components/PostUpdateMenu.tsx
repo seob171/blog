@@ -55,19 +55,19 @@ const PostUpdateMenu = () => {
         <DropdownMenuContent className="w-24" align="end">
           <DropdownMenuGroup>
             <Link href={`${PATH_NAME.write}/${postId}`}>
-              <DropdownMenuItem className="flex items-center gap-x-2">
-                <PencilSquareIcon />
-                <span className="">편집</span>
+              <DropdownMenuItem className="flex items-center gap-x-2 cursor-pointer">
+                <PencilSquareIcon className="size-4" />
+                <span className="text-xs">편집</span>
               </DropdownMenuItem>
             </Link>
 
-            <AlertDialogTrigger asChild>
+            <AlertDialogTrigger asChild className="cursor-pointer">
               <DropdownMenuItem
                 asChild={false}
                 className="flex items-center gap-x-2 w-full"
               >
-                <TrashIcon />
-                <span>삭제</span>
+                <TrashIcon className="size-4" />
+                <span className="text-xs">삭제</span>
               </DropdownMenuItem>
             </AlertDialogTrigger>
           </DropdownMenuGroup>
@@ -84,6 +84,7 @@ const PostUpdateMenu = () => {
         <AlertDialogFooter>
           <AlertDialogCancel>취소</AlertDialogCancel>
           <AlertDialogAction
+            className="bg-destructive hover:bg-destructive/90"
             onClick={() => {
               deletePost({ id: postId });
             }}
