@@ -69,6 +69,8 @@ function PostCard({ data }: Props) {
               src={thumbnailUrl}
               alt={`${data.title} thumbnail`}
               fill
+              sizes="518px"
+              priority
               className="object-fit"
             />
           </div>
