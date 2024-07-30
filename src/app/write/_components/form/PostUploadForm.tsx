@@ -2,6 +2,10 @@
 
 import React, { useState } from "react";
 
+import {
+  GlobeAsiaAustraliaIcon,
+  LockClosedIcon,
+} from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -9,8 +13,6 @@ import { z } from "zod";
 
 import ErrorMessage from "@/components/form/ErrorMessage";
 import FileUpload from "@/components/icon/FileUpload";
-import Global from "@/components/icon/Global";
-import LockClosed from "@/components/icon/LockClosed";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -145,7 +147,7 @@ function PostUploadForm({ uploadPost }: Props) {
                 className="p-0"
               >
                 <label className="flex items-center gap-x-2 w-full h-full px-4 py-2 cursor-pointer">
-                  <Global />
+                  <GlobeAsiaAustraliaIcon />
                   <span>전체공개</span>
 
                   <input
@@ -165,7 +167,7 @@ function PostUploadForm({ uploadPost }: Props) {
                 className="p-0"
               >
                 <label className="flex items-center gap-x-2 w-full h-full px-4 py-2 cursor-pointer">
-                  <LockClosed />
+                  <LockClosedIcon />
                   <span>비공개</span>
 
                   <input
