@@ -1,6 +1,6 @@
 import React, { use } from "react";
 
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 
 import About from "@/app/profile/[id]/_components/About";
