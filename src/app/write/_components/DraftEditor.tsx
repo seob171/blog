@@ -11,11 +11,13 @@ import PostUploadButton from "@/app/write/_components/PostUploadButton";
 import BottomBar from "@/components/nav/BottomBar";
 import EditorComponent from "@/components/tiptap/EditorComponent";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { PATH_NAME } from "@/constants/link";
 import { useGetAuthUser } from "@/services/auth/useGetAuthUser";
 import useCreatePost from "@/services/post/useCreatePost";
 
 function DraftEditor() {
+  const { toast } = useToast();
   const { replace } = useRouter();
   const [title, setTitle] = useState("");
   const { data: user } = useGetAuthUser();
@@ -23,6 +25,10 @@ function DraftEditor() {
     retry: false,
     onSuccess: ({ id }) => {
       replace(`${PATH_NAME.write}/${id}`);
+      toast({
+        title: "임시 저장 완료 😊",
+        description: "작성 중인 포스트를 임시 저장했어요.",
+      });
     },
   });
 
