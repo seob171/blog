@@ -11,6 +11,8 @@ import Logout from "@/components/auth/Logout";
 import Back from "@/components/common/Back";
 import TopBar from "@/components/nav/TopBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
+import { getAuthUser } from "@/services/auth/server/route";
 import { USER_QUERY_KEY } from "@/services/user/queryOptions";
 import { getUser } from "@/services/user/route";
 import { getQueryClient } from "@/utils/queryClient";
@@ -21,6 +23,13 @@ type Props = {
 
 function Page({ params: { id: creatorId } }: Props) {
   const queryClient = getQueryClient();
+
+  const loggedInUser = use(
+    queryClient.fetchQuery({
+      queryFn: getAuthUser,
+      queryKey: AUTH_QUERY_KEY.user(),
+    }),
+  );
 
   const creator = use(
     queryClient.fetchQuery({
@@ -36,14 +45,16 @@ function Page({ params: { id: creatorId } }: Props) {
       <TopBar leftRender={<Back />} />
       <Profile user={creator} />
       <ul className="flex flex-col w-full px-4 py-2">
-        <li className="flex justify-end">
-          <Logout />
-        </li>
+        {loggedInUser?.id === creator.id && (
+          <li className="flex justify-end">
+            <Logout />
+          </li>
+        )}
       </ul>
       <Tabs defaultValue={profileTabKey.home} className="w-full px-4 pt-2">
         <TabsList className="grid grid-cols-2">
-          <TabsTrigger value={profileTabKey.home}>홈</TabsTrigger>
-          <TabsTrigger value={profileTabKey.about}>소개</TabsTrigger>
+          <TabsTrigger value={profileTabKey.home}>홈으로</TabsTrigger>
+          <TabsTrigger value={profileTabKey.about}>소개보기</TabsTrigger>
         </TabsList>
         <TabsContent value={profileTabKey.home}>
           <Home user={creator} />

@@ -46,7 +46,7 @@ function DraftEditor() {
     <>
       <TextareaAutosize
         className="py-2 text-5xl font-bold outline-none resize-none"
-        placeholder="제목없음"
+        placeholder="제목을 입력해 주세요 😊"
         rows={1}
         autoFocus
         value={title}

@@ -13,8 +13,8 @@ type Props = {
   editor: Editor;
 };
 
-const TITLE = "유튜브";
-const DESCRIPTION = "링크를 임베드하세요.";
+const TITLE = "유튜브 영상";
+const DESCRIPTION = "링크를 추가해 주세요!";
 
 function YoutubeEmbedMenu({ editor }: Props) {
   const [open, setOpen] = useState(false);

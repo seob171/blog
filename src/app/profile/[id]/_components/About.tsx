@@ -16,7 +16,7 @@ const About = ({ user }: Props) => {
         <p className="font-sm text-muted-foreground">
           {introduction ?? "강아지와 커피를 좋아하는 개발자입니다."}
         </p>
-        <Button variant="default">프로필 편집</Button>
+        <Button variant="default">프로필 수정하기</Button>
       </div>
     </div>
   );

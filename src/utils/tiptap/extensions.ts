@@ -129,12 +129,14 @@ export const EXTENSIONS: Extensions = [
     // Use a placeholder:
     // placeholder: "Write something …",
     // Use different placeholders depending on the node type:
-    placeholder: ({ node }) => {
-      if (node.type.name === "heading") {
-        return "What’s the title?";
-      }
+    placeholder: () =>
+      // { node }
+      {
+        // if (node.type.name === "heading") {
+        //   return "What’s the title?";
+        // }
 
-      return "Can you add some further context?";
-    },
+        return "여기에 내용을 적어 주세요 ✍️";
+      },
   }),
 ];

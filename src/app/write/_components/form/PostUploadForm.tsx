@@ -63,7 +63,7 @@ function PostUploadForm({ uploadPost }: Props) {
             id={register("thumbnailUrl").name}
             type="url"
             required
-            placeholder="썸네일로 지정할 이미지 링크를 입력해주세요."
+            placeholder="썸네일 이미지 링크를 입력해 주세요!"
             className="placeholder-muted"
           />
         </div>
@@ -128,7 +128,7 @@ function PostUploadForm({ uploadPost }: Props) {
               "py-2 outline-none resize-none",
             )}
             {...register("description")}
-            placeholder="포스트 본문에 대한 간략한 설명을 추가해주세요."
+            placeholder="본문에 대한 간단한 설명을 입력해 주세요!"
             id="description"
           />
         </div>
@@ -148,7 +148,7 @@ function PostUploadForm({ uploadPost }: Props) {
               >
                 <label className="flex items-center gap-x-2 w-full h-full px-4 py-2 cursor-pointer">
                   <GlobeAsiaAustraliaIcon />
-                  <span>전체공개</span>
+                  <span>모두에게 공개</span>
 
                   <input
                     type="radio"
@@ -168,7 +168,7 @@ function PostUploadForm({ uploadPost }: Props) {
               >
                 <label className="flex items-center gap-x-2 w-full h-full px-4 py-2 cursor-pointer">
                   <LockClosedIcon />
-                  <span>비공개</span>
+                  <span>나만 보기</span>
 
                   <input
                     type="radio"
@@ -189,7 +189,7 @@ function PostUploadForm({ uploadPost }: Props) {
         variant="default"
         disabled={isSubmitting || !isValid}
       >
-        포스트 업로드
+        포스트 올리기
       </Button>
     </form>
   );

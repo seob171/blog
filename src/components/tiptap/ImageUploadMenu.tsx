@@ -13,8 +13,8 @@ type Props = {
   editor: Editor;
 };
 
-const TITLE = "이미지";
-const DESCRIPTION = "링크를 임베드하거나 파일을 업로드하세요.";
+const TITLE = "사진";
+const DESCRIPTION = "링크를 추가하거나 파일을 올려주세요!";
 
 function ImageUploadMenu({ editor }: Props) {
   const [open, setOpen] = useState(false);
