@@ -33,13 +33,13 @@ function YoutubeEmbedForm({ embedVideo }: Props) {
       <div className="flex items-center space-x-2">
         <div className="grid flex-1 gap-2">
           <Label htmlFor="url" className="sr-only">
-            유튜브 링크
+            유튜브 영상
           </Label>
           <Input {...register("url")} id="url" type="url" required />
         </div>
       </div>
       <Button type="submit" variant="default">
-        유튜브 임베드
+        영상 추가
       </Button>
     </form>
   );

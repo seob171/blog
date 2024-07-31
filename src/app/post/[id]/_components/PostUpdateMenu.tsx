@@ -57,7 +57,7 @@ const PostUpdateMenu = () => {
             <Link href={`${PATH_NAME.write}/${postId}`}>
               <DropdownMenuItem className="flex items-center gap-x-2 cursor-pointer">
                 <PencilSquareIcon className="size-4" />
-                <span className="text-xs">편집</span>
+                <span className="text-xs">수정하기</span>
               </DropdownMenuItem>
             </Link>
 
@@ -67,7 +67,7 @@ const PostUpdateMenu = () => {
                 className="flex items-center gap-x-2 w-full"
               >
                 <TrashIcon className="size-4" />
-                <span className="text-xs">삭제</span>
+                <span className="text-xs">삭제하기</span>
               </DropdownMenuItem>
             </AlertDialogTrigger>
           </DropdownMenuGroup>

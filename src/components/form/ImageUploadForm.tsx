@@ -98,7 +98,7 @@ function ImageUploadForm({ fileUpload }: Props) {
         {imageFileErrorMessage}
       </ErrorMessage>
       <Button type="submit" variant="default">
-        이미지 임베드
+        사진 추가
       </Button>
     </form>
   );

@@ -42,8 +42,8 @@ function Page({ params: { id: creatorId } }: Props) {
       </ul>
       <Tabs defaultValue={profileTabKey.home} className="w-full px-4 pt-2">
         <TabsList className="grid grid-cols-2">
-          <TabsTrigger value={profileTabKey.home}>홈</TabsTrigger>
-          <TabsTrigger value={profileTabKey.about}>소개</TabsTrigger>
+          <TabsTrigger value={profileTabKey.home}>홈으로</TabsTrigger>
+          <TabsTrigger value={profileTabKey.about}>소개보기</TabsTrigger>
         </TabsList>
         <TabsContent value={profileTabKey.home}>
           <Home user={creator} />
