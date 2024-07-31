@@ -14,15 +14,26 @@ import PostUploadButton from "@/app/write/_components/PostUploadButton";
 import BottomBar from "@/components/nav/BottomBar";
 import EditorComponent from "@/components/tiptap/EditorComponent";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import useGetPost from "@/services/post/useGetPost";
 import useUpdatePost from "@/services/post/useUpdatePost";
 
 function SavedEditor() {
+  const { toast } = useToast();
   const { data } = useGetPost();
 
   const [title, setTitle] = useState(data?.title ?? "");
 
-  const { mutateAsync: updatePost } = useUpdatePost();
+  const { mutateAsync: updatePost } = useUpdatePost({
+    onSuccess: (_, { published }) => {
+      toast({
+        title: published ? "저장 완료! 🎉" : "임시 저장 완료 😊",
+        description: published
+          ? "포스트가 성공적으로 저장되었어요."
+          : "작성 중인 포스트를 임시 저장했어요.",
+      });
+    },
+  });
   const [content, setContent] = useState(data?.content ?? "");
 
   const handleCreate: ComponentProps<typeof EditorComponent>["onCreate"] = ({

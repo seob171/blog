@@ -5,6 +5,7 @@ import "./globals.css";
 
 import { lineFont } from "@/app/fonts";
 import AuthEventListener from "@/components/auth/AuthEventListener";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import QueryProvider from "@/providers/QueryProvider";
 
@@ -28,6 +29,7 @@ export default function RootLayout({
             </section>
           </main>
           <AuthEventListener />
+          <Toaster />
         </QueryProvider>
       </body>
     </html>
