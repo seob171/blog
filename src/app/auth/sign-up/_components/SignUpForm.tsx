@@ -27,23 +27,23 @@ const schema: ZodType<FormData> = z
   .object({
     email: z
       .string()
-      .min(1)
-      .email({ message: "올바른 이메일을 입력해주세요." }),
+      .min(1, "최소 한 글자는 입력해 주세요!")
+      .email({ message: "이메일 주소를 올바르게 입력해 주세요." }),
     password: z
       .string()
-      .min(8, "8자리 이상 입력해주세요.")
-      .regex(passwordRegex, "영문, 숫자, 특수문자를 모두 포함해주세요."),
+      .min(8, "비밀번호는 8자리 이상 입력해 주세요!")
+      .regex(passwordRegex, "영문, 숫자, 특수문자를 모두 포함해 주세요!"),
     confirmPassword: z
       .string()
-      .min(8, "8자리 이상 입력해주세요.")
-      .regex(passwordRegex, "영문, 숫자, 특수문자를 모두 포함해주세요."),
+      .min(8, "비밀번호는 8자리 이상 입력해 주세요!")
+      .regex(passwordRegex, "영문, 숫자, 특수문자를 모두 포함해 주세요!"),
   })
   .refine(
     ({ password, confirmPassword }) => {
       return password === confirmPassword;
     },
     {
-      message: "비밀번호가 일치하지 않습니다.",
+      message: "비밀번호가 일치하지 않아요.",
       path: ["confirmPassword"],
     },
   );
@@ -93,7 +93,7 @@ function SignUpForm() {
       className="grid gap-4 w-full px-4 py-2"
       onSubmit={handleSubmit(signUp)}
     >
-      <span className="text-2xl font-bold mb-2">회원가입</span>
+      <span className="text-2xl font-bold mb-2">회원가입하기</span>
       <div className="grid gap-2">
         <Label className="text-muted-foreground">이메일</Label>
         <Input
@@ -123,12 +123,14 @@ function SignUpForm() {
       </div>
 
       <Button type="submit" className="w-full text-md">
-        회원가입
+        회원가입하기
       </Button>
       <div className="flex justify-center items-center gap-x-2 text-sm ">
         <span className="text-muted-foreground">{`${LOGO_TEXT} 계정이 이미 있으신가요?`}</span>
         <Link href={PATH_NAME.signIn}>
-          <Button variant="link">로그인하기</Button>
+          <Button variant="link" className="p-2">
+            로그인
+          </Button>
         </Link>
       </div>
     </form>

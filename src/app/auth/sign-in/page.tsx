@@ -39,7 +39,9 @@ function Page() {
             <div className="flex justify-center items-center gap-x-2 text-sm">
               <span className="text-muted-foreground">{`아직 ${LOGO_TEXT} 계정이 없으신가요?`}</span>
               <Link href={PATH_NAME.signUp}>
-                <Button variant="link">회원가입하기</Button>
+                <Button variant="link" className="p-2">
+                  회원가입
+                </Button>
               </Link>
             </div>
           </div>

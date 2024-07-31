@@ -27,7 +27,7 @@ const GithubSignIn = () => {
 
   return (
     <Button variant="outline" className="w-full text-md" onClick={signIn}>
-      깃허브 로그인
+      깃허브로 로그인하기
     </Button>
   );
 };
