@@ -29,17 +29,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
 import { PATH_NAME } from "@/constants/link";
 import { useGetAuthUser } from "@/services/auth/useGetAuthUser";
 import useDeletePost from "@/services/post/useDeletePost";
 
 const PostUpdateMenu = () => {
   const { replace } = useRouter();
+  const { toast } = useToast();
   const { data: creator } = useGetAuthUser();
   const { id: postId } = useParams<{ id: string }>();
   const { mutate: deletePost } = useDeletePost({
     onSuccess: () => {
-      console.log("토스트 메시지");
+      toast({
+        title: "포스트 삭제 완료",
+        description: "포스트가 삭제되었어요! 프로필 페이지로 이동합니다 😊",
+      });
       replace(`${PATH_NAME.profile}/${creator?.id}`);
     },
   });
@@ -76,9 +81,9 @@ const PostUpdateMenu = () => {
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>포스트를 삭제하시겠습니까?</AlertDialogTitle>
+          <AlertDialogTitle>포스트를 삭제할까요?</AlertDialogTitle>
           <AlertDialogDescription>
-            포스트 삭제 시 복구할 수 없습니다.
+            삭제된 포스트는 복구할 수 없어요.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
