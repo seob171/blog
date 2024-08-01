@@ -67,6 +67,7 @@ function SavedEditor() {
     [content, title, updatePost],
   );
 
+  // @TODO : UX 향상을 위해 저장시간을 사용자별로 설정 가능하도록 고도화하기
   const debouncedUpdate = useDebounceCallback(handleUpdate, 60_000);
 
   return (

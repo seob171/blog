@@ -43,9 +43,9 @@ const PostUpdateMenu = () => {
     onSuccess: () => {
       toast({
         title: "포스트 삭제 완료",
-        description: "포스트가 삭제되었어요! 프로필 페이지로 이동합니다 😊",
+        description: `포스트가 삭제되었어요! ${creator ? "프로필 페이지" : "홈으"}로 이동합니다 😊`,
       });
-      replace(`${PATH_NAME.profile}/${creator?.id}`);
+      replace(creator ? `${PATH_NAME.profile}/${creator?.id}` : PATH_NAME.home);
     },
   });
 
