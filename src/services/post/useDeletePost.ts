@@ -7,6 +7,7 @@ import {
 import { AxiosError } from "axios";
 import { useParams } from "next/navigation";
 
+import { useToast } from "@/components/ui/use-toast";
 import axiosInstance from "@/lib/api";
 import { PrismaModels } from "@/lib/prisma";
 import { POST_QUERY_KEY } from "@/services/post/queryOptions";
@@ -22,6 +23,7 @@ const useDeletePost = <
     "mutationFn"
   >,
 ): UseMutationResult<TData, TError, TVariable, TContext> => {
+  const { toast } = useToast();
   const queryClient = useQueryClient();
   const { id: postId } = useParams<{ id: string }>();
 
@@ -52,6 +54,10 @@ const useDeletePost = <
         POST_QUERY_KEY.itemList(),
         context?.previousPostList ?? [],
       );
+      toast({
+        title: "포스트 삭제 실패",
+        description: "포스트 삭제에 실패했어요. 잠시 후 다시 시도해주세요 🙏",
+      });
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
