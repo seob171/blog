@@ -17,11 +17,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { fileSchema } from "@/constants/image";
+import { PrismaModels } from "@/lib/prisma";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/client";
 
 type Props = {
   uploadPost: SubmitHandler<PostUploadFormData>;
+  data?: Partial<PrismaModels["posts"]>;
 };
 
 const schema = z.object({
@@ -32,7 +34,7 @@ const schema = z.object({
 
 export type PostUploadFormData = z.infer<typeof schema>;
 
-function PostUploadForm({ uploadPost }: Props) {
+function PostUploadForm({ uploadPost, data = {} }: Props) {
   const [imageFileErrorMessage, setImageFileErrorMessage] = useState("");
 
   const supabase = createClient();
@@ -44,9 +46,9 @@ function PostUploadForm({ uploadPost }: Props) {
     formState: { isSubmitting, isValid },
   } = useForm<PostUploadFormData>({
     defaultValues: {
-      description: "",
-      thumbnailUrl: "",
-      published: false,
+      description: data.description ?? "",
+      thumbnailUrl: data.thumbnail_url ?? "",
+      published: data.published ?? false,
     },
     resolver: zodResolver(schema),
   });

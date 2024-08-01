@@ -91,7 +91,7 @@ function SavedEditor() {
             <PostUploadButton
               trigger={<Button disabled={!title}>업로드</Button>}
             >
-              <PostUploadForm uploadPost={handleUpload} />
+              <PostUploadForm uploadPost={handleUpload} data={data} />
             </PostUploadButton>
           </div>
         }
