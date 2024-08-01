@@ -24,7 +24,7 @@ function GNB({ className, ...props }: Props) {
   return (
     <nav
       className={cn(
-        "flex items-center justify-between gap-2 px-4 py-2 bg-background",
+        "flex items-center justify-between gap-2 px-4 py-2 bg-background z-gnb",
         className,
       )}
       {...props}

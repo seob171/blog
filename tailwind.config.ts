@@ -20,8 +20,9 @@ const config = {
     zIndex: {
       general: "1",
       back: "-1",
-      floating: "5",
-      modal: "10",
+      gnb: "5",
+      floating: "10",
+      modal: "15",
     },
     screens: {
       sm: "450px",
