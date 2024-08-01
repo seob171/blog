@@ -67,7 +67,7 @@ function SavedEditor() {
     [content, title, updatePost],
   );
 
-  const debouncedUpdate = useDebounceCallback(handleUpdate, 5_000);
+  const debouncedUpdate = useDebounceCallback(handleUpdate, 60_000);
 
   return (
     <>
