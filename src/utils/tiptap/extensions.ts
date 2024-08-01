@@ -53,6 +53,7 @@ export const EXTENSIONS: Extensions = [
     openOnClick: true,
     autolink: true,
     protocols: ["https", "http"],
+    HTMLAttributes: { class: "text-primary" },
   }),
   TaskList.configure({}),
   TaskItem.configure({

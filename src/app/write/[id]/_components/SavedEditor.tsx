@@ -3,6 +3,7 @@
 import { ComponentProps, useCallback, useState } from "react";
 
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
 import { useDebounceCallback } from "usehooks-ts";
@@ -15,17 +16,21 @@ import BottomBar from "@/components/nav/BottomBar";
 import EditorComponent from "@/components/tiptap/EditorComponent";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { PATH_NAME } from "@/constants/link";
 import useGetPost from "@/services/post/useGetPost";
 import useUpdatePost from "@/services/post/useUpdatePost";
 
 function SavedEditor() {
   const { toast } = useToast();
+  const { replace } = useRouter();
   const { data } = useGetPost();
 
   const [title, setTitle] = useState(data?.title ?? "");
 
   const { mutateAsync: updatePost } = useUpdatePost({
     onSuccess: (_, { published }) => {
+      if (data?.id) replace(`${PATH_NAME.post}/${data.id}`);
+
       toast({
         title: published ? "저장 완료! 🎉" : "임시 저장 완료 😊",
         description: published
@@ -91,7 +96,7 @@ function SavedEditor() {
             <PostUploadButton
               trigger={<Button disabled={!title}>업로드</Button>}
             >
-              <PostUploadForm uploadPost={handleUpload} />
+              <PostUploadForm uploadPost={handleUpload} data={data} />
             </PostUploadButton>
           </div>
         }

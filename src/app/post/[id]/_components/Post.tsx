@@ -34,7 +34,7 @@ function Post() {
   );
 
   return (
-    <div className="flex flex-col gap-y-6 mt-24 px-4">
+    <div className="flex flex-col gap-y-6 mt-24 px-4 pb-20">
       <span className="text-5xl font-bold">{post?.title}</span>
       <span className="text-muted-foreground">{post?.description}</span>
       <div className="flex items-center justify-between">
