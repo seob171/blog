@@ -46,9 +46,9 @@ function PostUploadForm({ uploadPost, data = {} }: Props) {
     formState: { isSubmitting, isValid },
   } = useForm<PostUploadFormData>({
     defaultValues: {
-      description: data.description ?? "",
-      thumbnailUrl: data.thumbnail_url ?? "",
-      published: data.published ?? false,
+      description: data?.description ?? "",
+      thumbnailUrl: data?.thumbnail_url ?? "",
+      published: data?.published ?? false,
     },
     resolver: zodResolver(schema),
   });
