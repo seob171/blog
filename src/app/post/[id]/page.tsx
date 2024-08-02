@@ -7,10 +7,20 @@ import GNB from "@/components/nav/GNB";
 import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
 import { getAuthUser } from "@/services/auth/server/route";
 import { POST_QUERY_KEY } from "@/services/post/queryOptions";
-import { getPost } from "@/services/post/route";
+import { getManyPost, getPost } from "@/services/post/route";
 import { USER_QUERY_KEY } from "@/services/user/queryOptions";
 import { getUser } from "@/services/user/route";
 import { getQueryClient } from "@/utils/queryClient";
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const posts = await getManyPost();
+
+  return posts.map((post) => ({
+    id: post.id,
+  }));
+}
 
 type Props = {
   params: { id: string };
