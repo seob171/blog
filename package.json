@@ -5,7 +5,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "web": "turbo --filter web"
+    "web": "turbo --filter web",
+    "blog": "turbo --filter blog"
   },
   "devDependencies": {
     "turbo": "latest"
