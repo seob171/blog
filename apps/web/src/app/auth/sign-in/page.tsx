@@ -3,7 +3,7 @@ import React, { use } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import GithubSignIn from "@/app/auth/sign-in/_components/GithubSignIn";
+import GithubSignIn from "./_components/GithubSignIn";
 import SignInForm from "@/app/auth/sign-in/_components/SignInForm";
 import Back from "@/components/common/Back";
 import TopBar from "@/components/nav/TopBar";

@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { jwtDecode } from "jwt-decode";
 import { NextRequest, NextResponse } from "next/server";
 
-import { isValidBody } from "@/types/post.type";
+import { isValidBody } from "../../../types/post.type";
 
 const prisma = new PrismaClient();
 
