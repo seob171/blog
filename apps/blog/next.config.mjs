@@ -3,6 +3,7 @@ import createMDX from '@next/mdx'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    transpilePackages: ["next-mdx-remote"],
     compiler: {
         removeConsole:
             process.env.NODE_ENV === "production"
