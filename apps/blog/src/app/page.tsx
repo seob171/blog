@@ -1,15 +1,13 @@
-import { getPostList } from "@/utils/getPostList";
 import PostList from "@/app/components/PostList";
+import { getBlogPosts } from "@/utils/getBlogPosts";
 
 const Page = () => {
-  const postList = getPostList();
+  const posts = getBlogPosts();
 
   return (
-    <main className={"flex justify-center"}>
-      <section className={"max-w-screen-md w-full"}>
-        <PostList data={postList} />
-      </section>
-    </main>
+    <div className="flex items-end justify-between my-8">
+      <PostList posts={posts} />
+    </div>
   );
 };
 
