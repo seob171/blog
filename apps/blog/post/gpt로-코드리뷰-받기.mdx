@@ -18,7 +18,7 @@ publishedAt: 2024.08.01
 ### 2. Github에 API 키 등록
 발급받은 key를 코드리뷰 봇을 연동할 레포지토리의 Settings > Secrets and Variables > Actions 로 접근해 Secret을 등록해야 하는데, 나는 `OPENAI_API_KEY`d로 저장했다.
 
-<img src="/assets/github-secret-action.png" width="100%" height="auto" alt="open api key 저장 이미지"/>
+<img src="/assets/깃허브-시크릿-키-등록.png" width="100%" height="auto" alt="open api key 저장 이미지"/>
 
 ### 3. Github 워크플로우 작성
 
@@ -61,13 +61,13 @@ jobs:
 작성이 끝나면 해당 내용을 레포지토리에 push하면 된다. 초기 18$를 지급해주는데 유효기간이 존재하는 것 같고 내가 등록할 때는 유효기간이 지난 시점이라 테스트 겸 10$를 결제해서 사용했다.
 
 <br/>
-<img src={'/assets/monthly-bill.png'} width={'580px'} height={'auto'} alt={'gpt 사용량 확인 이미지'} className="mx-auto"/>
+<img src={'/assets/gpt-월간-사용량.png'} width={'580px'} height={'auto'} alt={'gpt 사용량 확인 이미지'} className="mx-auto"/>
 
 사용량 확인은 [여기](https://platform.openai.com/organization/usage)서 하면 되고, 결제수단을 등록한다면 빌링을 설정해서 과금이 발생하지 않도록 주의하자.
 
 ### 4. 코드리뷰 후기
 
-<img src={'/assets/code-review.png'} width={'580px'} height={'auto'} alt={'Pull Request 코드리뷰 이미지'} className="mx-auto"/>
+<img src={'/assets/코드리뷰.png'} width={'580px'} height={'auto'} alt={'Pull Request 코드리뷰 이미지'} className="mx-auto"/>
 <br/>
 전체코드를 분석하는게 아니라 리뷰어가 변경점 외에 앞뒤 맥락을 모르니 올바르지 않은 리뷰를 제공하기도 했는데, 생각지 못한 부분에서 체크를 해줄 때가 있어서 개인 프로젝트에는 사용할 법 했다.
 

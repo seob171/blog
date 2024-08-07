@@ -9,6 +9,7 @@ type Metadata = {
   publishedAt: string;
   summary: string;
   image?: string;
+  tags: string[];
 };
 
 export type MdxData = {
@@ -36,6 +37,7 @@ function getMDXData(dir: string): MdxData[] {
       publishedAt: frontMatter?.publishedAt ?? dayjs().format("YYYY-MM-DD"),
       summary: frontMatter?.summary ?? "",
       image: frontMatter?.image,
+      tags: frontMatter?.tags ?? [],
     } as Metadata;
 
     return {
