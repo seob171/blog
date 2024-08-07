@@ -35,7 +35,7 @@ const Post = ({ post }: Props) => {
               <li
                 key={tag}
                 className={cn(
-                  "py-1 px-2 bg- text-white rounded-md text-sm font-semibold",
+                  "py-1 px-2 text-white rounded-md text-sm font-semibold",
                   bgColors[index % bgColors.length],
                 )}
               >
