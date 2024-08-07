@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 
-import matter from "gray-matter";
 import dayjs from "dayjs";
+import matter from "gray-matter";
 
 type Metadata = {
   title: string;
