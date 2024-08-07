@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import matter from "gray-matter";
+import dayjs from "dayjs";
 
 type Metadata = {
   title: string;
@@ -28,10 +29,17 @@ function readMDXFile(filePath: string) {
 function getMDXData(dir: string): MdxData[] {
   const mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file): MdxData => {
-    const { data, content } = readMDXFile(path.join(dir, file));
+    const { data: frontMatter, content } = readMDXFile(path.join(dir, file));
     const slug = path.basename(file, path.extname(file));
+    const data = {
+      title: frontMatter?.title ?? "",
+      publishedAt: frontMatter?.publishedAt ?? dayjs().format("YYYY-MM-DD"),
+      summary: frontMatter?.summary ?? "",
+      image: frontMatter?.image,
+    } as Metadata;
+
     return {
-      data: data as Metadata,
+      data,
       slug,
       content,
     };
