@@ -28,11 +28,7 @@ const PostList = ({ posts }: { posts: MdxData[] }) => {
             <TableCell>{title}</TableCell>
             {/* <TableCell className="text-right">{0}</TableCell> */}
             <TableCell className="absolute top-0 left-0 w-full h-full p-0">
-              <Link
-                key={`${slug}`}
-                href={`/post/${slug}`}
-                className="block size-full"
-              />
+              <Link href={`/post/${slug}`} className="block size-full" />
             </TableCell>
           </TableRow>
         ))}
