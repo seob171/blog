@@ -5,11 +5,9 @@ const Page = () => {
   const posts = getBlogPosts();
 
   return (
-    <main className="flex justify-center">
-      <section className="max-w-screen-md w-full">
-        <PostList posts={posts} />
-      </section>
-    </main>
+    <div className="flex items-end justify-between my-8">
+      <PostList posts={posts} />
+    </div>
   );
 };
 

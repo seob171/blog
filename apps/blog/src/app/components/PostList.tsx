@@ -15,10 +15,10 @@ const PostList = ({ posts }: { posts: MdxData[] }) => {
   return (
     <Table>
       <TableHeader>
-        <TableRow>
-          <TableHead className="w-[130px]">날짜</TableHead>
-          <TableHead>제목</TableHead>
-          <TableHead className="w-[70px] text-right">조회수</TableHead>
+        <TableRow className="hover:bg-transparent cursor-default">
+          <TableHead className="w-[130px]">Date</TableHead>
+          <TableHead>Title</TableHead>
+          {/* <TableHead className="w-[70px] text-right">조회수</TableHead> */}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -26,7 +26,7 @@ const PostList = ({ posts }: { posts: MdxData[] }) => {
           <TableRow key={`${slug}`} className="relative">
             <TableCell>{dayjs(publishedAt).format("YYYY-MM-DD")}</TableCell>
             <TableCell>{title}</TableCell>
-            <TableCell className="text-right">{0}</TableCell>
+            {/* <TableCell className="text-right">{0}</TableCell> */}
             <TableCell className="absolute top-0 left-0 w-full h-full p-0">
               <Link
                 key={`${slug}`}
