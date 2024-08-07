@@ -12,7 +12,7 @@ const GNB = () => {
   const isDarkMode = false;
 
   return (
-    <section className="flex items-center justify-between w-screen-">
+    <section className="flex items-center justify-between">
       <Link href={PATH_NAME.index} className="text-lg font-bold">
         {NAME}
       </Link>

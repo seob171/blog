@@ -16,7 +16,7 @@ const Page = ({ params }: Props) => {
     (post) => post.slug === decodeURI(params.slug),
   );
 
-  if (!post) notFound();
+  if (!post) return notFound();
 
   return (
     <main className="flex justify-center">
