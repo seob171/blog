@@ -2,42 +2,26 @@ import dayjs from "dayjs";
 import Link from "next/link";
 
 import { PATH_NAME } from "@/app/constants/router";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { MdxData } from "@/utils/getBlogPosts";
 
 const PostList = ({ posts }: { posts: MdxData[] }) => {
   return (
-    <Table>
-      <TableHeader>
-        <TableRow className="hover:bg-transparent cursor-default">
-          <TableHead className="w-[130px]">Date</TableHead>
-          <TableHead>Title</TableHead>
-          {/* <TableHead className="w-[70px] text-right">조회수</TableHead> */}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {posts.map(({ data: { title, publishedAt }, slug }) => (
-          <TableRow key={`${slug}`} className="relative">
-            <TableCell>{dayjs(publishedAt).format("YYYY-MM-DD")}</TableCell>
-            <TableCell>{title}</TableCell>
-            {/* <TableCell className="text-right">{0}</TableCell> */}
-            <TableCell className="absolute top-0 left-0 w-full h-full p-0">
-              <Link
-                href={`${PATH_NAME.post}/${slug}`}
-                className="block size-full"
-              />
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <section className="[&>*]:grid [&>*]:grid-cols-[minmax(auto,130px)_1fr] [&>*:not(:last-child)]:border-b w-full [&_span]:p-2">
+      <div className="text-muted-foreground">
+        <span>Date</span>
+        <span>Title</span>
+      </div>
+      {posts.map(({ data: { title, publishedAt }, slug }) => (
+        <Link
+          key={slug}
+          href={`${PATH_NAME.post}/${slug}`}
+          className="hover:bg-muted cursor-pointer"
+        >
+          <span>{dayjs(publishedAt).format("YYYY-MM-DD")}</span>
+          <span>{title}</span>
+        </Link>
+      ))}
+    </section>
   );
 };
 

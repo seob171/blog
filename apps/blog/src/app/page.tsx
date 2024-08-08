@@ -5,7 +5,7 @@ const Page = () => {
   const posts = getBlogPosts();
 
   return (
-    <div className="flex items-end justify-between my-8">
+    <div className="flex flex-1 my-8">
       <PostList posts={posts} />
     </div>
   );
