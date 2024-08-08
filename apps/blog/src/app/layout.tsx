@@ -5,6 +5,7 @@ import GNB from "@/app/components/GNB";
 import { META_DATA } from "@/app/constants/metadata";
 import { pretendard } from "@/app/fonts";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/provider/ThemeProvider";
 
 export const metadata: Metadata = {
   title: META_DATA.title,
@@ -28,10 +29,17 @@ export default function RootLayout({
       <body
         className={cn(pretendard.variable, "max-w-screen-md w-full mx-auto")}
       >
-        <main className="flex flex-col gap-y-5 min-h-screen p-6">
-          <GNB />
-          {children}
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="flex flex-col gap-y-5 min-h-screen p-6">
+            <GNB />
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
