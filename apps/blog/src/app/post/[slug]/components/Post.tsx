@@ -43,12 +43,14 @@ const Post = ({ post }: Props) => {
               </li>
             ))}
           </ul>
-          <h3 className="text-2xl font-bold">{title}</h3>
+          <div className="prose dark:prose-invert">
+            <h1>{title}</h1>
+          </div>
           <span className="text-muted-foreground text-sm">{publishedAt}</span>
         </div>
       </div>
 
-      <section className="markdown-body pb-10">
+      <section className="prose dark:prose-invert [&_a]:text-primary pb-10">
         <MDXRemote source={content} />
       </section>
     </div>
