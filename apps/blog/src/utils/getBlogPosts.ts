@@ -29,7 +29,7 @@ function readMDXFile(filePath: string) {
 
 function getMDXData(dir: string): MdxData[] {
   const mdxFiles = getMDXFiles(dir);
-  return mdxFiles.map((file): MdxData => {
+  const MdxDataList = mdxFiles.map((file): MdxData => {
     const { data: frontMatter, content } = readMDXFile(path.join(dir, file));
     const slug = path.basename(file, path.extname(file));
     const data = {
@@ -45,6 +45,11 @@ function getMDXData(dir: string): MdxData[] {
       slug,
       content,
     };
+  });
+
+  return MdxDataList.sort((a, b) => {
+    if (new Date(a.data.publishedAt) > new Date(b.data.publishedAt)) return -1;
+    return 1;
   });
 }
 
