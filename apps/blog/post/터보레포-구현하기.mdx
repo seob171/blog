@@ -29,15 +29,15 @@ publishedAt: 2023.12.22
 ├── prisma
 ├── public
 ├── src
-│   ├── app
-│   ├── components
-│   ├── constants
-│   ├── fonts
-│   ├── lib
-│   ├── providers
-│   ├── services
-│   ├── types
-│   └── utils
+│    ├── app
+│    ├── components
+│    ├── constants
+│    ├── fonts
+│    ├── lib
+│    ├── providers
+│    ├── services
+│    ├── types
+│    └── utils
 ├── tailwind.config.ts
 └── tsconfig.json
 ```
@@ -60,8 +60,8 @@ turbo를 설치하고 디렉토리 구조를 아래와 같이 변경 후, 기존
 ```
 ./
 ├── apps
-│   ├── blog
-│   └── web
+│    ├── blog
+│    └── web
 ├── packages
 └── turbo.json
 ```
@@ -70,8 +70,7 @@ turbo를 설치하고 디렉토리 구조를 아래와 같이 변경 후, 기존
 
 이주 후 root 경로에 [turbo.json](https://turbo.build/repo/docs/getting-started/add-to-existing-repository#add-a-turbojson-file)을 추가하고
 
-```yaml
-# turbo.json
+```json
 {
     "$schema": "https://turbo.build/schema.json",
         "tasks": {
@@ -92,8 +91,7 @@ turbo를 설치하고 디렉토리 구조를 아래와 같이 변경 후, 기존
 
 [package.json](https://turbo.build/repo/docs/crafting-your-repository/structuring-a-repository#root-packagejson)도 추가하자.
 
-```yaml
-# package.json
+```json
 {
   "private": true,
   "scripts": {
@@ -122,14 +120,11 @@ packages:
 
 나는 apps/ 하위에 이주한 web과 blog를 root 경로에서 편하게 실행하기 위해 script를 추가했다.
 
-```yaml
-# package.json
+```json
 {
   "script":{
-    ...
     "web": "turbo --filter web",
     "blog": "turbo --filter blog"
-    ...
   }
 }
 ```
@@ -137,12 +132,10 @@ packages:
 ---
 추가적으로 기존 프로젝트에서 husky와 prisma를 사용했었는데, 폴더를 그대로 옮기다가 초기 설치 경로에 설정된 파일들의 위치와 현재 위치가 불일치하여 오류가 발생했다.
 
-아마 에러 메시지는
-> Error: .git can't be found
-> husky - .git can't be found
-> "postinstall": "node -e \"if(require('fs').existsSync('.git')){process.exit(1)}\" || is-ci || husky install",
+에러 메시지는 아래와 같이 나왔다.
+> . prepare$ husky
+│ .git can't be found
 
-이런 형식이였던 것 같은데.. 캡쳐하지 못했다.
 
 구글 서칭을 해보니 Husky 디렉토리까지 통채로 옮겨서 발생한 문제였다. Husky가 실행 가능한 구조가 package.json 파일과 .git 디렉토리가 같은 레벨에 있어야 하는데 위치가 맞지 않아서 발생한 오류였다. [참고](https://www.inflearn.com/community/questions/1112824/husky)
 
