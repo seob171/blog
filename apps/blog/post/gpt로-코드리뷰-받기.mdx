@@ -24,10 +24,7 @@ publishedAt: 2024.08.01
 
 코드리뷰 gpt는 많은 개발자분들이 개발해주셔서 다양하게 있을텐데, 나는 대부분이 사용하고 자료도 많은 중국인 개발자가 개발한 [코드리뷰 gpt](https://github.com/anc95/ChatGPT-CodeReview)를 사용하기로 했다.
 
-```yml
-
-# .github/workflows/code_review.yml 파일 생성
-
+```yml title=".github/workflows/code_review.yml"
 name: Code Review From ChatGPT
 
 permissions:
@@ -48,7 +45,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGUAGE: Korean
           MODEL: gpt-4o-mini
-
 ```
 
 파일명과 name은 원하는 이름으로 설정할 수 있다.
