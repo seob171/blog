@@ -9,7 +9,7 @@
     "postinstall": "prisma generate",
     "format": "prettier --cache --write .",
     "lint": "next lint .",
-    "prepare": "husky"
+    "prepare": "cd ../.. && husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,scss}": [
@@ -68,7 +68,6 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
     "eslint-config-prettier": "^9.1.0",
-    "husky": "^9.1.4",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.394.0",
     "next": "14.2.3",
@@ -101,6 +100,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.34.4",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "husky": "^9.1.4",
     "lint-staged": "^15.2.7",
     "postcss": "^8",
     "prettier": "^3.3.2",

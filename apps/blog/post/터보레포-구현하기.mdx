@@ -146,4 +146,11 @@ packages:
 
 구글 서칭을 해보니 Husky 디렉토리까지 통채로 옮겨서 발생한 문제였다. Husky가 실행 가능한 구조가 package.json 파일과 .git 디렉토리가 같은 레벨에 있어야 하는데 위치가 맞지 않아서 발생한 오류였다. [참고](https://www.inflearn.com/community/questions/1112824/husky)
 
-.git 파일을 제거하고 husky와 prisma를 init 후 재설정 하니 정상동작되었다.
+husky 실행 명령을 .git이 있는 root 디렉토리로 이동 후 실행하니 정상적으로 실행됐다
+```json
+{
+  "script": {
+    "prepare": "cd ../.. && husky"
+  }
+}
+```
