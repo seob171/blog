@@ -1,8 +1,7 @@
 import React from "react";
 import "github-markdown-css";
 
-import { MDXRemote } from "next-mdx-remote/rsc";
-
+import Mdx from "@/components/mdx/Mdx";
 import { cn } from "@/lib/utils";
 import { MdxData } from "@/utils/getBlogPosts";
 
@@ -53,9 +52,7 @@ const Post = ({ post }: Props) => {
         </div>
       </div>
 
-      <section className="prose dark:prose-invert [&_a]:text-primary pb-10">
-        <MDXRemote source={content} />
-      </section>
+      <Mdx source={content} />
     </div>
   );
 };
