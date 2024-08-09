@@ -22,7 +22,7 @@ const bgColors = [
 
 const Post = ({ post }: Props) => {
   const {
-    data: { title, publishedAt, tags },
+    data: { title, publishedAt, tags, summary },
     content,
   } = post;
 
@@ -46,7 +46,10 @@ const Post = ({ post }: Props) => {
           <div className="prose dark:prose-invert">
             <h1>{title}</h1>
           </div>
-          <span className="text-muted-foreground text-sm">{publishedAt}</span>
+          <span className="text-muted-foreground/50 text-sm">{summary}</span>
+          <span className="text-muted-foreground/80 text-sm">
+            {publishedAt}
+          </span>
         </div>
       </div>
 

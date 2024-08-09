@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import Link from "next/link";
 
 import { PATH_NAME } from "@/app/constants/router";
@@ -17,7 +16,7 @@ const PostList = ({ posts }: { posts: MdxData[] }) => {
           href={`${PATH_NAME.post}/${slug}`}
           className="hover:bg-muted cursor-pointer"
         >
-          <span>{dayjs(publishedAt).format("YYYY-MM-DD")}</span>
+          <span>{publishedAt}</span>
           <span>{title}</span>
         </Link>
       ))}
