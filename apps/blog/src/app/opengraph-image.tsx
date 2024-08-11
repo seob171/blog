@@ -30,37 +30,28 @@ export default async function Image() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: "column",
           backgroundColor: "white",
           height: "100%",
           width: "100%",
         }}
       >
-        <div>
-          <h1
-            style={{
-              fontSize: 92,
-              fontFamily: '"Harmond-ExtBdItaExp"',
-            }}
-          >
-            ShimYuseob's
-          </h1>
-          <span
-            style={{
-              fontSize: 52,
-              fontFamily: '"Harmond-SemBdItaCond"',
-            }}
-          >
-            blog
-          </span>
-        </div>
-        <span
+        <h1
           style={{
-            fontSize: 40,
-            fontFamily: '"Harmond-SemBdItaCond"',
+            fontSize: 92,
+            fontFamily: '"HarmondExtBdItaExp"',
           }}
         >
-          https://shimyuseob.xyz
+          ShimYuseob
+        </h1>
+        <span
+          style={{
+            fontSize: 52,
+            fontFamily: '"HarmondSemBdItaCond"',
+            paddingTop: 20,
+          }}
+        >
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
+          's blog
         </span>
       </div>
     ),
