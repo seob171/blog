@@ -2,22 +2,12 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import GNB from "@/app/components/GNB";
-import { META_DATA } from "@/app/constants/metadata";
+import { DEFAULT_METADATA } from "@/app/constants/metadata";
 import { pretendard } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/provider/ThemeProvider";
 
-export const metadata: Metadata = {
-  title: META_DATA.title,
-  description: META_DATA.description,
-  openGraph: {
-    title: META_DATA.title,
-    description: META_DATA.description,
-    url: META_DATA.url,
-    siteName: META_DATA.title,
-  },
-  metadataBase: new URL(META_DATA.url),
-};
+export const metadata: Metadata = DEFAULT_METADATA;
 
 export default function RootLayout({
   children,
