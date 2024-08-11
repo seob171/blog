@@ -1,6 +1,7 @@
 import React from "react";
 import "github-markdown-css";
 
+import { BG_COLORS } from "@/app/constants/color";
 import Mdx from "@/components/mdx/Mdx";
 import { cn } from "@/lib/utils";
 import { MdxData } from "@/utils/getBlogPosts";
@@ -8,16 +9,6 @@ import { MdxData } from "@/utils/getBlogPosts";
 type Props = {
   post: MdxData;
 };
-
-const bgColors = [
-  "bg-amber-400",
-  "bg-emerald-400",
-  "bg-blue-400",
-  "bg-red-400",
-  "bg-cyan-400",
-  "bg-pink-400",
-  "bg-violet-400",
-];
 
 const Post = ({ post }: Props) => {
   const {
@@ -30,12 +21,12 @@ const Post = ({ post }: Props) => {
       <div className="flex items-end justify-between my-8">
         <div className="flex flex-col gap-y-2">
           <ul className="flex gap-x-2 items-center">
-            {(tags ?? []).map((tag, index) => (
+            {(tags ?? []).map((tag) => (
               <li
                 key={tag}
                 className={cn(
                   "py-1 px-2 text-white rounded-md text-sm font-semibold",
-                  bgColors[index % bgColors.length],
+                  `bg-${BG_COLORS[tag.charCodeAt(0) % BG_COLORS.length]}-400`,
                 )}
               >
                 {tag}
