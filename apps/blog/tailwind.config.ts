@@ -26,6 +26,7 @@ const config = {
     extend: {
       fontFamily: {
         pretendard: ["var(--font-pretendard)"],
+        harmondExtBdIta: ["var(--font-harmondExtBdIta)"],
       },
       colors: {
         border: "hsl(var(--border))",

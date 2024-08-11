@@ -6,3 +6,10 @@ export const pretendard = localFont({
   weight: "45 920",
   variable: "--font-pretendard",
 });
+
+export const harmondExtBdIta = localFont({
+  src: "../fonts/Harmond-ExtBdItaExp.otf",
+  display: "swap",
+  weight: "45 920",
+  variable: "--font-harmondExtBdIta",
+});

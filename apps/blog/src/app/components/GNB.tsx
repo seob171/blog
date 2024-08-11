@@ -21,7 +21,10 @@ const GNB = () => {
 
   return (
     <section className="flex items-center justify-between">
-      <Link href={PATH_NAME.index} className="text-lg font-bold">
+      <Link
+        href={PATH_NAME.index}
+        className="text-lg font-bold font-harmondExtBdIta"
+      >
         {NAME}
       </Link>
       <div className="flex gap-x-1">

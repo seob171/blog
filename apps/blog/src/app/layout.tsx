@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import GNB from "@/app/components/GNB";
 import { DEFAULT_METADATA } from "@/app/constants/metadata";
-import { pretendard } from "@/app/fonts";
+import { pretendard, harmondExtBdIta } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/provider/ThemeProvider";
 
@@ -46,7 +46,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn(pretendard.variable, "max-w-screen-md w-full mx-auto")}
+        className={cn(
+          harmondExtBdIta.variable,
+          pretendard.variable,
+          "max-w-screen-md w-full mx-auto",
+        )}
       >
         <ThemeProvider
           attribute="class"
