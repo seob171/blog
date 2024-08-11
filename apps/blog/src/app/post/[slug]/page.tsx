@@ -1,9 +1,9 @@
 import React from "react";
 
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import { DEFAULT_META, META_DATA } from "@/app/constants/metadata";
+import { DEFAULT_META } from "@/app/constants/metadata";
 import { PATH_NAME } from "@/app/constants/router";
 import Post from "@/app/post/[slug]/components/Post";
 import { getBlogPosts } from "@/utils/getBlogPosts";
@@ -23,7 +23,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const post = getBlogPosts().find(
     (post) => post.slug === decodeURI(params.slug),
   );
@@ -34,6 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     data: { title, summary, image },
   } = post;
 
+  const previousImages = (await parent).openGraph?.images || [];
+
   return {
     title,
     description: summary,
@@ -43,7 +48,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${PATH_NAME.post}/${post.slug}`,
       siteName: title,
       images: [
-        ...META_DATA.openGraph.images,
         {
           url: `${image}`,
           alt: `${title}`,
@@ -51,6 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           width: 1200,
           height: 630,
         },
+        ...previousImages,
       ],
     },
     alternates: {
