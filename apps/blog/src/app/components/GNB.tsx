@@ -25,11 +25,16 @@ const GNB = () => {
         {NAME}
       </Link>
       <div className="flex gap-x-1">
-        <Button variant="outline" size="icon" onClick={toggleTheme}>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleTheme}
+          aria-label="Theme mode toggle button"
+        >
           {isDarkMode ? <SunIcon /> : <MoonIcon />}
         </Button>
-        <Link href={OUT_LINK.github}>
-          <Button variant="outline" size="icon">
+        <Link href={OUT_LINK.github} aria-label="blog owner github link">
+          <Button variant="outline" size="icon" aria-label="icon button">
             <GitHubLogoIcon />
           </Button>
         </Link>
