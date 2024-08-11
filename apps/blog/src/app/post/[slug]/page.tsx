@@ -11,6 +11,15 @@ type Props = {
   };
 };
 
+// Return a list of `params` to populate the [slug] dynamic segment
+export async function generateStaticParams() {
+  const posts = getBlogPosts();
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
 const Page = ({ params }: Props) => {
   const post = getBlogPosts().find(
     (post) => post.slug === decodeURI(params.slug),
