@@ -48,6 +48,8 @@ export async function GET() {
     {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageResponse's width and height.
+      width: 1200,
+      height: 630,
       fonts: [
         {
           name: "HarmondExtBdItaExp",
