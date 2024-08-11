@@ -106,7 +106,7 @@ const mdxComponents = {
 
 const Mdx = ({ source, components }: ComponentProps<typeof MDXRemote>) => {
   return (
-    <section className="prose dark:prose-invert [&_a]:no-underline pb-10">
+    <section className="prose dark:prose-invert [&_a]:no-underline pb-10 !max-w-none">
       <MDXRemote
         source={source}
         components={{ ...components, ...mdxComponents }}
