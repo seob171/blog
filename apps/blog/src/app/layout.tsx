@@ -7,7 +7,36 @@ import { pretendard } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/provider/ThemeProvider";
 
-export const metadata: Metadata = DEFAULT_METADATA;
+export const metadata: Metadata = {
+  ...DEFAULT_METADATA,
+  icons: [
+    {
+      url: "/favicon/favicon-16.png",
+      sizes: "16x16",
+      type: "image/png",
+    },
+    {
+      url: "/favicon/favicon-32.png",
+      sizes: "32x32",
+      type: "image/png",
+    },
+    {
+      url: "/favicon/android-chrome-192.png",
+      sizes: "192x192",
+      type: "image/png",
+    },
+    {
+      url: "/favicon/android-chrome-512.png",
+      sizes: "512x512",
+      type: "image/png",
+    },
+    {
+      url: "/favicon/apple-touch-icon.png",
+      sizes: "512x512",
+      type: "image/png",
+    },
+  ],
+};
 
 export default function RootLayout({
   children,
