@@ -1,4 +1,8 @@
-import React, { AnchorHTMLAttributes, ComponentProps } from "react";
+import React, {
+  AnchorHTMLAttributes,
+  ComponentProps,
+  HTMLAttributes,
+} from "react";
 
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
@@ -74,6 +78,20 @@ function Heading({
   );
 }
 
+function Code({ children, className, ...props }: HTMLAttributes<HTMLElement>) {
+  return (
+    <code
+      className={cn(
+        "[p_&]:px-1.5 [p_&]:py-0.5 [p_&]:bg-secondary dark:[p_&]:text-white [p_&]:before:hidden [p_&]:after:hidden [p_&]:rounded",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </code>
+  );
+}
+
 const mdxComponents = {
   a: A,
   Image: Img,
@@ -83,6 +101,7 @@ const mdxComponents = {
   h4: (props) => <Heading level={4} {...props} />,
   h5: (props) => <Heading level={5} {...props} />,
   h6: (props) => <Heading level={6} {...props} />,
+  code: (props) => <Code {...props} />,
 } as ComponentProps<typeof MDXRemote>["components"];
 
 const Mdx = ({ source, components }: ComponentProps<typeof MDXRemote>) => {
