@@ -2,24 +2,19 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-// Image metadata
-export const alt = "Shimyuseob's blog og image";
 export const size = {
   width: 1200,
   height: 630,
 };
 
-export const contentType = "image/png";
-
-// Image generation
-export default async function Image() {
+export async function GET() {
   // Font
   const harmondExtBdItaExp = fetch(
-    new URL("../fonts/Harmond-ExtBdItaExp.otf", import.meta.url),
+    new URL("../../../fonts/Harmond-ExtBdItaExp.otf", import.meta.url),
   ).then((res) => res.arrayBuffer());
 
   const harmondSemBdItaCond = fetch(
-    new URL("../fonts/Harmond-SemBdItaCond.otf", import.meta.url),
+    new URL("../../../fonts/Harmond-SemBdItaCond.otf", import.meta.url),
   ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
@@ -55,7 +50,6 @@ export default async function Image() {
         </span>
       </div>
     ),
-    // ImageResponse options
     {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageResponse's width and height.

@@ -1,12 +1,12 @@
 import React from "react";
 
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { DEFAULT_META, META_DATA } from "@/app/constants/metadata";
+import { PATH_NAME } from "@/app/constants/router";
 import Post from "@/app/post/[slug]/components/Post";
 import { getBlogPosts } from "@/utils/getBlogPosts";
-import type { Metadata } from "next";
-import { DEFAULT_METADATA } from "@/app/constants/metadata";
-import { PATH_NAME } from "@/app/constants/router";
 
 type Props = {
   params: {
@@ -28,26 +28,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     (post) => post.slug === decodeURI(params.slug),
   );
 
-  if (!post) return DEFAULT_METADATA;
+  if (!post) return DEFAULT_META;
 
   const {
     data: { title, summary, image },
   } = post;
 
   return {
-    title: title,
+    title,
     description: summary,
     openGraph: {
-      title: title,
+      title,
       description: summary,
       url: `${PATH_NAME.post}/${post.slug}`,
       siteName: title,
-      ...(image && {
-        images: {
+      images: [
+        ...META_DATA.openGraph.images,
+        {
           url: `${image}`,
           alt: `${title}`,
+          type: "image/png",
+          width: 1200,
+          height: 630,
         },
-      }),
+      ],
     },
     alternates: {
       canonical: `${PATH_NAME.post}/${post.slug}`,
