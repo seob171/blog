@@ -48,13 +48,13 @@ export async function generateMetadata(
       url: `${PATH_NAME.post}/${post.slug}`,
       siteName: title,
       images: [
-        {
+        ...(image && {
           url: `${image}`,
           alt: `${title}`,
           type: "image/png",
           width: 1200,
           height: 630,
-        },
+        }),
         ...previousImages,
       ],
     },
