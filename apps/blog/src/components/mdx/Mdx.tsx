@@ -72,8 +72,12 @@ function Heading({
   return React.createElement(
     tag,
     props,
-    <a className="flex gap-x-1" href={`#${props.id}`}>
+    <a
+      className="flex gap-x-1 w-fit group hover:text-muted-foreground"
+      href={`#${props.id}`}
+    >
       {children}
+      <span className="opacity-0 group-hover:opacity-100">#</span>
     </a>,
   );
 }
