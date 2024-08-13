@@ -1,0 +1,201 @@
+---
+title: seo를 위한 next js 메타데이터 설정방법
+summary: next js 14 버전(app router)에서 메타데이터 설정 및 동적으로 opengraph 이미지 연동하기
+publishedAt: 2024.08.12
+tags: ["삽질기"]
+---
+
+Next.js를 사용하는 대표적인 이유인 **SEO**를 블로그에 적용하면서 겪은 ~~삽질기~~를 기록 및 공유하고자 포스트를 작성한다.
+
+> What is SEO?
+> 
+> SEO stands for Search Engine Optimization. The goal of SEO is to **create a strategy that will increase your rankings position in search engine results**. The higher the ranking, the more organic traffic to your site, which ultimately leads to more business for you!
+
+---
+
+### 메타데이터 설정
+
+next js page router 에서는 next/head의 Head 태그내에 정의해서 설정해야 했지만 **app router**에서는 **layout** 또는 **page**에서 `metadata나` `generateMetadata`를 export 하면된다.
+
+```typescript title="정적 메타데이터 생성"
+// layout.tsx | page.tsx
+
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: '...',
+  description: '...',
+}
+ 
+export default function Page() {}
+```
+
+```typescript title="동적 메타데이터 생성"
+// layout.tsx | page.tsx
+
+import type { Metadata, ResolvingMetadata } from 'next'
+ 
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+ 
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = params.id
+ 
+  // fetch data
+  const product = await fetch(`https://.../${id}`).then((res) => res.json())
+ 
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || []
+ 
+  return {
+    title: product.title,
+    openGraph: {
+      images: ['/some-specific-page-image.jpg', ...previousImages],
+    },
+  }
+}
+ 
+export default function Page({ params, searchParams }: Props) {}
+```
+
+동적으로 생성하는 경우 args로 `params`, `searchParams`, `parent`(**부모의 메타데이터**)를 사용할 수 있다.
+
+---
+
+### favicon과 opengraph image 연동
+
+create next app 명령어로 프로젝트를 생성하면 vercel의 로고가 기본 파비콘으로 설정되어 있다. 우선 파비콘을 변경하려면 파비콘이 있어야 하는데, 나는 [favicon.io](https://favicon.io/) 여기서 파비콘을 생성했다.
+
+적당한 파비콘을 만들고 다운로드를 하면 android, apple, favicon 이름부터 png, ico 확장자명 파일, site.webmanifest 등 여러 파일이 함께생긴다.
+
+우선 파비콘을 변경해보자
+
+기본적으로 `app` 디렉토리 안에 favicon.ico 라는 파일이 있을텐데, 해당 파일을 생성한 favicon.ico로 교체해도 되지만, metadata로 전달해도 파비콘을 적용할 수 있다.
+
+나는 /public/favicon 하위로 관련 파일을 모두 넣어주고 배열 형태로 만들어서 layout의 메타데이터 > icons 로 넣어줬다.
+
+```typescript
+// /constant/metadata.ts
+export const METADATA_ICONS: Metadata["icons"] = [
+    {
+        url: "/favicon/favicon-16.png",
+        sizes: "16x16",
+        type: "image/png",
+    },
+    {
+        ...
+    },
+]
+
+// /app/layout.tsx
+export const metadata: Metadata = {
+    ...DEFAULT_META,
+    icons: METADATA_ICONS,
+};
+```
+
+여기까지 적용하면 파비콘 아이콘이 변경되어있다.
+<img src="/assets/파비콘-적용.png" width="300px" height="auto" alt="open api key 저장 이미지"/>
+
+이제 opengraph를 적용해보자. 만약 opengraph 이미지가 있다면 아래처럼 url 경로로 metadata에서 설정할 수 있다.
+
+```typescript title="메타데이터 opengraph 이미지 설정 방법"
+export const metadata: Metadata = {
+    openGraph: {
+        images: [
+            {
+                url: "/public/opengraph-image.png",
+                alt: "...",
+                type: "image/png",
+                width: 000,
+                height: 000,
+            },
+        ],
+    },
+};
+```
+
+그러나 나는 opengraph 이미지가 없어서 next.js가 제공하는 동적으로 opengraph, twitter card 등 소셜 미디어 이미지 생성자인 [ImageResponse](https://nextjs.org/docs/app/api-reference/functions/image-response) 를 사용해서 opengraph 이미지를 만들기로 했다.
+
+14버전 이전에는 `next/server`에서 import 할 수 있었고, 14버전부턴 `next/og` 에서 import 할 수 있다.
+
+예시는 [여기](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/opengraph-image) 나와있다. opengraph를 사용할 경로에 `opengraph-image.tsx`로 만들면 된다.
+
+그런데 나는 root에 opengraph-image.tsx를 만들었는데, 하위 routes에는 적용이 안됐다. 그래서 직접 경로를 넣어주기 위해 [vercel 문서](https://vercel.com/docs/functions/og-image-generation)에서 제공하는 형태인 api routes로 만들기로 했다.
+
+방법은 opengraph-image.tsx로 만드는거랑 거의 동일한데, 차이점은 next.js에서 제공하는 api routes를 사용해서 만드는 점이 다르다.
+
+```typescript
+// /api/og/route.tsx
+
+import { ImageResponse } from 'next/og';
+// App router includes @vercel/og.
+// No need to install it.
+ 
+export async function GET() {
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          fontSize: 40,
+          color: 'black',
+          background: 'white',
+          width: '100%',
+          height: '100%',
+          padding: '50px 200px',
+          textAlign: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        👋 Hello
+      </div>
+    ),
+    {
+      width: 1200,
+      height: 630,
+    },
+  );
+}
+```
+
+이렇게 구현한 api 경로를 메타데이터의 이미지 경로로 설정하면 된다.
+
+```typescript
+const metadata: Metadata = {
+    ...
+    openGraph: {
+        images: [
+            {
+                url: "/api/og",
+                alt: "Shimyuseob's blog og image",
+                type: "image/png",
+                width: 1200,
+                height: 630,
+            },
+        ],
+        ...
+```
+
+내 블로그를 예시로 보면 https://www.shimyuseob.xyz/api/og 경로에 opengraph 이미지를 확인할 수 있다.
+
+og가 잘 설정됐는지는 head의 og:image 메타태그를 보거나, https://www.opengraph.xyz/ 이곳에서도 확인할 수 있다.
+
+SEO를 다 설정하면 [구글 서치콘솔](https://search.google.com/search-console/about)에서 색인생성을 요청하거나 확인할 수 있다.
+
+
+### JSON-LD
+
+[메타데이터 문서](https://nextjs.org/docs/app/building-your-application/optimizing/metadata#json-ld)를 보면 JSON-LD 설정도 나와있다. 
+
+> JSON-LD는 검색 엔진이 콘텐츠를 이해하는 데 사용할 수 있는 구조화된 데이터 형식
+
+인데, 회사 프로젝트엔 설정해뒀지만 블로그에는 JSON-LD는 설정하지 않았다.
+
+나중에 포스트도 많아지고, 색인이 잘 안되는 것 같으면 추가해봐도 좋을 것 같다.
