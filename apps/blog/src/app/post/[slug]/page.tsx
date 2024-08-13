@@ -38,6 +38,17 @@ export async function generateMetadata(
   } = post;
 
   const previousImages = (await parent).openGraph?.images || [];
+  const postImages = image
+    ? [
+        {
+          url: `${image}`,
+          alt: `${title}`,
+          type: "image/png",
+          width: 1200,
+          height: 630,
+        },
+      ]
+    : [];
 
   return {
     title,
@@ -47,16 +58,7 @@ export async function generateMetadata(
       description: summary,
       url: `${PATH_NAME.post}/${post.slug}`,
       siteName: title,
-      images: [
-        ...(image && {
-          url: `${image}`,
-          alt: `${title}`,
-          type: "image/png",
-          width: 1200,
-          height: 630,
-        }),
-        ...previousImages,
-      ],
+      images: [...postImages, ...previousImages],
     },
     alternates: {
       canonical: `${PATH_NAME.post}/${post.slug}`,
