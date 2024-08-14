@@ -26,7 +26,7 @@ const Post = ({ post }: Props) => {
                 key={tag}
                 className={cn(
                   "py-1 px-2 text-white rounded-md text-sm font-semibold",
-                  `bg-${BG_COLORS[tag.charCodeAt(0) % BG_COLORS.length]}-400`,
+                  `${BG_COLORS[tag.charCodeAt(0) % BG_COLORS.length]}`,
                 )}
               >
                 {tag}
