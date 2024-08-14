@@ -34,7 +34,7 @@ export async function generateMetadata(
   if (!post) return DEFAULT_META;
 
   const {
-    data: { title, summary, image },
+    data: { title, summary, image, tags },
   } = post;
 
   const previousImages = (await parent).openGraph?.images || [];
@@ -53,6 +53,7 @@ export async function generateMetadata(
   return {
     title,
     description: summary,
+    keywords: tags,
     openGraph: {
       title,
       description: summary,
