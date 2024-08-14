@@ -1,0 +1,77 @@
+---
+title: safari에서 이미지에 white border가 깜빡이는 이슈 개선
+summary: 사파리에서 이미지가 로드될 때 하얀 테두리가 보이는 이슈 개선과정 기록
+publishedAt: 2024.08.15
+tags: ["사파리","css"]
+---
+
+프로젝트를 진행하면서 사파리 브라우저에서 발생하는 스타일 이슈 개선과정을 간략하게 기록해두려고 한다.
+
+<video src="/videos/사파리-이미지-이슈-as-is.mp4" controls width="360"/>
+
+영상을 보면 아래 이미지처럼 하얗게 테두리가 깜빡이는 현상을 발견했다.
+
+<img src="/assets/사파리-이미지-이슈-as-is.png" width="360" height="auto" alt=""/>
+
+safari white border 관련 키워드로 검색을 하니 내가 겪은 이슈와 동일한 현상으로 보이는 [스택오버플로우](https://stackoverflow.com/questions/71992334/how-to-remove-white-border-on-lazy-loaded-images-in-safari) 제보를 발견했다.
+
+내용을 보니 이러한 현상이 발생한 이유는 사파리 15의 버그인데, **지연로딩**(loading='lazy')을 적용하면 발생하는 이슈였고, next.js는 기본적으로 지연로딩이 적용되어 있으니 버그가 발생했다.
+
+[16.4 버전 부터는 해결](https://bugs.webkit.org/show_bug.cgi?id=243601)되었다고 되어있지만 회사 개발 정책 상 latest 버전으로부터 3개 이하의 버전까지 지원해야 했다. 그래서 이슈 개선이 필요했는데, `priority`를 설정하거나 loading을 `eagal`로 변경해도 해결은 가능했지만, 성능상 스타일로 개선하는게 베스트라고 생각되어 스택오버플로우 해결방법인 [clip-path](https://developer.mozilla.org/ko/docs/Web/CSS/clip-path)를 적용하기로 했다.
+
+```css
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  img[loading="lazy"] {
+    clip-path: inset(0.6px)
+  }
+}
+```
+
+개발환경에서 스타일 프레임워크로 tailwind를 사용중이라 그에 맞게 적용했다.
+
+```typescript
+const [isLoaded, setIsLoaded] = useState(false);
+
+<Image
+    ...
+    onLoad={() => setIsLoaded(true)}
+    className={`... ${isLoaded ? '' : '[clip-path:inset(0.6px)]'}`}
+    ...
+/>
+```
+
+적용하고 나니 하얗게 테두리가 변하는 현상은 해결했는데 또 다른 문제가 발생했다.
+
+크롬에서도 동일하게 clip-path가 적용되어 오히려 크롬에서 이상하게 보이게됐다.
+
+그래서 해키하지만, [사파리에서만 적용되도록 하는 방법](https://gist.github.com/jbutko/6718701?permalink_comment_id=4975072#gistcomment-4975072)을 찾게됐다.
+
+```css
+@supports (-webkit-hyphens: none) {  
+    ...
+}
+```
+
+
+결론적으로 최종 코드는 아래와 같이 수정했다.
+
+```typescript
+const [isLoaded, setIsLoaded] = useState(false);
+
+<Image
+    ...
+    onLoad={() => setIsLoaded(true)}
+    className={`... ${isLoaded ? '' : 'supports-[-webkit-hyphens:none]:[clip-path:inset(0.6px)]'}`}
+    ...
+/>
+```
+
+<video src="/videos/사파리-이미지-이슈-to-be.mp4" controls width="360"/>
+
+`supports-[-webkit-hyphens:none]` 부분은 config로 빼서 재사용 할 수 있도록 수정했다.
+
+
+
+
+
+

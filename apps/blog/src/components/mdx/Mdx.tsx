@@ -105,7 +105,7 @@ const mdxComponents = {
   h4: (props) => <Heading level={4} {...props} />,
   h5: (props) => <Heading level={5} {...props} />,
   h6: (props) => <Heading level={6} {...props} />,
-  code: (props) => <Code {...props} />,
+  code: Code,
 } as ComponentProps<typeof MDXRemote>["components"];
 
 const Mdx = ({ source, components }: ComponentProps<typeof MDXRemote>) => {
