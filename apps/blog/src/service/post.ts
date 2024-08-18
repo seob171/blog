@@ -3,9 +3,7 @@ import { PrismaModels } from "@/types/prisma";
 export const getPost = async ({
   slug,
 }: Pick<PrismaModels["posts"], "slug">): Promise<PrismaModels["posts"]> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${slug}`,
-  );
+  const res = await fetch(`/api/post/${slug}`);
 
   return res.json();
 };
@@ -13,10 +11,7 @@ export const getPost = async ({
 export const createPost = async ({
   slug,
 }: Pick<PrismaModels["posts"], "slug">): Promise<PrismaModels["posts"]> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${slug}`,
-    { method: "POST" },
-  );
+  const res = await fetch(`/api/post/${slug}`, { method: "POST" });
 
   return res.json();
 };
@@ -25,10 +20,10 @@ export const updatePost = async ({
   slug,
   views,
 }: PrismaModels["posts"]): Promise<PrismaModels["posts"]> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${slug}`,
-    { method: "PATCH", body: JSON.stringify({ views }) },
-  );
+  const res = await fetch(`/api/post/${slug}`, {
+    method: "PATCH",
+    body: JSON.stringify({ views }),
+  });
 
   return res.json();
 };

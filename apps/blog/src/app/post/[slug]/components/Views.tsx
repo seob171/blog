@@ -47,13 +47,9 @@ const Views = () => {
       const prevDbPost =
         queryClient.getQueryData<PrismaModels["posts"]>(postQueryKey);
 
-      console.log({ prevDbPost });
-
       queryClient.setQueryData<PrismaModels["posts"]>(postQueryKey, (post) => {
         console.log({ post });
         if (!post) return undefined;
-
-        console.log({ ...post, views: post.views + 1 });
 
         return { ...post, views: post.views + 1 };
       });
