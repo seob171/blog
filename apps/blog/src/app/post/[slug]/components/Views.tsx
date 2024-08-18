@@ -82,7 +82,7 @@ const Views = () => {
     isViewUpdated.current = true;
   }, [createMutate, dbPost, isFetched, slug, updateMutate]);
 
-  return <span>{dbPost?.views ?? 0}</span>;
+  return <span>{dbPost?.views ?? 0} views</span>;
 };
 
 export default Views;
