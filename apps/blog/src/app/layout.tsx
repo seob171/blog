@@ -5,6 +5,7 @@ import GNB from "@/app/components/GNB";
 import { DEFAULT_META, META_DATA_ICONS } from "@/app/constants/metadata";
 import { harmondExtBdIta, pretendard } from "@/app/fonts";
 import { cn } from "@/lib/utils";
+import QueryProvider from "@/provider/QueryProvider";
 import { ThemeProvider } from "@/provider/ThemeProvider";
 
 export const metadata: Metadata = {
@@ -32,10 +33,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="flex flex-col gap-y-5 min-h-screen p-6">
-            <GNB />
-            {children}
-          </main>
+          <QueryProvider>
+            <main className="flex flex-col gap-y-5 min-h-screen p-6">
+              <GNB />
+              {children}
+            </main>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -5,7 +5,8 @@
     "import", // import구문 자동정리 (eslint-plugin-import 패키지 설치 필요. --fix 옵션 필요)
     "@typescript-eslint", // typescript 린트
     "react", // react 린트
-    "prettier" // prettier 린트
+    "prettier", // prettier 린트
+    "@tanstack/query" // tanstack-query 린트
   ],
   "extends": [
     // 다른 사람들이 만든 ESLint 설정옵션 가져오기 (Airbnb가 대표적)
@@ -17,7 +18,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "prettier"
+    "prettier",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   "rules": {
     // 규칙을 하나하나 세세하게 제어하기 위해 사용 (보통 extends 옵션에 의해 설정된 규칙을 덮어쓰고 싶을 때 사용)
@@ -42,6 +44,10 @@
     ], // 라이브러리 패키지는 제외하고 import문에 확장자 없을 시 에러. 에러시 수동수정 필요 (TypeScript에서는 확장자 붙이는 것을 권장)
     "no-console": "off", // airbnb 규칙에선 no-console 규칙을 어기면 warn이나, error로 설정함.
     "prettier/prettier": "error",
+//    "@tanstack/query/exhaustive-deps": "error",
+//    "@tanstack/query/no-deprecated-options": "error",
+//    "@tanstack/query/prefer-query-object-syntax": "error",
+//    "@tanstack/query/stable-query-client": "error",
     "import/prefer-default-export": "off",
     "jsx-a11y/label-has-associated-control": [
       2,
