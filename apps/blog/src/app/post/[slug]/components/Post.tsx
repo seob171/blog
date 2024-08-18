@@ -2,6 +2,7 @@ import React from "react";
 import "github-markdown-css";
 
 import { BG_COLORS } from "@/app/constants/color";
+import Views from "@/app/post/[slug]/components/Views";
 import Mdx from "@/components/mdx/Mdx";
 import { cn } from "@/lib/utils";
 import { MdxData } from "@/utils/getBlogPosts";
@@ -19,7 +20,7 @@ const Post = ({ post }: Props) => {
   return (
     <div className="flex flex-col gap-y-4">
       <div className="flex items-end justify-between my-8">
-        <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-2 w-full">
           <ul className="flex gap-x-2 items-center">
             {(tags ?? []).map((tag) => (
               <li
@@ -37,9 +38,10 @@ const Post = ({ post }: Props) => {
             <h1>{title}</h1>
           </div>
           <span className="text-muted-foreground/50 text-sm">{summary}</span>
-          <span className="text-muted-foreground/80 text-sm">
-            {publishedAt}
-          </span>
+          <div className="flex justify-between items-center text-muted-foreground/80 text-sm">
+            <span>{publishedAt}</span>
+            <Views />
+          </div>
         </div>
       </div>
 
