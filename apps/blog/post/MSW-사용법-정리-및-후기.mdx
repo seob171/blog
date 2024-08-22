@@ -1,0 +1,98 @@
+---
+title: MSW 사용법 정리 및 후기
+summary: vite에서 msw 연동하는 방법에 대한 정리
+publishedAt: 2024.08.23
+---
+회사에서 운영하는 스톡 서비스에서 유저의 탐색 경험을 향상시키기 위해 엘라스틱 서치를 도입하게 됐는데, api 개발 완료 전 미리 [MSW](https://mswjs.io/)를 활용하여 목서버를 만들어 작업해보기로 했다.
+
+> Mock Service Worker(MSW)는 브라우저와 Node.js를 위한 API 모킹 라이브러리다. 
+
+## 설정방법
+
+우선 msw를 사용할 환경세팅과 msw 패키지를 설치한다. 나는 [Vite](https://ko.vitejs.dev/guide/)를 사용해 환경을 세팅했다.
+```
+pnpm create vite
+```
+
+<img src="/assets/Vite-템플릿-설정.png" width="300px" height="auto" alt="Vite 템플릿으로 구현된 프로젝트 컨텐츠"/>
+
+```
+npm install msw@latest --save-dev
+```
+
+기본적인 사용법은 [여기](https://mswjs.io/docs/getting-started)를 참고하면 된다.
+
+서버사이드에서 동작하는 <u>node</u>와 클라이언트에서 동작하는 <u>browser</u> 설정이 있다.
+
+우선 서비스워커를 생성해야 한다. [여기](https://mswjs.io/docs/integrations/browser)를 보면 워커스크립트를 생성해주는 cli가 있어서 나는 그걸 사용해 스크립트를 생성했다.
+```
+npx msw init <PUBLIC_DIR> --save
+```
+
+이 경우 `npx msw init ./public --save` 명령어를 사용했다.
+
+명령문을 실행하면 public 폴더에 **mockServiceWorker.js**가 생긴다.
+
+이후 사용법에 맞게 **/src/mocks** 에 `browser.ts`, `handler.ts`, `node.ts`를 작성한다.
+
+```typescript title="main.tsx에 작성된 스크립트 파일"
+/**
+ * index.html의 스크립트로 렌더된다.
+ * <script type="module" src="/src/main.tsx"></script>
+ */
+
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+
+async function enableMocking() {
+  if (process.env.NODE_ENV !== "development") {
+    return;
+  }
+
+  const { worker } = await import("./mocks/browser");
+
+  // `worker.start()` returns a Promise that resolves
+  // once the Service Worker is up and ready to intercept requests.
+  return worker.start();
+}
+
+enableMocking().then(() => {
+  createRoot(document.getElementById("root")!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+});
+```
+
+서버에서의 동작도 고려해야 한다면 다음과 같이 mock 서비스워커/서버를 초기화 할 수 있다.
+```typescript
+// mocks/index.ts
+async function initMocks() {
+  if (typeof window === "undefined") {
+    const { server } = await import("./server");
+    server.listen();
+  } else {
+    const { worker } = await import("./browser");
+    worker.start();
+  }
+}
+
+initMocks();
+
+export {};
+```
+
+위 방식으로 모듈을 만들고 dev/prod에 따라 조건부로 실행해주면 된다. 콘솔을 확인하면
+<img src="/assets/MSW-실행시-출력되는-로그.png" width="360px" height="auto" alt="MSW 실행시 출력되는 로그"/>
+
+## 후기
+
+초기에는 **express** 혹은 **next.js** 처럼 **서버를 구현하고 외부에서 접근이 가능할 거라고 생각**해서 관련 자료를 많이 서칭해봤다. 그러나 MSW는 애초에 클라이언트에서 동작하는 라이브러리였고 외부에서 사용할 수 있도록 next.js 프레임워크와 결합하셔 구현은 가능하지만 **그렇게 구현할 이유가 없었다.**
+대부분의 프로젝트에서는 하나의 프로젝트 내에서 mock서버를 구현하는 것 같았다.
+
+내가 작업하는 회사 프로젝트에서는 모노레포를 사용하기 때문에 프로젝트를 분리하여 개발하고 컨트롤러만 사용하려는 프로젝트에서 import 하여 사용할 수 있지만 굳이 그렇게 할 이유가 있어보이지는 않았다.
+
+관련 자료를 찾아보다가 ssr / csr에서 msw 초기 로드 관련 이슈 [관련 블로그 내용](https://velog.io/@wns450/msw-next-%EC%9D%B4%EC%8A%88)이 좀 있는 것 같았는데, 그 단계까지는 시도해보지 않았다. 언젠가 프로젝트 내에서 mock 서버를 활용해보게 된다면 구현해 볼 생각이다.
