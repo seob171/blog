@@ -12,13 +12,6 @@ export const GET = async (
     where: { slug },
   });
 
-  if (!post) {
-    return NextResponse.json(
-      { error: `prisma.posts.findUnique error` },
-      { status: 400 },
-    );
-  }
-
   return NextResponse.json(post, { status: 200 });
 };
 
@@ -29,13 +22,6 @@ export const POST = async (
   const post = await prisma.posts.create({
     data: { slug, views: 0 },
   });
-
-  if (!post) {
-    return NextResponse.json(
-      { error: `prisma.posts.create error` },
-      { status: 400 },
-    );
-  }
 
   return NextResponse.json(post, { status: 200 });
 };
@@ -50,13 +36,6 @@ export const PATCH = async (
     where: { slug },
     data: { views },
   });
-
-  if (!post) {
-    return NextResponse.json(
-      { error: `prisma.posts.update error` },
-      { status: 400 },
-    );
-  }
 
   return NextResponse.json(post, { status: 200 });
 };
