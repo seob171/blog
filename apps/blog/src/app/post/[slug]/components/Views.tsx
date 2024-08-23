@@ -70,15 +70,15 @@ const Views = () => {
     if (!isFetched) return;
     if (isViewUpdated.current) return;
 
-    if (!dbPost) {
+    if (!dbPost?.data) {
       createMutate({ slug, views: 1 });
     } else {
-      updateMutate({ slug, views: dbPost.views + 1 });
+      updateMutate({ slug, views: dbPost.data.views + 1 });
     }
     isViewUpdated.current = true;
   }, [createMutate, dbPost, isFetched, slug, updateMutate]);
 
-  return <span>{dbPost?.views ?? 0} views</span>;
+  return <span>{dbPost?.data?.views ?? 0} views</span>;
 };
 
 export default Views;
