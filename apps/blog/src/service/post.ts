@@ -1,8 +1,11 @@
+import { ApiResponse } from "@/types/api";
 import { PrismaModels } from "@/types/prisma";
 
 export const getPost = async ({
   slug,
-}: Pick<PrismaModels["posts"], "slug">): Promise<PrismaModels["posts"]> => {
+}: Pick<PrismaModels["posts"], "slug">): Promise<
+  ApiResponse<PrismaModels["posts"]>
+> => {
   const res = await fetch(`/api/post/${slug}`);
 
   return res.json();
@@ -10,7 +13,9 @@ export const getPost = async ({
 
 export const createPost = async ({
   slug,
-}: Pick<PrismaModels["posts"], "slug">): Promise<PrismaModels["posts"]> => {
+}: Pick<PrismaModels["posts"], "slug">): Promise<
+  ApiResponse<PrismaModels["posts"]>
+> => {
   const res = await fetch(`/api/post/${slug}`, { method: "POST" });
 
   return res.json();
@@ -19,7 +24,7 @@ export const createPost = async ({
 export const updatePost = async ({
   slug,
   views,
-}: PrismaModels["posts"]): Promise<PrismaModels["posts"]> => {
+}: PrismaModels["posts"]): Promise<ApiResponse<PrismaModels["posts"]>> => {
   const res = await fetch(`/api/post/${slug}`, {
     method: "PATCH",
     body: JSON.stringify({ views }),

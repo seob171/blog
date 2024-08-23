@@ -1,6 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
+import {
+  NOT_FOUND_MESSAGE,
+  SERVER_ERROR_MESSAGE,
+} from "@/app/constants/message";
 import { PrismaModels } from "@/types/prisma";
 
 const prisma = new PrismaClient();
@@ -14,12 +18,18 @@ export const GET = async (
     });
 
     if (!post) {
-      return NextResponse.json(null, { status: 404 });
+      return NextResponse.json(
+        { data: null, message: NOT_FOUND_MESSAGE },
+        { status: 404 },
+      );
     }
 
-    return NextResponse.json(post, { status: 200 });
+    return NextResponse.json({ data: post }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    return NextResponse.json(
+      { error, message: `prisma.posts.findUnique ${SERVER_ERROR_MESSAGE}` },
+      { status: 500 },
+    );
   }
 };
 
@@ -33,12 +43,18 @@ export const POST = async (
     });
 
     if (!post) {
-      return NextResponse.json(null, { status: 404 });
+      return NextResponse.json(
+        { data: null, message: NOT_FOUND_MESSAGE },
+        { status: 404 },
+      );
     }
 
-    return NextResponse.json(post, { status: 200 });
+    return NextResponse.json({ data: post }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    return NextResponse.json(
+      { error, message: `prisma.posts.create ${SERVER_ERROR_MESSAGE}` },
+      { status: 500 },
+    );
   }
 };
 
@@ -55,11 +71,17 @@ export const PATCH = async (
     });
 
     if (!post) {
-      return NextResponse.json(null, { status: 404 });
+      return NextResponse.json(
+        { data: null, message: NOT_FOUND_MESSAGE },
+        { status: 404 },
+      );
     }
 
-    return NextResponse.json(post, { status: 200 });
+    return NextResponse.json({ data: post }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    return NextResponse.json(
+      { error, message: `prisma.posts.update ${SERVER_ERROR_MESSAGE}` },
+      { status: 500 },
+    );
   }
 };
