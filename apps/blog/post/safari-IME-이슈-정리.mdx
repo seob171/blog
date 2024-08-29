@@ -1,0 +1,133 @@
+---
+title: safari IME 이슈 정리
+summary: 사파리 브라우저 IME 버그로 인한 클릭이 동작하지 않는 이슈 (두 번 클릭해야 하는 이슈)
+publishedAt: 2024.08.29
+tags: ["사파리"]
+---
+서비스 기능 개발 중 모달에 있는 link에 클릭 이벤트가 동작하지 않는 버그를 발견했다.
+
+<video src="/videos/사파리-클릭-이슈.mp4" width="450px" height="auto" alt="사파리 클릭 이슈 테스트 영상" controls className="mx-auto"/>
+
+결론부터 말하면 해결하지는 못했다. 그래도 나처럼 트러블슈팅을 하는 개발자들이 참고하면 좋을 것 같고 기록용으로 삽질기를 남긴다.
+
+### 첫번째 시도 방법
+
+처음에는 사파리에서 클릭이 동작하지 않는 버그인 줄 알고 관련 내용으로 검색을 해보다가 적용해본 방법은 `mousedown` 이벤트가 발생하면 디바운싱을 걸어둔 `click` 이벤트를 발생시키는 방법이였다. 
+```typescript
+const handleClick = debounce(()=>{
+    // 실행할 이벤트
+})
+
+const handleMouseDown =(e)=> {
+    e.currentTarget.click()
+}
+
+<Link onMouseDown={handleMouseDown} onClick={handleClick} />
+```
+
+해결한 줄 알았으나 정확하게 어느 사파리 버전에서 해당 이슈가 발생하는지 파악하지 못했고 여전히 이슈는 재현되고 있었다.
+
+### 두번째 시도 방법
+그래서 다른방법으로 디버깅을 시도해보기로 했다. 우선 input 입력관련 문제가 있을거라 추측해서 관련내용으로 다시 찾아보니 composing 관련 문제라고 생각해서 `isComposing`을 체크하는 로직을 추가해보기로 했다.
+
+[isComposing이란?](https://developer.mozilla.org/en-US/docs/Web/API/InputEvent/isComposing) input 이벤트에서 compositionStart, compositionEnd 상태를 나타내는 불린값이다.
+
+```typescript
+const handleKeyDown = (e) => {
+  if (e.nativeEvent.isComposing) return;
+};
+```
+
+해당 방법도 효과가 없었다.
+
+### 세번째 방법
+
+composition 이벤트와 관련이 있을것이라 추측되어 관련 내용으로 검색해보니 [IME](https://ko.wikipedia.org/wiki/%EC%9E%85%EB%A0%A5%EA%B8%B0)에 대해 찾아보게 되었다.
+> 입력기 또는 입력 방식 편집기(input method editor, IME)는 한글, 한자처럼 컴퓨터 자판에 있는 글자보다 수가 더 많은 문자를 계산하거나 조합하여 입력해 주는 시스템 소프트웨어이다.
+
+해당 내용을 보고 다시 디버깅을 해보니 영문입력시에는 해당 현상이 발생하지 않는다는걸 알게됐다. 그리고 크롬과 다르게 사파리에선 한글로 input을 입력하고 link를 누르면 compositionEnd 이벤트가 트리거되고 이후 클릭 이벤트 전파가 발생하지 않았다.
+
+그렇다면 미리 `compositionEnd`를 실행시켜주면 되지 않을까? 하는 아이디어가 떠올랐다. 🧐
+
+그래서 input을 입력하면 디바운싱으로 마지막에 blur를 실행시켜주면 될거라 생각해서 hiddenInput을 만들고 focus를 hiddenInput으로 이동시켜 blur를 실행시키고 다시 원래 input으로 focus를 시켜주는 방법을 적용해봤다. 여기에 입력속도보다 긴 타이밍인 500ms 정도의 디바운스를 걸어서 해결한 듯 보였다..
+
+그러나 500ms라고 정한 그 타이밍을 특정 기준으로 설정하기도 어려울 뿐더러 사용자의 입력 속도가 디바운스 타이밍보다 긴 경우엔 한글이 잘리는 현상이 있었다.
+`ex) 강아지 => ㄱㅏㅇㅇㅏㅈㅣ`
+
+
+### 네번째 방법
+
+그래서 마지막으로 `compositionStart`, `compositionUpdate`, `compositionEnd` 이벤트에 로그를 찍어보니 `compositionEnd` 이벤트는 글자 조합이 완성되어 **1. 다음 글자로 넘어가거나**, **2. 종결될 때 발생**하는 규칙을 찾았고 **end**가 실행되고 **start**가 실행되지 않는경우에 타이핑을 종결했다고 생각했다.
+
+결국 end가 실행되고 곧바로 start가 실행되지 않는경우엔 blur 이벤트를 실행시키는 방법을 적용해보기로 했다.
+
+```typescript
+
+  const [compositionEndEventData, setCompositionEndEventData] = useState<CompositionEvent['data'] | null>(null);
+
+  const { register } = useFormContext<FormValues>();
+  const [blurTimeout, setBlurTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  const callbackRef = useCallback(
+    (node: null | HTMLInputElement) => {
+      const handleBlur = (node: HTMLInputElement) => {
+        return new Promise((resolve) => {
+          // blur 이벤트를 일정 시간 지연 후 실행
+          const blurTimeout = setTimeout(() => {
+            node.blur();
+            resolve(true);
+          }, 0);
+
+          setBlurTimeout(blurTimeout);
+        });
+      };
+
+      if (node) {
+        ...
+        node.addEventListener('blur', () => {
+          if (compositionEndEventData !== null) {
+            // 기존 compositionend 이벤트를 수동으로 트리거
+            const compositionEndEvent = new CustomEvent('compositionend', {
+              bubbles: true,
+              cancelable: true,
+              detail: compositionEndEventData, // 원래의 데이터를 포함
+            });
+
+            node.dispatchEvent(compositionEndEvent);
+
+            // 데이터 초기화
+            setCompositionEndEventData(null);
+          }
+          node.focus();
+        });
+
+        node.addEventListener('compositionend', async (event) => {
+          event.stopImmediatePropagation();
+          await handleBlur(node);
+          setCompositionEndEventData(event.data);
+        });
+      }
+    },
+    [register, getValues]
+  );
+  
+
+  return (
+        ...
+        <input
+            ref={callbackRef}
+            onCompositionStart={(e) => {
+                if (blurTimeout) clearTimeout(blurTimeout);
+            }}
+        ...
+        />
+```
+
+위 방법도 처음에 언급했듯이 이슈를 해결하지는 못했다.
+
+---
+
+### 정리
+
+그래도 트러블슈팅을 해보면서 IME에 대해 알게되었고, composition 이벤트의 동작 과정과 방식 / 다양한 시각으로 접근해볼 경험이 되었다. 추후 더욱 개발지식을 쌓아서 해당 이슈도 해결할 수 있는 기회가 되면 좋을 것 같다.
+
