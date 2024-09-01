@@ -1,0 +1,15 @@
+{
+  "name": "oas-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "openapi-generator generate -g typescript-fetch -i https://petstore3.swagger.io/api/v3/openapi.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
