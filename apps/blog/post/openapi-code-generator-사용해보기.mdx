@@ -1,0 +1,100 @@
+---
+title: openapi code generator 사용해보기
+summary: 작업 효율화 및 코드 일관성과 유지보수를 높이기 위한 openapi code generator를 실무에 적용하기 위해 학습하는 과정에 대한 기록
+publishedAt: 2024.09.02
+tags: []
+---
+
+FEConf 2024를 다녀와 [바퀴 대신 로켓 만들기](https://www.youtube.com/watch?v=B7hhxG1qUf8&list=PLZl3coZhX98opIA5HS7eH5w-VYAswMWvc&index=1) 발표를 듣고 openapi code generator를 학습해보고 실무에 적용할 수 있도록 하기위해 학습을 하는 과정을 기록한다.
+
+학습해보고 적용해보고 싶은 주제는 14분 30초 정도부터 시작하는 서버 API 주제 발표인데, 일반적인 api 연동 과정인 `스펙문서 확인` -> `코드 이관` -> `data fetcher 작성` -> `코드 수정` 의 과정을 효율화 하는 내용이였다.
+
+[OpenAPI Generator로 API의 안전한 Model과 정형화된 구현코드 자동생성하기](https://velog.io/@kdeun1/OpenAPI-Generator%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-API%EC%99%80-%EB%8F%99%EC%9D%BC%ED%95%9C-Model%EA%B3%BC-%EC%A0%95%ED%98%95%ED%99%94%EB%90%9C-API%EC%BD%94%EB%93%9C-%EC%9E%90%EB%8F%99%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0) 블로그 글을 참고했다.
+
+---
+
+## 적용방법(희망편)
+
+우선 openapi-generator를 사용하려면 openapi-generator를 설치해야 한다. 나는 macos를 사용중이여서 [공식문서](https://openapi-generator.tech/docs/installation#homebrew)에서 제공하는 방법 중 homebrew를 통해 설치했다.
+
+설치 후 터미널에 `openapi-generator`를 입력해봤다.
+
+```
+The most commonly used openapi-generator-cli commands are:
+    author        Utilities for authoring generators or customizing templates.
+    batch         Generate code in batch via external configs.
+    config-help   Config help for chosen lang
+    generate      Generate code with the specified generator.
+    help          Display help information about openapi-generator
+    list          Lists the available generators
+    meta          MetaGenerator. Generator for creating a new template set and configuration for Codegen.  The output will be based on the language you specify, and includes default templates to include.
+    validate      Validate specification
+    version       Show version information used in tooling
+    
+See 'openapi-generator-cli help <command>' for more information on a specific
+```
+
+다음으로 위 도움말 중 나는 생성방법에 대해 궁금해서 `openapi-generator help generate` 를 입력해봤다.
+
+```
+OPTIONS
+        ...        
+        -c <configuration file>, --config <configuration file>
+            Path to configuration file. It can be JSON or YAML. If file is JSON,
+            the content should have the format {"optionKey":"optionValue",
+            "optionKey1":"optionValue1"...}. If file is YAML, the content should
+            have the format optionKey: optionValue. Supported options can be
+            different for each language. Run config-help -g {generator name}
+            command for language-specific config options.
+
+        
+        -e <templating engine>, --engine <templating engine>
+            templating engine: "mustache" (default) or "handlebars" (beta)
+
+        -g <generator name>, --generator-name <generator name>
+            generator to use (see list command for list)
+
+        -i <spec file>, --input-spec <spec file>
+            location of the OpenAPI spec, as URL or file (required if not loaded
+            via config using -c)
+
+        -o <output directory>, --output <output directory>
+            where to write the generated files (current dir by default)
+        ...
+```
+
+많은 옵션이 나왔는데, 그 중에서 몇 개만 추려봤다.
+1. `-c` 는 config를 설정하는 옵션이다. 사용할 [generator](https://openapi-generator.tech/docs/generators)의 config 문서에 사용가능한 옵션이 정리되어있다.
+2. `-e` 는 템플릿 엔진을 선택하는 옵션이다. 기본 엔진은 [mustache](https://mustache.github.io/) 이고 [handlebars](https://handlebarsjs.com/guide/#what-is-handlebars)도 사용 가능하다.
+3. `-g` 는 generator를 설정하는 옵션이다.
+4. `-i`와 `-o`는 input, output으로 openapi-generator를 사용할 input, output 경로 옵션이다.
+
+우선은 테스트를 위해 config 설정 없이 최소 스크립트를 실행해보기로 했다. 나는 generator로 **typescript-fetch**를, input으로는 swagger 에서 제공하는 [예제](https://petstore3.swagger.io/)를 사용하기로 했다.
+
+swagger api에서 제공하는 json, yaml 파일경로를 i 옵션으로 설정하면 된다.
+
+
+<img src="/assets/swagger-example-api.png" width="520px" height="auto" alt="swagger에서 제공하는 예제 api와 json경로 png" />
+
+나는 간단하게 작업하기 위해 script로 등록했다.
+
+```
+// package.json
+
+ "scripts": {
+    "generate": "openapi-generator generate -g typescript-fetch -i https://petstore3.swagger.io/api/v3/openapi.json"
+  },
+  
+// command line
+pnpm generate  
+```
+
+스크립트를 실행하니 다음과 같은 디렉토리와 파일이 생성됐다.
+
+<img src="/assets/openapi-generator-실행-후-디렉토리.png" width="360px" height="auto" alt="openapi-generator-실행-후-디렉토리" />
+
+---
+
+## 후기
+
+대략적인 방법은 알게됐다. 테스트 해본 것 처럼 환경만 갖춰지고 컨벤션만 정해두면 효율적인 작업이 가능할 것 같다. 이제 회사에서 동료 개발자분들과 컨센서스를 맞추고 환경에 맞게 커스텀을 해봐야 한다. 실무에서 적용해보고 현재 포스트에 추가 포스트(절망편)를 작성할 예정이다.
