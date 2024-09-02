@@ -13,7 +13,7 @@ FEConf 2024를 다녀와 [바퀴 대신 로켓 만들기](https://www.youtube.co
 
 ---
 
-## 적용방법(희망편)
+## openapi-generator
 
 우선 openapi-generator를 사용하려면 openapi-generator를 설치해야 한다. 나는 macos를 사용중이여서 [공식문서](https://openapi-generator.tech/docs/installation#homebrew)에서 제공하는 방법 중 homebrew를 통해 설치했다.
 
@@ -95,6 +95,77 @@ pnpm generate
 
 ---
 
+## orval
+
+실무에서 적용하기 위해 추가 리서치를 했다. 현재 실무에선 httpClient로는 `fetch`, 상태관리는 `react-query` 유효성 검사는 `zod`를 사용하고 있는데 사용중인 라이브러리와 통합이 가능해야하는 조건이 있었다.
+
+여러 openapi generator 중에서 조건에 적합한 generator로 [Orval](https://github.com/orval-labs/orval)을 채택했다.
+
+우선 orval를 사용하기 위해서는 설치가 필요하다
+
+```
+pnpm add orval -D
+```
+
+petstore 예제를 따라 config를 작성하고 실행하는 부분엔 큰 어려움은 없었다. orval.config.ts를 생성하고 config를 작성한 다음 `pnpm orval` 을 해주면 끝난다.
+
+내가 사용해야 하는 환경에 맞도록 **client**, **httpClient**, **zod** 설정을 작성했다.
+
+자세한 config는 [공식문서](https://orval.dev/reference/configuration/overview)에서 확인할 수 있다.
+
+```typescript
+import { defineConfig } from "orval";
+
+export default defineConfig({
+  petstore: {
+    output: {
+      mode: "tags-split", // 파일 생성방법 // 단일로 만들건지 분기할건지 등
+      target: "src/petstore.ts", // 파일 생성위치
+      schemas: "src/model", // 모델 생성위치
+      mock: true, // mocks 생성 여부 (기본 generator는 MSW)
+      // baseUrl: "/api/v2",
+      baseUrl: "https://petstore3.swagger.io/api/v3",
+      client: "react-query", // 클라이언트
+      httpClient: "fetch", // http 클라이언트
+      override: {
+        query: {
+          useQuery: true,
+          useInfinite: true,
+          useInfiniteQueryParam: "nextId",
+          options: {
+            staleTime: 60_000,
+          },
+        },
+      },
+    },
+    input: {
+      target: "https://petstore3.swagger.io/api/v3/openapi.json",
+    },
+  },
+  petstoreZod: {
+    output: {
+      mode: "tags-split",
+      client: "zod",
+      target: "src/gen/endpoints",
+      fileExtension: ".zod.ts",
+    },
+    input: {
+      target: "https://petstore3.swagger.io/api/v3/openapi.json",
+    },
+  },
+});
+```
+
+아래 이미지와 같은 코드가 생성됐다.
+
+<img src="/assets/orval-output.png" width="360px" height="auto" alt="orval 실행 결과" />
+
+---
+
 ## 후기
 
-대략적인 방법은 알게됐다. 테스트 해본 것 처럼 환경만 갖춰지고 컨벤션만 정해두면 효율적인 작업이 가능할 것 같다. 이제 회사에서 동료 개발자분들과 컨센서스를 맞추고 환경에 맞게 커스텀을 해봐야 한다. 실무에서 적용해보고 현재 포스트에 추가 포스트(절망편)를 작성할 예정이다.
+대략적인 방법은 알게됐다. 테스트 해본 것 처럼 환경만 갖춰지고 컨벤션만 정해두면 효율적인 작업이 가능할 것 같다. 이제 회사에서 동료 개발자분들과 컨센서스를 맞추고 환경에 맞게 커스텀을 해봐야 한다.
+
+orval까지 사용하고 나니 orval config 설정 방법에 대해 더 깊게 학습해야 할 것 같았고, pet store 예제처럼 작성되어있지 않은 실무코드에 적용하려면 동료 개발자들과 swagger json 관련 컨벤션도 논의가 필요하다.
+
+우선 실무에서 적용해보고 추가 포스트를 작성해야겠다.
