@@ -4,12 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "generate": "openapi-generator generate -g typescript-fetch -i https://petstore3.swagger.io/api/v3/openapi.json -o ./openapi-generator"
+    "generate": "openapi-generator generate -g typescript-fetch -i https://petstore3.swagger.io/api/v3/openapi.json -o ./openapi-generator",
+    "orval": "orval"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@types/node": "^20",
+    "msw": "^2.4.1",
+    "orval": "^7.0.1",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.45.0",
+    "zod": "^3.23.8"
   }
 }
