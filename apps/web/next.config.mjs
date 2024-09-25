@@ -9,18 +9,18 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "mpsujvpacrgeyhjxywwo.supabase.co",
-        port: "",
-        pathname: "/storage/**",
+        protocol: 'https',
+        hostname: 'mpsujvpacrgeyhjxywwo.supabase.co',
+        port: '',
+        pathname: '/storage/**',
       },
       {
-        protocol: "http",
-        hostname: "**",
+        protocol: 'http',
+        hostname: '**',
       },
       {
-        protocol: "https",
-        hostname: "**",
+        protocol: 'https',
+        hostname: '**',
       },
     ],
   },

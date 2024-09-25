@@ -1,4 +1,4 @@
-import z from "zod";
+import z from 'zod';
 
 const bodySchema = z.object({
   title: z.string().min(1),

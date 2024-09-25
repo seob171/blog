@@ -1,11 +1,11 @@
-import React from "react";
-import "github-markdown-css";
+import React from 'react';
+import 'github-markdown-css';
 
-import { BG_COLORS } from "@/app/constants/color";
-import Views from "@/app/post/[slug]/components/Views";
-import Mdx from "@/components/mdx/Mdx";
-import { cn } from "@/lib/utils";
-import { MdxData } from "@/utils/getBlogPosts";
+import { BG_COLORS } from '@/app/constants/color';
+import Views from '@/app/post/[slug]/components/Views';
+import Mdx from '@/components/mdx/Mdx';
+import { cn } from '@/lib/utils';
+import type { MdxData } from '@/utils/getBlogPosts';
 
 type Props = {
   post: MdxData;
@@ -26,8 +26,8 @@ const Post = ({ post }: Props) => {
               <li
                 key={tag}
                 className={cn(
-                  "py-1 px-2 text-white rounded-md text-sm font-semibold",
-                  `${BG_COLORS[tag.charCodeAt(0) % BG_COLORS.length]}`,
+                  'py-1 px-2 text-white rounded-md text-sm font-semibold',
+                  `${BG_COLORS[tag.charCodeAt(0) % BG_COLORS.length]}`
                 )}
               >
                 {tag}

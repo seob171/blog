@@ -1,17 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { EditorContent, EditorOptions, useEditor } from "@tiptap/react";
+import type { EditorOptions } from '@tiptap/react';
+import { EditorContent, useEditor } from '@tiptap/react';
 
-import MenuBar from "@/components/tiptap/MenuBar";
-import { EXTENSIONS } from "@/utils/tiptap/extensions";
+import MenuBar from '@/components/tiptap/MenuBar';
+import { EXTENSIONS } from '@/utils/tiptap/extensions';
 
-function EditorComponent({
-  onUpdate,
-  editable = false,
-  ...editorOptions
-}: Partial<EditorOptions>) {
+function EditorComponent({ onUpdate, editable = false, ...editorOptions }: Partial<EditorOptions>) {
   const editor = useEditor({
     extensions: EXTENSIONS,
     editable,
@@ -37,7 +34,7 @@ function EditorComponent({
     },
     editorProps: {
       attributes: {
-        class: "prose mt-5 focus:outline-none",
+        class: 'prose mt-5 focus:outline-none',
       },
     },
     ...editorOptions,
@@ -45,10 +42,7 @@ function EditorComponent({
 
   return (
     <>
-      <MenuBar
-        editor={editor}
-        className={`sticky top-0 py-4 z-general bg-background ${!editable ? "hidden" : ""}`}
-      />
+      <MenuBar editor={editor} className={`sticky top-0 py-4 z-general bg-background ${!editable ? 'hidden' : ''}`} />
       <EditorContent
         editor={editor}
         className="flex-1 cursor-text"

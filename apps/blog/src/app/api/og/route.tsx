@@ -1,28 +1,28 @@
-import { ImageResponse } from "next/og";
+import { ImageResponse } from 'next/og';
 
-export const runtime = "edge";
+export const runtime = 'edge';
 
 export async function GET() {
   // Font
-  const harmondExtBdItaExp = fetch(
-    new URL("../../../fonts/Harmond-ExtBdItaExp.otf", import.meta.url),
-  ).then((res) => res.arrayBuffer());
+  const harmondExtBdItaExp = fetch(new URL('../../../fonts/Harmond-ExtBdItaExp.otf', import.meta.url)).then((res) =>
+    res.arrayBuffer()
+  );
 
-  const harmondSemBdItaCond = fetch(
-    new URL("../../../fonts/Harmond-SemBdItaCond.otf", import.meta.url),
-  ).then((res) => res.arrayBuffer());
+  const harmondSemBdItaCond = fetch(new URL('../../../fonts/Harmond-SemBdItaCond.otf', import.meta.url)).then((res) =>
+    res.arrayBuffer()
+  );
 
   return new ImageResponse(
     (
       // ImageResponse JSX element
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "white",
-          height: "100%",
-          width: "100%",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white',
+          height: '100%',
+          width: '100%',
         }}
       >
         <h1
@@ -52,18 +52,18 @@ export async function GET() {
       height: 630,
       fonts: [
         {
-          name: "HarmondExtBdItaExp",
+          name: 'HarmondExtBdItaExp',
           data: await harmondExtBdItaExp,
-          style: "normal",
+          style: 'normal',
           weight: 800,
         },
         {
-          name: "HarmondSemBdItaCond",
+          name: 'HarmondSemBdItaCond',
           data: await harmondSemBdItaCond,
-          style: "normal",
+          style: 'normal',
           weight: 600,
         },
       ],
-    },
+    }
   );
 }

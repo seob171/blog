@@ -2,8 +2,5 @@
   "plugins": [
     "@tanstack/query" // tanstack-query 린트
   ],
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:@tanstack/eslint-plugin-query/recommended","custom"
-  ]
+  "extends": ["next/core-web-vitals", "plugin:@tanstack/eslint-plugin-query/recommended", "custom"]
 }

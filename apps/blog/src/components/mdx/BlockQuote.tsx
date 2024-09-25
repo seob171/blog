@@ -1,17 +1,11 @@
-import React, { BlockquoteHTMLAttributes } from "react";
+import type { BlockquoteHTMLAttributes } from 'react';
+import React from 'react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-const BlockQuote = ({
-  children,
-  className,
-  ...props
-}: BlockquoteHTMLAttributes<HTMLQuoteElement>) => {
+const BlockQuote = ({ children, className, ...props }: BlockquoteHTMLAttributes<HTMLQuoteElement>) => {
   return (
-    <blockquote
-      className={cn("[&_p]:before:hidden [&_p]:after:hidden", className)}
-      {...props}
-    >
+    <blockquote className={cn('[&_p]:before:hidden [&_p]:after:hidden', className)} {...props}>
       {children}
     </blockquote>
   );

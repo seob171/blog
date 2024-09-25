@@ -1,37 +1,27 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import {
-  BookmarkIcon,
-  ChatBubbleOvalLeftIcon,
-  HeartIcon,
-  PaperAirplaneIcon,
-} from "@heroicons/react/24/outline";
-import dayjs from "dayjs";
-import Image from "next/image";
-import Link from "next/link";
+import { BookmarkIcon, ChatBubbleOvalLeftIcon, HeartIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import dayjs from 'dayjs';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import PostUpdateMenu from "@/app/post/[id]/_components/PostUpdateMenu";
-import EditorComponent from "@/components/tiptap/EditorComponent";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { PATH_NAME } from "@/constants/link";
-import { useGetAuthUser } from "@/services/auth/useGetAuthUser";
-import useGetPost from "@/services/post/useGetPost";
-import useGetUser from "@/services/user/useGetUser";
+import PostUpdateMenu from '@/app/post/[id]/_components/PostUpdateMenu';
+import EditorComponent from '@/components/tiptap/EditorComponent';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { PATH_NAME } from '@/constants/link';
+import { useGetAuthUser } from '@/services/auth/useGetAuthUser';
+import useGetPost from '@/services/post/useGetPost';
+import useGetUser from '@/services/user/useGetUser';
 
 function Post() {
   const { data: post } = useGetPost();
-  const { data: creator } = useGetUser(
-    { id: post!.creator_id },
-    { enabled: Boolean(post?.creator_id) },
-  );
+  const { data: creator } = useGetUser({ id: post!.creator_id }, { enabled: Boolean(post?.creator_id) });
   const { data: loggedInUser } = useGetAuthUser();
 
-  const isMyPost = Boolean(
-    loggedInUser && post?.creator_id === loggedInUser.id,
-  );
+  const isMyPost = Boolean(loggedInUser && post?.creator_id === loggedInUser.id);
 
   return (
     <div className="flex flex-col gap-y-6 mt-24 px-4 pb-20">
@@ -41,10 +31,7 @@ function Post() {
         <div className="flex gap-x-2 items-center">
           <div className="flex items-center gap-x-2">
             <Avatar className="size-8 static">
-              <AvatarImage
-                src={creator?.avatar_url ?? ""}
-                alt="post creator avatar"
-              />
+              <AvatarImage src={creator?.avatar_url ?? ''} alt="post creator avatar" />
               <AvatarFallback>{creator?.name?.substring(0, 1)}</AvatarFallback>
             </Avatar>
             <Link href={`${PATH_NAME.profile}/${creator?.id}`}>
@@ -53,9 +40,7 @@ function Post() {
               </Button>
             </Link>
           </div>
-          <span className="text-sm text-muted-foreground">
-            {dayjs(post?.created_at).format("YYYY.MM.DD")}
-          </span>
+          <span className="text-sm text-muted-foreground">{dayjs(post?.created_at).format('YYYY.MM.DD')}</span>
         </div>
         {isMyPost && <PostUpdateMenu />}
       </div>
@@ -87,10 +72,7 @@ function Post() {
           <BookmarkIcon />
         </Button>
       </div>
-      <EditorComponent
-        editable={false}
-        content={JSON.parse(post?.content ?? "")}
-      />
+      <EditorComponent editable={false} content={JSON.parse(post?.content ?? '')} />
     </div>
   );
 }

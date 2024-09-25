@@ -1,6 +1,6 @@
 export const getNameFromEmail = (email?: string) => {
-  if (!email) return "";
+  if (!email) return '';
 
-  const [name] = email.split("@");
+  const [name] = email.split('@');
   return name;
 };

@@ -1,8 +1,8 @@
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
-import { Button } from "@/components/ui/button";
-import { PATH_NAME } from "@/constants/link";
+import { Button } from '@/components/ui/button';
+import { PATH_NAME } from '@/constants/link';
 
 export default function NotFound() {
   return (

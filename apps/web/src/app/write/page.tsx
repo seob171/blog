@@ -1,15 +1,15 @@
-import React, { use } from "react";
+import React, { use } from 'react';
 
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
+import { redirect } from 'next/navigation';
 
-import DraftEditor from "@/app/write/_components/DraftEditor";
-import Back from "@/components/common/Back";
-import TopBar from "@/components/nav/TopBar";
-import { PATH_NAME } from "@/constants/link";
-import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { getAuthUser } from "@/services/auth/server/route";
-import { getQueryClient } from "@/utils/queryClient";
+import DraftEditor from '@/app/write/_components/DraftEditor';
+import Back from '@/components/common/Back';
+import TopBar from '@/components/nav/TopBar';
+import { PATH_NAME } from '@/constants/link';
+import { AUTH_QUERY_KEY } from '@/services/auth/queryOptions';
+import { getAuthUser } from '@/services/auth/server/route';
+import { getQueryClient } from '@/utils/queryClient';
 
 function Page() {
   const queryClient = getQueryClient();
@@ -18,7 +18,7 @@ function Page() {
     queryClient.fetchQuery({
       queryFn: getAuthUser,
       queryKey: AUTH_QUERY_KEY.user(),
-    }),
+    })
   );
 
   if (!user) redirect(PATH_NAME.signIn);

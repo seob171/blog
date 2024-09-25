@@ -1,21 +1,21 @@
-import React, { use } from "react";
+import React, { use } from 'react';
 
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { notFound } from "next/navigation";
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
+import { notFound } from 'next/navigation';
 
-import About from "@/app/profile/[id]/_components/About";
-import Home from "@/app/profile/[id]/_components/Home";
-import Profile from "@/app/profile/[id]/_components/Profile";
-import { profileTabKey } from "@/app/profile/[id]/tabKey";
-import Logout from "@/components/auth/Logout";
-import Back from "@/components/common/Back";
-import TopBar from "@/components/nav/TopBar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { getAuthUser } from "@/services/auth/server/route";
-import { USER_QUERY_KEY } from "@/services/user/queryOptions";
-import { getUser } from "@/services/user/route";
-import { getQueryClient } from "@/utils/queryClient";
+import About from '@/app/profile/[id]/_components/About';
+import Home from '@/app/profile/[id]/_components/Home';
+import Profile from '@/app/profile/[id]/_components/Profile';
+import { profileTabKey } from '@/app/profile/[id]/tabKey';
+import Logout from '@/components/auth/Logout';
+import Back from '@/components/common/Back';
+import TopBar from '@/components/nav/TopBar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AUTH_QUERY_KEY } from '@/services/auth/queryOptions';
+import { getAuthUser } from '@/services/auth/server/route';
+import { USER_QUERY_KEY } from '@/services/user/queryOptions';
+import { getUser } from '@/services/user/route';
+import { getQueryClient } from '@/utils/queryClient';
 
 type Props = {
   params: { id: string };
@@ -28,14 +28,14 @@ function Page({ params: { id: creatorId } }: Props) {
     queryClient.fetchQuery({
       queryFn: getAuthUser,
       queryKey: AUTH_QUERY_KEY.user(),
-    }),
+    })
   );
 
   const creator = use(
     queryClient.fetchQuery({
       queryFn: () => getUser({ id: creatorId }),
       queryKey: USER_QUERY_KEY.item({ id: creatorId }),
-    }),
+    })
   );
 
   if (!creator) notFound();

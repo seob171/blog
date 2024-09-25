@@ -30,7 +30,7 @@ The most commonly used openapi-generator-cli commands are:
     meta          MetaGenerator. Generator for creating a new template set and configuration for Codegen.  The output will be based on the language you specify, and includes default templates to include.
     validate      Validate specification
     version       Show version information used in tooling
-    
+
 See 'openapi-generator-cli help <command>' for more information on a specific
 ```
 
@@ -38,7 +38,7 @@ See 'openapi-generator-cli help <command>' for more information on a specific
 
 ```
 OPTIONS
-        ...        
+        ...
         -c <configuration file>, --config <configuration file>
             Path to configuration file. It can be JSON or YAML. If file is JSON,
             the content should have the format {"optionKey":"optionValue",
@@ -47,7 +47,7 @@ OPTIONS
             different for each language. Run config-help -g {generator name}
             command for language-specific config options.
 
-        
+
         -e <templating engine>, --engine <templating engine>
             templating engine: "mustache" (default) or "handlebars" (beta)
 
@@ -64,6 +64,7 @@ OPTIONS
 ```
 
 많은 옵션이 나왔는데, 그 중에서 몇 개만 추려봤다.
+
 1. `-c` 는 config를 설정하는 옵션이다. 사용할 [generator](https://openapi-generator.tech/docs/generators)의 config 문서에 사용가능한 옵션이 정리되어있다.
 2. `-e` 는 템플릿 엔진을 선택하는 옵션이다. 기본 엔진은 [mustache](https://mustache.github.io/) 이고 [handlebars](https://handlebarsjs.com/guide/#what-is-handlebars)도 사용 가능하다.
 3. `-g` 는 generator를 설정하는 옵션이다.
@@ -73,8 +74,12 @@ OPTIONS
 
 swagger api에서 제공하는 json, yaml 파일경로를 i 옵션으로 설정하면 된다.
 
-
-<img src="/assets/swagger-example-api.png" width="520px" height="auto" alt="swagger에서 제공하는 예제 api와 json경로 png" />
+<img
+  src="/assets/swagger-example-api.png"
+  width="520px"
+  height="auto"
+  alt="swagger에서 제공하는 예제 api와 json경로 png"
+/>
 
 나는 간단하게 작업하기 위해 script로 등록했다.
 
@@ -84,14 +89,19 @@ swagger api에서 제공하는 json, yaml 파일경로를 i 옵션으로 설정�
  "scripts": {
     "generate": "openapi-generator generate -g typescript-fetch -i https://petstore3.swagger.io/api/v3/openapi.json"
   },
-  
+
 // command line
-pnpm generate  
+pnpm generate
 ```
 
 스크립트를 실행하니 다음과 같은 디렉토리와 파일이 생성됐다.
 
-<img src="/assets/openapi-generator-실행-후-디렉토리.png" width="360px" height="auto" alt="openapi-generator-실행-후-디렉토리" />
+<img
+  src="/assets/openapi-generator-실행-후-디렉토리.png"
+  width="360px"
+  height="auto"
+  alt="openapi-generator-실행-후-디렉토리"
+/>
 
 ---
 
@@ -114,24 +124,24 @@ petstore 예제를 따라 config를 작성하고 실행하는 부분엔 큰 어�
 자세한 config는 [공식문서](https://orval.dev/reference/configuration/overview)에서 확인할 수 있다.
 
 ```typescript
-import { defineConfig } from "orval";
+import { defineConfig } from 'orval';
 
 export default defineConfig({
   petstore: {
     output: {
-      mode: "tags-split", // 파일 생성방법 // 단일로 만들건지 분기할건지 등
-      target: "src/petstore.ts", // 파일 생성위치
-      schemas: "src/model", // 모델 생성위치
+      mode: 'tags-split', // 파일 생성방법 // 단일로 만들건지 분기할건지 등
+      target: 'src/petstore.ts', // 파일 생성위치
+      schemas: 'src/model', // 모델 생성위치
       mock: true, // mocks 생성 여부 (기본 generator는 MSW)
       // baseUrl: "/api/v2",
-      baseUrl: "https://petstore3.swagger.io/api/v3",
-      client: "react-query", // 클라이언트
-      httpClient: "fetch", // http 클라이언트
+      baseUrl: 'https://petstore3.swagger.io/api/v3',
+      client: 'react-query', // 클라이언트
+      httpClient: 'fetch', // http 클라이언트
       override: {
         query: {
           useQuery: true,
           useInfinite: true,
-          useInfiniteQueryParam: "nextId",
+          useInfiniteQueryParam: 'nextId',
           options: {
             staleTime: 60_000,
           },
@@ -139,18 +149,18 @@ export default defineConfig({
       },
     },
     input: {
-      target: "https://petstore3.swagger.io/api/v3/openapi.json",
+      target: 'https://petstore3.swagger.io/api/v3/openapi.json',
     },
   },
   petstoreZod: {
     output: {
-      mode: "tags-split",
-      client: "zod",
-      target: "src/gen/endpoints",
-      fileExtension: ".zod.ts",
+      mode: 'tags-split',
+      client: 'zod',
+      target: 'src/gen/endpoints',
+      fileExtension: '.zod.ts',
     },
     input: {
-      target: "https://petstore3.swagger.io/api/v3/openapi.json",
+      target: 'https://petstore3.swagger.io/api/v3/openapi.json',
     },
   },
 });

@@ -1,58 +1,52 @@
-"use client";
+'use client';
 
-import { ComponentProps, useCallback, useState } from "react";
+import type { ComponentProps } from 'react';
+import { useCallback, useState } from 'react';
 
-import dayjs from "dayjs";
-import { useRouter } from "next/navigation";
-import { SubmitHandler } from "react-hook-form";
-import TextareaAutosize from "react-textarea-autosize";
-import { useDebounceCallback } from "usehooks-ts";
+import dayjs from 'dayjs';
+import { useRouter } from 'next/navigation';
+import type { SubmitHandler } from 'react-hook-form';
+import TextareaAutosize from 'react-textarea-autosize';
+import { useDebounceCallback } from 'usehooks-ts';
 
-import PostUploadForm, {
-  PostUploadFormData,
-} from "@/app/write/_components/form/PostUploadForm";
-import PostUploadButton from "@/app/write/_components/PostUploadButton";
-import BottomBar from "@/components/nav/BottomBar";
-import EditorComponent from "@/components/tiptap/EditorComponent";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
-import { PATH_NAME } from "@/constants/link";
-import useGetPost from "@/services/post/useGetPost";
-import useUpdatePost from "@/services/post/useUpdatePost";
+import type { PostUploadFormData } from '@/app/write/_components/form/PostUploadForm';
+import PostUploadForm from '@/app/write/_components/form/PostUploadForm';
+import PostUploadButton from '@/app/write/_components/PostUploadButton';
+import BottomBar from '@/components/nav/BottomBar';
+import EditorComponent from '@/components/tiptap/EditorComponent';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
+import { PATH_NAME } from '@/constants/link';
+import useGetPost from '@/services/post/useGetPost';
+import useUpdatePost from '@/services/post/useUpdatePost';
 
 function SavedEditor() {
   const { toast } = useToast();
   const { replace } = useRouter();
   const { data } = useGetPost();
 
-  const [title, setTitle] = useState(data?.title ?? "");
+  const [title, setTitle] = useState(data?.title ?? '');
 
   const { mutateAsync: updatePost } = useUpdatePost({
     onSuccess: (_, { published }) => {
       if (data?.id) replace(`${PATH_NAME.post}/${data.id}`);
 
       toast({
-        title: published ? "저장 완료! 🎉" : "임시 저장 완료 😊",
-        description: published
-          ? "포스트가 성공적으로 저장되었어요."
-          : "작성 중인 포스트를 임시 저장했어요.",
+        title: published ? '저장 완료! 🎉' : '임시 저장 완료 😊',
+        description: published ? '포스트가 성공적으로 저장되었어요.' : '작성 중인 포스트를 임시 저장했어요.',
       });
     },
   });
-  const [content, setContent] = useState(data?.content ?? "");
+  const [content, setContent] = useState(data?.content ?? '');
 
-  const handleCreate: ComponentProps<typeof EditorComponent>["onCreate"] = ({
-    editor,
-  }) => {
+  const handleCreate: ComponentProps<typeof EditorComponent>['onCreate'] = ({ editor }) => {
     if (content) {
       editor.commands.setContent(JSON.parse(content));
       editor.chain().focus().run();
     }
   };
 
-  const handleUpdate: ComponentProps<
-    typeof EditorComponent
-  >["onUpdate"] = async ({ editor }) => {
+  const handleUpdate: ComponentProps<typeof EditorComponent>['onUpdate'] = async ({ editor }) => {
     const content = JSON.stringify(editor.state.doc.toJSON());
     setContent(content);
     await updatePost({ title, content, updated_at: dayjs().toDate() });
@@ -69,7 +63,7 @@ function SavedEditor() {
         updated_at: dayjs().toDate(),
       });
     },
-    [content, title, updatePost],
+    [content, title, updatePost]
   );
 
   // @TODO : UX 향상을 위해 저장시간을 사용자별로 설정 가능하도록 고도화하기
@@ -84,18 +78,12 @@ function SavedEditor() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <EditorComponent
-        onCreate={handleCreate}
-        onUpdate={debouncedUpdate}
-        editable
-      />
+      <EditorComponent onCreate={handleCreate} onUpdate={debouncedUpdate} editable />
       <BottomBar
         className="sticky bottom-0 border border-muted rounded-t-2xl"
         rightRender={
           <div className="flex justify-end">
-            <PostUploadButton
-              trigger={<Button disabled={!title}>업로드</Button>}
-            >
+            <PostUploadButton trigger={<Button disabled={!title}>업로드</Button>}>
               <PostUploadForm uploadPost={handleUpload} data={data} />
             </PostUploadButton>
           </div>

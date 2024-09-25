@@ -10,13 +10,6 @@
     "format": "prettier --cache --write .",
     "lint": "next lint .",
     "type-check": "tsc --noEmit"
-
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,scss}": [
-      "prettier --write",
-      "eslint --fix"
-    ]
   },
   "dependencies": {
     "@heroicons/react": "^2.1.4",

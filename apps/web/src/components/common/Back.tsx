@@ -1,17 +1,13 @@
-"use client";
+'use client';
 
-import React, { ComponentProps } from "react";
+import type { ComponentProps } from 'react';
+import React from 'react';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
-function Back({
-  variant,
-  size,
-  onClick,
-  ...props
-}: Partial<ComponentProps<typeof Button>>) {
+function Back({ ...props }: Partial<ComponentProps<typeof Button>>) {
   const { back } = useRouter();
 
   return (
@@ -24,11 +20,7 @@ function Back({
         stroke="currentColor"
         className="size-6"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
       </svg>
     </Button>
   );

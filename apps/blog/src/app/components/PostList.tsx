@@ -1,7 +1,7 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { PATH_NAME } from "@/app/constants/router";
-import { MdxData } from "@/utils/getBlogPosts";
+import { PATH_NAME } from '@/app/constants/router';
+import type { MdxData } from '@/utils/getBlogPosts';
 
 const PostList = ({ posts }: { posts: MdxData[] }) => {
   return (
@@ -11,11 +11,7 @@ const PostList = ({ posts }: { posts: MdxData[] }) => {
         <span>Title</span>
       </div>
       {posts.map(({ data: { title, publishedAt }, slug }) => (
-        <Link
-          key={slug}
-          href={`${PATH_NAME.post}/${slug}`}
-          className="hover:bg-muted cursor-pointer"
-        >
+        <Link key={slug} href={`${PATH_NAME.post}/${slug}`} className="hover:bg-muted cursor-pointer">
           <span>{publishedAt}</span>
           <span>{title}</span>
         </Link>

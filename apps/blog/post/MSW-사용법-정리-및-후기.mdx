@@ -3,18 +3,20 @@ title: MSW 사용법 정리 및 후기
 summary: vite에서 msw 연동하는 방법에 대한 정리
 publishedAt: 2024.08.23
 ---
+
 회사에서 운영하는 스톡 서비스에서 유저의 탐색 경험을 향상시키기 위해 엘라스틱 서치를 도입하게 됐는데, api 개발 완료 전 미리 [MSW](https://mswjs.io/)를 활용하여 목서버를 만들어 작업해보기로 했다.
 
-> Mock Service Worker(MSW)는 브라우저와 Node.js를 위한 API 모킹 라이브러리다. 
+> Mock Service Worker(MSW)는 브라우저와 Node.js를 위한 API 모킹 라이브러리다.
 
 ## 설정방법
 
 우선 msw를 사용할 환경세팅과 msw 패키지를 설치한다. 나는 [Vite](https://ko.vitejs.dev/guide/)를 사용해 환경을 세팅했다.
+
 ```
 pnpm create vite
 ```
 
-<img src="/assets/Vite-템플릿-설정.png" width="300px" height="auto" alt="Vite 템플릿으로 구현된 프로젝트 컨텐츠"/>
+<img src="/assets/Vite-템플릿-설정.png" width="300px" height="auto" alt="Vite 템플릿으로 구현된 프로젝트 컨텐츠" />
 
 ```
 npm install msw@latest --save-dev
@@ -25,6 +27,7 @@ npm install msw@latest --save-dev
 서버사이드에서 동작하는 <u>node</u>와 클라이언트에서 동작하는 <u>browser</u> 설정이 있다.
 
 우선 서비스워커를 생성해야 한다. [여기](https://mswjs.io/docs/integrations/browser)를 보면 워커스크립트를 생성해주는 cli가 있어서 나는 그걸 사용해 스크립트를 생성했다.
+
 ```
 npx msw init <PUBLIC_DIR> --save
 ```
@@ -68,14 +71,15 @@ enableMocking().then(() => {
 ```
 
 서버에서의 동작도 고려해야 한다면 다음과 같이 mock 서비스워커/서버를 초기화 할 수 있다.
+
 ```typescript
 // mocks/index.ts
 async function initMocks() {
-  if (typeof window === "undefined") {
-    const { server } = await import("./server");
+  if (typeof window === 'undefined') {
+    const { server } = await import('./server');
     server.listen();
   } else {
-    const { worker } = await import("./browser");
+    const { worker } = await import('./browser');
     worker.start();
   }
 }
@@ -86,7 +90,8 @@ export {};
 ```
 
 위 방식으로 모듈을 만들고 dev/prod에 따라 조건부로 실행해주면 된다. 콘솔을 확인하면
-<img src="/assets/MSW-실행시-출력되는-로그.png" width="360px" height="auto" alt="MSW 실행시 출력되는 로그"/>
+
+<img src="/assets/MSW-실행시-출력되는-로그.png" width="360px" height="auto" alt="MSW 실행시 출력되는 로그" />
 
 ## 후기
 

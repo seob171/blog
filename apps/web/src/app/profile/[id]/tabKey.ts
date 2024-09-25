@@ -1,4 +1,4 @@
 export const profileTabKey = {
-  home: "home",
-  about: "about",
+  home: 'home',
+  about: 'about',
 };

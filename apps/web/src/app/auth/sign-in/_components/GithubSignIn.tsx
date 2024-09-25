@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/client";
+import { Button } from '@/components/ui/button';
+import { createClient } from '@/utils/supabase/client';
 
 const GithubSignIn = () => {
   const supabase = createClient();
@@ -9,7 +9,7 @@ const GithubSignIn = () => {
   const signIn = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "github",
+        provider: 'github',
       });
 
       if (error) {

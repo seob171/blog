@@ -1,21 +1,11 @@
-import React, { HTMLAttributes } from "react";
+import type { HTMLAttributes } from 'react';
+import React from 'react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-function ErrorMessage({
-  children,
-  className,
-  ...props
-}: HTMLAttributes<HTMLSpanElement>) {
+function ErrorMessage({ children, className, ...props }: HTMLAttributes<HTMLSpanElement>) {
   return (
-    <span
-      className={cn(
-        "text-destructive text-sm",
-        `${children ? "flex" : "hidden"}`,
-        className,
-      )}
-      {...props}
-    >
+    <span className={cn('text-destructive text-sm', `${children ? 'flex' : 'hidden'}`, className)} {...props}>
       {children}
     </span>
   );

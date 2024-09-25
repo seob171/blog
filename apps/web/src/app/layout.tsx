@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 
-import { lineFont } from "@/app/fonts";
-import AuthEventListener from "@/components/auth/AuthEventListener";
-import { Toaster } from "@/components/ui/toaster";
-import { cn } from "@/lib/utils";
-import QueryProvider from "@/providers/QueryProvider";
+import { lineFont } from '@/app/fonts';
+import AuthEventListener from '@/components/auth/AuthEventListener';
+import { Toaster } from '@/components/ui/toaster';
+import { cn } from '@/lib/utils';
+import QueryProvider from '@/providers/QueryProvider';
 
 export const metadata: Metadata = {
-  title: "개인 블로그",
-  description: "학습 및 기록용 개인 블로그입니다.",
-  authors: { url: "https://github.com/seob171", name: "shimyuseob" },
+  title: '개인 블로그',
+  description: '학습 및 기록용 개인 블로그입니다.',
+  authors: { url: 'https://github.com/seob171', name: 'shimyuseob' },
 };
 
 export default function RootLayout({

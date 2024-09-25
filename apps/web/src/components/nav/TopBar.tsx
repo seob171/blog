@@ -1,25 +1,17 @@
-import React, { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from 'react';
+import React from 'react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface TopBarProps extends HTMLAttributes<HTMLDivElement> {
   leftRender?: ReactNode;
   rightRender?: ReactNode;
 }
 
-function TopBar({
-  children,
-  className,
-  leftRender = null,
-  rightRender,
-  ...props
-}: TopBarProps) {
+function TopBar({ children, className, leftRender = null, rightRender, ...props }: TopBarProps) {
   return (
     <nav
-      className={cn(
-        "flex items-center justify-between gap-2 px-4 py-2 bg-background [&>div]:w-full",
-        className,
-      )}
+      className={cn('flex items-center justify-between gap-2 px-4 py-2 bg-background [&>div]:w-full', className)}
       {...props}
     >
       <div>{leftRender}</div>

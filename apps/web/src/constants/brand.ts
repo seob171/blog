@@ -1,1 +1,1 @@
-export const LOGO_TEXT = "999°";
+export const LOGO_TEXT = '999°';

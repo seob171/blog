@@ -1,16 +1,17 @@
-import React, { ComponentProps } from "react";
+import type { ComponentProps } from 'react';
+import React from 'react';
 
-import { MDXRemote } from "next-mdx-remote/rsc";
-import rehypePrettyCode from "rehype-pretty-code";
-import rehypeSlug from "rehype-slug";
-import remarkGfm from "remark-gfm";
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
 
-import Anchor from "@/components/mdx/Anchor";
-import BlockQuote from "@/components/mdx/BlockQuote";
-import Code from "@/components/mdx/Code";
-import Heading from "@/components/mdx/Heading";
-import Image from "@/components/mdx/Image";
-import Youtube from "@/components/mdx/Youtube";
+import Anchor from '@/components/mdx/Anchor';
+import BlockQuote from '@/components/mdx/BlockQuote';
+import Code from '@/components/mdx/Code';
+import Heading from '@/components/mdx/Heading';
+import Image from '@/components/mdx/Image';
+import Youtube from '@/components/mdx/Youtube';
 
 const mdxComponents = {
   a: Anchor,
@@ -24,7 +25,7 @@ const mdxComponents = {
   Image,
   code: Code,
   Youtube,
-} as ComponentProps<typeof MDXRemote>["components"];
+} as ComponentProps<typeof MDXRemote>['components'];
 
 const Mdx = ({ source, components }: ComponentProps<typeof MDXRemote>) => {
   return (

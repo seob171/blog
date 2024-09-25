@@ -1,14 +1,10 @@
-"use client";
+'use client';
 
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react';
 
-import {
-  QueryClient,
-  QueryClientProvider,
-  isServer,
-} from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
+import { QueryClient, QueryClientProvider, isServer } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 
 function makeQueryClient() {
   return new QueryClient({

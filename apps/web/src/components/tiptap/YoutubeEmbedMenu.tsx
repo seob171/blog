@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Editor } from "@tiptap/react";
+import type { Editor } from '@tiptap/react';
 
-import ResponsiveModal from "@/components/common/ResponsiveModal";
-import YoutubeEmbedForm from "@/components/form/YoutubeEmbedForm";
-import Youtube from "@/components/icon/Youtube";
-import { Button } from "@/components/ui/button";
+import ResponsiveModal from '@/components/common/ResponsiveModal';
+import YoutubeEmbedForm from '@/components/form/YoutubeEmbedForm';
+import Youtube from '@/components/icon/Youtube';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   editor: Editor;
 };
 
-const TITLE = "유튜브 영상";
-const DESCRIPTION = "링크를 추가해 주세요!";
+const TITLE = '유튜브 영상';
+const DESCRIPTION = '링크를 추가해 주세요!';
 
 function YoutubeEmbedMenu({ editor }: Props) {
   const [open, setOpen] = useState(false);

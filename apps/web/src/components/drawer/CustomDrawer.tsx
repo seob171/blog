@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
-import React, { ComponentProps } from "react";
+import type { ComponentProps } from 'react';
+import React from 'react';
 
 import {
   Drawer,
@@ -10,7 +11,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from '@/components/ui/drawer';
 
 type Props = {
   trigger: React.ReactNode;
@@ -18,13 +19,7 @@ type Props = {
   description: string;
 } & ComponentProps<typeof Drawer>;
 
-function CustomDrawer({
-  trigger,
-  title,
-  description,
-  children,
-  ...drawerProps
-}: Props) {
+function CustomDrawer({ trigger, title, description, children, ...drawerProps }: Props) {
   return (
     <Drawer {...drawerProps}>
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>

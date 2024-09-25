@@ -1,5 +1,5 @@
-import PostList from "@/app/components/PostList";
-import { getBlogPosts } from "@/utils/getBlogPosts";
+import PostList from '@/app/components/PostList';
+import { getBlogPosts } from '@/utils/getBlogPosts';
 
 const Page = () => {
   const posts = getBlogPosts();

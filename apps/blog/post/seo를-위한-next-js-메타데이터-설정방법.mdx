@@ -2,13 +2,13 @@
 title: seo를 위한 next js 메타데이터 설정방법
 summary: next js 14 버전(app router)에서 메타데이터 설정 및 동적으로 opengraph 이미지 연동하기
 publishedAt: 2024.08.12
-tags: ["Next.js","seo"]
+tags: ['Next.js', 'seo']
 ---
 
 Next.js를 사용하는 대표적인 이유인 **SEO**를 블로그에 적용하면서 겪은 ~~삽질기~~를 기록 및 공유하고자 포스트를 작성한다.
 
 > What is SEO?
-> 
+>
 > SEO stands for Search Engine Optimization. The goal of SEO is to **create a strategy that will increase your rankings position in search engine results**. The higher the ranking, the more organic traffic to your site, which ultimately leads to more business for you!
 
 ---
@@ -20,47 +20,44 @@ next js page router 에서는 next/head의 Head 태그내에 정의해서 설정
 ```typescript title="정적 메타데이터 생성"
 // layout.tsx | page.tsx
 
-import type { Metadata } from 'next'
- 
+import type { Metadata } from 'next';
+
 export const metadata: Metadata = {
   title: '...',
   description: '...',
-}
- 
+};
+
 export default function Page() {}
 ```
 
 ```typescript title="동적 메타데이터 생성"
 // layout.tsx | page.tsx
 
-import type { Metadata, ResolvingMetadata } from 'next'
- 
+import type { Metadata, ResolvingMetadata } from 'next';
+
 type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
- 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   // read route params
-  const id = params.id
- 
+  const id = params.id;
+
   // fetch data
-  const product = await fetch(`https://.../${id}`).then((res) => res.json())
- 
+  const product = await fetch(`https://.../${id}`).then((res) => res.json());
+
   // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || []
- 
+  const previousImages = (await parent).openGraph?.images || [];
+
   return {
     title: product.title,
     openGraph: {
       images: ['/some-specific-page-image.jpg', ...previousImages],
     },
-  }
+  };
 }
- 
+
 export default function Page({ params, searchParams }: Props) {}
 ```
 
@@ -101,7 +98,8 @@ export const metadata: Metadata = {
 ```
 
 여기까지 적용하면 파비콘 아이콘이 변경되어있다.
-<img src="/assets/파비콘-적용.png" width="300px" height="auto" alt="open api key 저장 이미지"/>
+
+<img src="/assets/파비콘-적용.png" width="300px" height="auto" alt="open api key 저장 이미지" />
 
 이제 opengraph를 적용해보자. 만약 opengraph 이미지가 있다면 아래처럼 url 경로로 metadata에서 설정할 수 있다.
 
@@ -137,7 +135,7 @@ export const metadata: Metadata = {
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 export async function GET() {
   return new ImageResponse(
     (
@@ -189,10 +187,9 @@ og가 잘 설정됐는지는 head의 og:image 메타태그를 보거나, https:/
 
 SEO를 다 설정하면 [구글 서치콘솔](https://search.google.com/search-console/about)에서 색인생성을 요청하거나 확인할 수 있다.
 
-
 ### JSON-LD
 
-[메타데이터 문서](https://nextjs.org/docs/app/building-your-application/optimizing/metadata#json-ld)를 보면 JSON-LD 설정도 나와있다. 
+[메타데이터 문서](https://nextjs.org/docs/app/building-your-application/optimizing/metadata#json-ld)를 보면 JSON-LD 설정도 나와있다.
 
 > JSON-LD는 검색 엔진이 콘텐츠를 이해하는 데 사용할 수 있는 구조화된 데이터 형식
 

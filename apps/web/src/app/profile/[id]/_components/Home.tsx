@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import Link from "next/link";
+import Link from 'next/link';
 
-import PostCard from "@/components/card/PostCard";
-import { PATH_NAME } from "@/constants/link";
-import { PrismaModels } from "@/lib/prisma";
-import useGetManyPost from "@/services/post/useGetManyPost";
+import PostCard from '@/components/card/PostCard';
+import { PATH_NAME } from '@/constants/link';
+import type { PrismaModels } from '@/lib/prisma';
+import useGetManyPost from '@/services/post/useGetManyPost';
 
 type Props = {
-  user: PrismaModels["profiles"];
+  user: PrismaModels['profiles'];
 };
 
 const Home = ({ user: { id } }: Props) => {

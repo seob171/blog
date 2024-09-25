@@ -1,14 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import {
-  EllipsisVerticalIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 
 import {
   AlertDialog,
@@ -20,19 +16,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useToast } from "@/components/ui/use-toast";
-import { PATH_NAME } from "@/constants/link";
-import { useGetAuthUser } from "@/services/auth/useGetAuthUser";
-import useDeletePost from "@/services/post/useDeletePost";
+} from '@/components/ui/dropdown-menu';
+import { useToast } from '@/components/ui/use-toast';
+import { PATH_NAME } from '@/constants/link';
+import { useGetAuthUser } from '@/services/auth/useGetAuthUser';
+import useDeletePost from '@/services/post/useDeletePost';
 
 const PostUpdateMenu = () => {
   const { replace } = useRouter();
@@ -42,8 +38,8 @@ const PostUpdateMenu = () => {
   const { mutate: deletePost } = useDeletePost({
     onSuccess: () => {
       toast({
-        title: "포스트 삭제 완료",
-        description: `포스트가 삭제되었어요! ${creator ? "프로필 페이지로" : "홈으로"} 이동합니다 😊`,
+        title: '포스트 삭제 완료',
+        description: `포스트가 삭제되었어요! ${creator ? '프로필 페이지로' : '홈으로'} 이동합니다 😊`,
       });
       replace(creator ? `${PATH_NAME.profile}/${creator.id}` : PATH_NAME.home);
     },
@@ -67,10 +63,7 @@ const PostUpdateMenu = () => {
             </Link>
 
             <AlertDialogTrigger asChild className="cursor-pointer">
-              <DropdownMenuItem
-                asChild={false}
-                className="flex items-center gap-x-2 w-full"
-              >
+              <DropdownMenuItem asChild={false} className="flex items-center gap-x-2 w-full">
                 <TrashIcon className="size-4" />
                 <span className="text-xs">삭제하기</span>
               </DropdownMenuItem>
@@ -82,9 +75,7 @@ const PostUpdateMenu = () => {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>포스트를 삭제할까요?</AlertDialogTitle>
-          <AlertDialogDescription>
-            삭제된 포스트는 복구할 수 없어요.
-          </AlertDialogDescription>
+          <AlertDialogDescription>삭제된 포스트는 복구할 수 없어요.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>취소</AlertDialogCancel>

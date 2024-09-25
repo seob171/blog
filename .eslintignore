@@ -1,2 +1,4 @@
 node_modules/
 packages/eslint-config/
+apps/server/
+lint-staged.config.js

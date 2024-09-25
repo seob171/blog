@@ -1,21 +1,23 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { ZodType, z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import type { ZodType } from 'zod';
+import { z } from 'zod';
 
-import ErrorMessage from "@/components/form/ErrorMessage";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { LOGO_TEXT } from "@/constants/brand";
-import { PATH_NAME } from "@/constants/link";
-import { passwordRegex } from "@/constants/regex";
-import { createClient } from "@/utils/supabase/client";
+import ErrorMessage from '@/components/form/ErrorMessage';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { LOGO_TEXT } from '@/constants/brand';
+import { PATH_NAME } from '@/constants/link';
+import { passwordRegex } from '@/constants/regex';
+import { createClient } from '@/utils/supabase/client';
 
 type FormData = {
   email: string;
@@ -27,25 +29,25 @@ const schema: ZodType<FormData> = z
   .object({
     email: z
       .string()
-      .min(1, "최소 한 글자는 입력해 주세요!")
-      .email({ message: "이메일 주소를 올바르게 입력해 주세요." }),
+      .min(1, '최소 한 글자는 입력해 주세요!')
+      .email({ message: '이메일 주소를 올바르게 입력해 주세요.' }),
     password: z
       .string()
-      .min(8, "비밀번호는 8자리 이상 입력해 주세요!")
-      .regex(passwordRegex, "영문, 숫자, 특수문자를 모두 포함해 주세요!"),
+      .min(8, '비밀번호는 8자리 이상 입력해 주세요!')
+      .regex(passwordRegex, '영문, 숫자, 특수문자를 모두 포함해 주세요!'),
     confirmPassword: z
       .string()
-      .min(8, "비밀번호는 8자리 이상 입력해 주세요!")
-      .regex(passwordRegex, "영문, 숫자, 특수문자를 모두 포함해 주세요!"),
+      .min(8, '비밀번호는 8자리 이상 입력해 주세요!')
+      .regex(passwordRegex, '영문, 숫자, 특수문자를 모두 포함해 주세요!'),
   })
   .refine(
     ({ password, confirmPassword }) => {
       return password === confirmPassword;
     },
     {
-      message: "비밀번호가 일치하지 않아요.",
-      path: ["confirmPassword"],
-    },
+      message: '비밀번호가 일치하지 않아요.',
+      path: ['confirmPassword'],
+    }
   );
 
 function SignUpForm() {
@@ -58,9 +60,9 @@ function SignUpForm() {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
     resolver: zodResolver(schema),
   });
@@ -72,7 +74,7 @@ function SignUpForm() {
         password,
         options: {
           data: {
-            name: email.split("@")[0],
+            name: email.split('@')[0],
             avatar_url: null,
           },
         },
@@ -89,36 +91,25 @@ function SignUpForm() {
   };
 
   return (
-    <form
-      className="grid gap-4 w-full px-4 py-2"
-      onSubmit={handleSubmit(signUp)}
-    >
+    <form className="grid gap-4 w-full px-4 py-2" onSubmit={handleSubmit(signUp)}>
       <span className="text-2xl font-bold mb-2">회원가입하기</span>
       <div className="grid gap-2">
         <Label className="text-muted-foreground">이메일</Label>
-        <Input
-          {...register("email")}
-          placeholder="m@example.com"
-          className="text-md"
-        />
+        <Input {...register('email')} placeholder="m@example.com" className="text-md" />
         <ErrorMessage>{errors.email?.message}</ErrorMessage>
       </div>
       <div className="grid gap-2">
         <div className="flex items-center">
           <Label className="text-muted-foreground">비밀번호</Label>
         </div>
-        <Input {...register("password")} type="password" className="text-md" />
+        <Input {...register('password')} type="password" className="text-md" />
         <ErrorMessage>{errors.password?.message}</ErrorMessage>
       </div>
       <div className="grid gap-2">
         <div className="flex items-center">
           <Label className="text-muted-foreground">비밀번호 확인</Label>
         </div>
-        <Input
-          {...register("confirmPassword")}
-          type="password"
-          className="text-md"
-        />
+        <Input {...register('confirmPassword')} type="password" className="text-md" />
         <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
       </div>
 

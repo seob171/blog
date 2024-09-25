@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from '@/utils/supabase/client';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVICE_URL,
   timeout: 3000,
   headers: {
-    "Content-Type": "application/json; charset=UTF-8",
-    Accept: "application/json",
+    'Content-Type': 'application/json; charset=UTF-8',
+    Accept: 'application/json',
   },
 });
 
@@ -27,7 +27,7 @@ axiosInstance.interceptors.request.use(
 
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );
 
 axiosInstance.interceptors.response.use(
@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     // 이 부분에서 access token, refresh token 갱신 가능
     return Promise.reject(error);
-  },
+  }
 );
 
 export default axiosInstance;

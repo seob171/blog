@@ -1,21 +1,22 @@
-import { UseQueryOptions, useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import type { UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
 
-import { PrismaModels } from "@/lib/prisma";
-import { POST_QUERY_KEY } from "@/services/post/queryOptions";
-import { getManyPost } from "@/services/post/route";
+import type { PrismaModels } from '@/lib/prisma';
+import { POST_QUERY_KEY } from '@/services/post/queryOptions';
+import { getManyPost } from '@/services/post/route';
 
 const useGetManyPost = (
-  params?: Partial<PrismaModels["posts"]>,
+  params?: Partial<PrismaModels['posts']>,
   options?: Omit<
     UseQueryOptions<
-      Array<PrismaModels["posts"]>,
+      Array<PrismaModels['posts']>,
       AxiosError,
-      Array<PrismaModels["posts"]>,
+      Array<PrismaModels['posts']>,
       ReturnType<typeof POST_QUERY_KEY.itemList>
     >,
-    "queryKey" | "queryFn"
-  >,
+    'queryKey' | 'queryFn'
+  >
 ) => {
   return useQuery({
     queryKey: POST_QUERY_KEY.itemList(params),

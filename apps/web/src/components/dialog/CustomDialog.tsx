@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
-import React, { ComponentProps } from "react";
+import type { ComponentProps } from 'react';
+import React from 'react';
 
 import {
   Dialog,
@@ -9,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 type Props = {
   trigger: React.ReactNode;

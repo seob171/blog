@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Editor } from "@tiptap/react";
+import type { Editor } from '@tiptap/react';
 import {
   Bold,
   Code,
@@ -12,12 +12,12 @@ import {
   ListChecks,
   Strikethrough,
   Underline,
-} from "lucide-react";
+} from 'lucide-react';
 
-import ImageUploadMenu from "@/components/tiptap/ImageUploadMenu";
-import YoutubeEmbedMenu from "@/components/tiptap/YoutubeEmbedMenu";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import ImageUploadMenu from '@/components/tiptap/ImageUploadMenu';
+import YoutubeEmbedMenu from '@/components/tiptap/YoutubeEmbedMenu';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 type Props = {
   editor: Editor | null;
@@ -28,13 +28,11 @@ function MenuBar({ editor, className }: Props) {
   if (!editor) return null;
 
   return (
-    <div className={cn("flex gap-2 items-center flex-wrap", className)}>
+    <div className={cn('flex gap-2 items-center flex-wrap', className)}>
       {/* heading */}
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        variant={
-          editor.isActive("heading", { level: 1 }) ? "default" : "outline"
-        }
+        variant={editor.isActive('heading', { level: 1 }) ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -42,9 +40,7 @@ function MenuBar({ editor, className }: Props) {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        variant={
-          editor.isActive("heading", { level: 2 }) ? "default" : "outline"
-        }
+        variant={editor.isActive('heading', { level: 2 }) ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -52,9 +48,7 @@ function MenuBar({ editor, className }: Props) {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        variant={
-          editor.isActive("heading", { level: 3 }) ? "default" : "outline"
-        }
+        variant={editor.isActive('heading', { level: 3 }) ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -64,7 +58,7 @@ function MenuBar({ editor, className }: Props) {
       {/* text-style */}
       <Button
         onClick={() => editor.chain().focus().toggleBold().run()}
-        variant={editor.isActive("bold") ? "default" : "outline"}
+        variant={editor.isActive('bold') ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -72,7 +66,7 @@ function MenuBar({ editor, className }: Props) {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        variant={editor.isActive("italic") ? "default" : "outline"}
+        variant={editor.isActive('italic') ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -80,7 +74,7 @@ function MenuBar({ editor, className }: Props) {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleStrike().run()}
-        variant={editor.isActive("strike") ? "default" : "outline"}
+        variant={editor.isActive('strike') ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -88,7 +82,7 @@ function MenuBar({ editor, className }: Props) {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleUnderline().run()}
-        variant={editor.isActive("underline") ? "default" : "outline"}
+        variant={editor.isActive('underline') ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -96,7 +90,7 @@ function MenuBar({ editor, className }: Props) {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHighlight().run()}
-        variant={editor.isActive("highlight") ? "default" : "outline"}
+        variant={editor.isActive('highlight') ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -104,7 +98,7 @@ function MenuBar({ editor, className }: Props) {
       </Button>
       <Button
         onClick={() => editor.chain().focus().setCodeBlock().run()}
-        variant={editor.isActive("codeBlock") ? "default" : "outline"}
+        variant={editor.isActive('codeBlock') ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >
@@ -113,7 +107,7 @@ function MenuBar({ editor, className }: Props) {
 
       <Button
         onClick={() => editor.chain().focus().toggleTaskList().run()}
-        variant={editor.isActive("taskList") ? "default" : "outline"}
+        variant={editor.isActive('taskList') ? 'default' : 'outline'}
         size="icon"
         tabIndex={-1}
       >

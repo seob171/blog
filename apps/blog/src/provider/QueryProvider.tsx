@@ -1,16 +1,12 @@
 // In Next.js, this file would be called: app/providers.jsx
 
-"use client";
+'use client';
 
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react';
 
-import {
-  QueryClient,
-  QueryClientProvider,
-  isServer,
-} from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { QueryClient, QueryClientProvider, isServer } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 function makeQueryClient() {
   return new QueryClient({

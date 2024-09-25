@@ -1,8 +1,8 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
-import dayjs from "dayjs";
-import matter from "gray-matter";
+import dayjs from 'dayjs';
+import matter from 'gray-matter';
 
 type Metadata = {
   title: string;
@@ -19,11 +19,11 @@ export type MdxData = {
 };
 
 function getMDXFiles(dir: string) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+  return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
 }
 
 function readMDXFile(filePath: string) {
-  const rawContent = fs.readFileSync(filePath, "utf-8");
+  const rawContent = fs.readFileSync(filePath, 'utf-8');
   return matter(rawContent);
 }
 
@@ -33,9 +33,9 @@ function getMDXData(dir: string): MdxData[] {
     const { data: frontMatter, content } = readMDXFile(path.join(dir, file));
     const slug = path.basename(file, path.extname(file));
     const data = {
-      title: frontMatter?.title ?? "",
-      publishedAt: frontMatter?.publishedAt ?? dayjs().format("YYYY-MM-DD"),
-      summary: frontMatter?.summary ?? "",
+      title: frontMatter?.title ?? '',
+      publishedAt: frontMatter?.publishedAt ?? dayjs().format('YYYY-MM-DD'),
+      summary: frontMatter?.summary ?? '',
       image: frontMatter?.image,
       tags: frontMatter?.tags ?? [],
     } as Metadata;
@@ -54,5 +54,5 @@ function getMDXData(dir: string): MdxData[] {
 }
 
 export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), "post"));
+  return getMDXData(path.join(process.cwd(), 'post'));
 }

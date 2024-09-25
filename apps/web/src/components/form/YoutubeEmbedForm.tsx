@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 type Props = {
   embedVideo: SubmitHandler<YoutubeEmbedFormData>;
@@ -23,7 +24,7 @@ type YoutubeEmbedFormData = z.infer<typeof schema>;
 function YoutubeEmbedForm({ embedVideo }: Props) {
   const { register, handleSubmit } = useForm<YoutubeEmbedFormData>({
     defaultValues: {
-      url: "https://www.youtube.com/watch?v=Q3K0TOvTOno",
+      url: 'https://www.youtube.com/watch?v=Q3K0TOvTOno',
     },
     resolver: zodResolver(schema),
   });
@@ -35,7 +36,7 @@ function YoutubeEmbedForm({ embedVideo }: Props) {
           <Label htmlFor="url" className="sr-only">
             유튜브 영상
           </Label>
-          <Input {...register("url")} id="url" type="url" required />
+          <Input {...register('url')} id="url" type="url" required />
         </div>
       </div>
       <Button type="submit" variant="default">

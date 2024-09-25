@@ -1,13 +1,11 @@
-import { QueryClient } from "@tanstack/react-query";
+import type { QueryClient } from '@tanstack/react-query';
 
-import axiosInstance from "@/lib/api";
-import { PrismaModels } from "@/lib/prisma";
-import { AUTH_QUERY_KEY } from "@/services/auth/queryOptions";
-import { createClient } from "@/utils/supabase/client";
+import axiosInstance from '@/lib/api';
+import type { PrismaModels } from '@/lib/prisma';
+import { AUTH_QUERY_KEY } from '@/services/auth/queryOptions';
+import { createClient } from '@/utils/supabase/client';
 
-export const getAuthUser = async (): Promise<
-  PrismaModels["profiles"] | null
-> => {
+export const getAuthUser = async (): Promise<PrismaModels['profiles'] | null> => {
   const supabase = createClient();
   const {
     data: { user },
@@ -15,19 +13,14 @@ export const getAuthUser = async (): Promise<
   } = await supabase.auth.getUser();
 
   if (user) {
-    const res = await axiosInstance.get<PrismaModels["profiles"]>(
-      `/user/${user.id}`,
-    );
+    const res = await axiosInstance.get<PrismaModels['profiles']>(`/user/${user.id}`);
     return res.data;
   }
   console.error(error);
   return null;
 };
 
-export const updateAuthUser = (
-  queryClient: QueryClient,
-  user: PrismaModels["profiles"],
-) => {
+export const updateAuthUser = (queryClient: QueryClient, user: PrismaModels['profiles']) => {
   queryClient.setQueryData(AUTH_QUERY_KEY.user(), user);
 };
 

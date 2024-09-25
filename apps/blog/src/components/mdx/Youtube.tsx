@@ -1,9 +1,7 @@
 // 유튜브 비디오 ID를 추출하는 함수
-import React from "react";
+import React from 'react';
 
-type YouTubePlayerProps =
-  | { id: string; url?: never }
-  | { id?: never; url: string };
+type YouTubePlayerProps = { id: string; url?: never } | { id?: never; url: string };
 
 const extractVideoId = (url: string) => {
   const youtubeRegex =

@@ -1,21 +1,22 @@
-import { UseQueryOptions, useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import type { UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
 
-import { PrismaModels } from "@/lib/prisma";
-import { USER_QUERY_KEY } from "@/services/user/queryOptions";
-import { getUser } from "@/services/user/route";
+import type { PrismaModels } from '@/lib/prisma';
+import { USER_QUERY_KEY } from '@/services/user/queryOptions';
+import { getUser } from '@/services/user/route';
 
 const useGetUser = (
-  { id }: Pick<PrismaModels["profiles"], "id">,
+  { id }: Pick<PrismaModels['profiles'], 'id'>,
   options?: Omit<
     UseQueryOptions<
-      PrismaModels["profiles"],
+      PrismaModels['profiles'],
       AxiosError,
-      PrismaModels["profiles"],
+      PrismaModels['profiles'],
       ReturnType<typeof USER_QUERY_KEY.item>
     >,
-    "queryKey" | "queryFn"
-  >,
+    'queryKey' | 'queryFn'
+  >
 ) => {
   return useQuery({
     queryKey: USER_QUERY_KEY.item({ id }),

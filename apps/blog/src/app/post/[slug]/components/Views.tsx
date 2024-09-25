@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
-import { createPost, getPost, updatePost } from "@/service/post";
-import { PrismaModels } from "@/types/prisma";
+import { createPost, getPost, updatePost } from '@/service/post';
+import type { PrismaModels } from '@/types/prisma';
 
 const Views = () => {
   const queryClient = useQueryClient();
@@ -14,7 +14,7 @@ const Views = () => {
   const isViewUpdated = useRef(false);
   const { slug } = useParams<{ slug: string }>();
 
-  const postQueryKey = ["post", decodeURI(slug)];
+  const postQueryKey = ['post', decodeURI(slug)];
 
   const { data: dbPost, isFetched } = useQuery({
     queryKey: postQueryKey,
@@ -23,14 +23,13 @@ const Views = () => {
   });
 
   const { mutate: createMutate } = useMutation({
-    mutationFn: ({ slug }: PrismaModels["posts"]) => createPost({ slug }),
+    mutationFn: ({ slug }: PrismaModels['posts']) => createPost({ slug }),
     onMutate: async ({ slug }) => {
       await queryClient.cancelQueries({ queryKey: postQueryKey });
 
-      const prevDbPost =
-        queryClient.getQueryData<PrismaModels["posts"]>(postQueryKey);
+      const prevDbPost = queryClient.getQueryData<PrismaModels['posts']>(postQueryKey);
 
-      queryClient.setQueryData<PrismaModels["posts"]>(postQueryKey, () => {
+      queryClient.setQueryData<PrismaModels['posts']>(postQueryKey, () => {
         return { slug, views: 1 };
       });
       return { prevDbPost };
@@ -40,14 +39,13 @@ const Views = () => {
     },
   });
   const { mutate: updateMutate } = useMutation({
-    mutationFn: (args: PrismaModels["posts"]) => updatePost(args),
+    mutationFn: (args: PrismaModels['posts']) => updatePost(args),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: postQueryKey });
 
-      const prevDbPost =
-        queryClient.getQueryData<PrismaModels["posts"]>(postQueryKey);
+      const prevDbPost = queryClient.getQueryData<PrismaModels['posts']>(postQueryKey);
 
-      queryClient.setQueryData<PrismaModels["posts"]>(postQueryKey, (post) => {
+      queryClient.setQueryData<PrismaModels['posts']>(postQueryKey, (post) => {
         console.log({ post });
         if (!post) return undefined;
 
@@ -66,7 +64,7 @@ const Views = () => {
   });
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== "production") return;
+    if (process.env.NODE_ENV !== 'production') return;
     if (!isFetched) return;
     if (isViewUpdated.current) return;
 

@@ -1,6 +1,7 @@
-import React, { ComponentProps } from "react";
+import type { ComponentProps } from 'react';
+import React from 'react';
 
-function FileUpload(props: ComponentProps<"svg">) {
+function FileUpload(props: ComponentProps<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
