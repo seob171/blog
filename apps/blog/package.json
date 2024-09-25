@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "prisma generate && next build",
     "start": "next start",
     "format": "prettier --cache --write .",
     "lint": "next lint .",
-    "prepare": "cd ../.. && husky"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
