@@ -1,36 +1,58 @@
+![Logo](https://www.shimyuseob.xyz/api/og)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Package Manager Installation
 
-First, run the development server:
+Install pnpm
+
+### Mac
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+brew install pnpm
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Window
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+iwr htttps://get.pnpm.io/install/ps1 -useb | iex
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Run Locally
 
-## Learn More
+Clone the project
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+git clone https://github.com/seob171/blog.git
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Go to the project directory `apps/blog`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Install dependencies
 
-## Deploy on Vercel
+```bash
+pnpm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Start the dev server
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+pnpm dev
+```
+
+## Project Architecture
+
+| 디렉토리 | 설명                                              |
+| -------- | ------------------------------------------------- |
+| `post`   | 블로그에 포스팅하는 mdx 파일 디렉토리             |
+| `public` | 파비콘 및 포스팅에 사용되는 이미지, 영상 디렉토리 |
+
+| `src`  
+| `app/api` | dynamic og 이미지와 조회수 관련 api routes 디렉토리 |
+| `components` | mdx에서 사용되는 커스텀 컴포넌트 및 ui 컴포넌트를 디렉토리 |
+| `fonts` | og 이미지와 MDX 작성 시 사용하는 폰트 디렉토리 |
+| `hooks` | 커스텀 훅 디렉토리 |
+| `provider` | tanstack-query, theme provider 디렉토리 |
+| `service` | tanstack-query와 연동해서 사용되는 queryKey 및 queryHook 디렉토리 |
+| `types` | 타입관련 디렉토리 |
+| `utils` | 유틸함수 디렉토리 |
