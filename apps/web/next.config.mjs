@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  compiler: {
-    removeConsole:
-      process.env.NODE_ENV === "production"
-        ? { exclude: ["warn", "error"] }
-        : false,
-  },
+  // compiler: {
+  //   removeConsole:
+  //     process.env.NODE_ENV === "production"
+  //       ? { exclude: ["warn", "error"] }
+  //       : false,
+  // },
   images: {
     remotePatterns: [
       {

@@ -8,12 +8,12 @@ import rehypePrettyCode from "rehype-pretty-code";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     transpilePackages: ["next-mdx-remote"],
-    compiler: {
-        removeConsole:
-            process.env.NODE_ENV === "production"
-                ? { exclude: ["warn", "error"] }
-                : false,
-    },
+    // compiler: {
+    //     removeConsole:
+    //         process.env.NODE_ENV === "production"
+    //             ? { exclude: ["warn", "error"] }
+    //             : false,
+    // },
     pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
     images: {
         remotePatterns: [
