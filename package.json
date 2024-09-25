@@ -8,7 +8,8 @@
     "web": "turbo --filter web",
     "blog": "turbo --filter blog",
     "server": "turbo --filter server",
-    "oas": "turbo --filter oas-generator"
+    "oas": "turbo --filter oas-generator",
+    "prepare": "husky"
   },
   "devDependencies": {
     "turbo": "latest",
