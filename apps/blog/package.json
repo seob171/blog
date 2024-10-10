@@ -6,9 +6,10 @@
     "dev": "next dev --turbo",
     "build": "prisma generate && next build",
     "start": "next start",
+    "postinstall": "prisma generate",
     "format": "prettier --cache --write .",
     "lint": "next lint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc -b"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
