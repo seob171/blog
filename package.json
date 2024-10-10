@@ -9,6 +9,7 @@
     "blog": "turbo --filter blog",
     "server": "turbo --filter server",
     "oas": "turbo --filter oas-generator",
+    "playground": "turbo --filter playground",
     "prepare": "husky"
   },
   "devDependencies": {
