@@ -13,7 +13,7 @@ import { PATH_NAME } from '@/constants/link';
 import { cn } from '@/lib/utils';
 import { useGetAuthUser } from '@/services/auth/useGetAuthUser';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {}
+type Props = HTMLAttributes<HTMLDivElement>;
 
 function GNB({ className, ...props }: Props) {
   const { data: user } = useGetAuthUser();

@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React from 'react';
 
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
@@ -26,29 +26,23 @@ type Props = {
   params: { id: string };
 };
 
-function Page({ params: { id: postId } }: Props) {
+async function Page({ params: { id: postId } }: Props) {
   const queryClient = getQueryClient();
 
-  const post = use(
-    queryClient.fetchQuery({
-      queryFn: () => getPost({ id: postId }),
-      queryKey: POST_QUERY_KEY.item({ id: postId }),
-    })
-  );
+  const post = await queryClient.fetchQuery({
+    queryFn: () => getPost({ id: postId }),
+    queryKey: POST_QUERY_KEY.item({ id: postId }),
+  });
 
-  use(
-    queryClient.prefetchQuery({
-      queryFn: () => getUser({ id: post.creator_id }),
-      queryKey: USER_QUERY_KEY.item({ id: post.creator_id }),
-    })
-  );
+  await queryClient.prefetchQuery({
+    queryFn: () => getUser({ id: post.creator_id }),
+    queryKey: USER_QUERY_KEY.item({ id: post.creator_id }),
+  });
 
-  use(
-    queryClient.prefetchQuery({
-      queryFn: () => getAuthUser(),
-      queryKey: AUTH_QUERY_KEY.user(),
-    })
-  );
+  await queryClient.prefetchQuery({
+    queryFn: () => getAuthUser(),
+    queryKey: AUTH_QUERY_KEY.user(),
+  });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
