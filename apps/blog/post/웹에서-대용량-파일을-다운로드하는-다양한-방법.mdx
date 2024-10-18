@@ -168,4 +168,59 @@ async createGetPresignedUrl(
 
 ---
 
+### 그런데,
+검증과정에서 예기치 못한 이슈를 발견했는데, 한글이 포함된 filename의 경우 입력한 값이 아닌 디코딩된 이름으로 다운로드가 됐다.
+
+그래서 `encodeURI`를 처리하였다. 프론트나 백에서 인코딩을 처리해주면 된다.
+
+```typescript
+async createGetPresignedUrl(
+    // ...args
+): Promise<string> {
+    
+    const encodedFilename = encodeURI(filename);
+    
+    const command = new GetObjectCommand({
+        Bucket: this.AWS_BUCKET,
+        // ...
+        ResponseContentDisposition:`attachment;filename="${encodedFilename}"`,
+    })
+    // ...
+}
+```
+
+운영중인 스톡 서비스는 사파리도 지원했는데, `Header value cannot be represented using ISO-8859-1` 라는 오류가 발생하면서 정상적으로 파일 다운로드가 되지않았다. 🤬
+
+gpt에게 물어보니 친절하게 답을 알려주었다.
+
+> "Header value cannot be represented using ISO-8859-1"라는 에러는 HTTP 헤더에서 사용된 값이 ISO-8859-1 문자 인코딩으로 표현될 수 없을 때 발생합니다. ISO-8859-1은 대부분의 서구 언어에서 사용되는 8비트 문자 인코딩이지만, 한글이나 다른 비서구권 문자들(예: 일본어, 중국어) 또는 이모지와 같은 특수 문자는 이 인코딩으로 표현할 수 없습니다.
+
+그래서 최종적으로 presignedUrl를 발급받는 코드가 완성됐다.
+
+```typescript
+
+async function getPresignedUrl(bucketName, objectKey) {
+    // 파일명을 URI 인코딩 (UTF-8로 인코딩)
+    const filename = 'DropshotStock_UP6WFW1U_안경을 끼고 클립보드에 무언가를 적는 긴 머리 여성_preview.mov';
+    const encodedFilename = encodeURIComponent(filename);
+
+    const command = new GetObjectCommand({
+        Bucket: bucketName,
+        Key: objectKey,
+        ResponseContentDisposition: `attachment; filename*=UTF-8''${encodedFilename}`,  // filename*을 사용하여 UTF-8 인코딩된 파일명 설정
+    });
+
+    try {
+        const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+        return presignedUrl;
+    } catch (err) {
+        //...
+    }
+}
+```
+
+<video src="/videos/CleanShot%202024-10-19%20at%2001.20.23.mp4" controls width="100%" height="auto" />
+
+---
+
 여러 시행착오가 있었지만, 삽질하는 과정에서 stream api에 대해서도 알게되었고, s3의 presigned URL도 학습할 기회가 있었다.
