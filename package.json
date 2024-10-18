@@ -13,9 +13,9 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "turbo": "latest",
     "husky": "^9.1.4",
-    "lint-staged": "^15.2.7"
+    "lint-staged": "^15.2.7",
+    "turbo": "latest"
   },
   "packageManager": "pnpm@9.0.0"
 }

@@ -1,6 +1,12 @@
 {
   "extends": ["//"],
   "tasks": {
+    "postinstall": {},
+    "build": {
+      "dependsOn": ["postinstall"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "outputLogs": "new-only"
+    },
     "type-check": {
       "inputs": ["**/*.ts", "**/*.tsx"]
     }
