@@ -1,8 +1,0 @@
-{
-  "extends": ["//"],
-  "tasks": {
-    "type-check": {
-      "inputs": ["**/*.ts", "**/*.tsx"]
-    }
-  }
-}
