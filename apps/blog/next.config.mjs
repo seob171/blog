@@ -1,7 +1,8 @@
-import remarkGfm from 'remark-gfm';
 import createMDX from '@next/mdx';
-import rehypeSlug from 'rehype-slug';
+import withVercelToolbar from '@vercel/toolbar/plugins/next';
 import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -41,4 +42,4 @@ const withMDX = createMDX({
   },
 });
 
-export default withMDX(nextConfig);
+export default withMDX(withVercelToolbar(nextConfig));

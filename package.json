@@ -6,6 +6,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "web": "turbo --filter web",
+    "add:blog": "pnpm add --filter blog",
     "blog": "turbo --filter blog",
     "server": "turbo --filter server",
     "oas": "turbo --filter oas-generator",
