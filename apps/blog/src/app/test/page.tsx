@@ -17,7 +17,7 @@ const Page = async () => {
     <div>
       <span>{newFeature ? 'new feature' : 'old feature'}</span>
 
-      <span>{values.exampleFlag}</span>
+      <span>{`values.exampleFlag : ${values.exampleFlag}`}</span>
       {/* Some other content */}
       <Suspense fallback={null}>
         <ConfidentialFlagValues values={values} />
