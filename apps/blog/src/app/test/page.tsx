@@ -10,7 +10,7 @@ async function ConfidentialFlagValues({ values }: { values: Record<string, unkno
   return <FlagValues values={encryptedFlagValues} />;
 }
 
-export async function Page() {
+const Page = async () => {
   const exampleFlag = await showNewFeature();
   const values = { exampleFlag: exampleFlag };
   return (
@@ -22,4 +22,6 @@ export async function Page() {
       </Suspense>
     </div>
   );
-}
+};
+
+export default Page;
