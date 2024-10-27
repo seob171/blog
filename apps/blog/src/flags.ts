@@ -1,7 +1,7 @@
 import { get, has } from '@vercel/edge-config';
 import { unstable_flag as flag } from '@vercel/flags/next';
 
-export const showSummerSale = flag({
+export const showNewFeature = flag({
   key: 'newFeature',
   async decide() {
     const exists = await has('newFeature');

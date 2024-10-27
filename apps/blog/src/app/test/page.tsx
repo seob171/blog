@@ -1,12 +1,25 @@
-import React from 'react';
+import { Suspense } from 'react';
 
-import { showSummerSale } from '@/flags';
+import { encrypt } from '@vercel/flags';
+import { FlagValues } from '@vercel/flags/react';
 
-const Page = async () => {
-  const sale = await showSummerSale();
-  if (sale) return <div>sale</div>;
+import { showNewFeature } from '@/flags';
 
-  return <div>not sales</div>;
-};
+async function ConfidentialFlagValues({ values }: { values: Record<string, unknown> }) {
+  const encryptedFlagValues = await encrypt(values);
+  return <FlagValues values={encryptedFlagValues} />;
+}
 
-export default Page;
+export async function Page() {
+  const exampleFlag = await showNewFeature();
+  const values = { exampleFlag: exampleFlag };
+  return (
+    <div>
+      <span>{exampleFlag ? 'new feature' : 'old feature'}</span>
+      {/* Some other content */}
+      <Suspense fallback={null}>
+        <ConfidentialFlagValues values={values} />
+      </Suspense>
+    </div>
+  );
+}
