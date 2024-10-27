@@ -11,11 +11,13 @@ async function ConfidentialFlagValues({ values }: { values: Record<string, unkno
 }
 
 const Page = async () => {
-  const exampleFlag = await showNewFeature();
-  const values = { exampleFlag: exampleFlag };
+  const newFeature = await showNewFeature();
+  const values = { exampleFlag: true };
   return (
     <div>
-      <span>{exampleFlag ? 'new feature' : 'old feature'}</span>
+      <span>{newFeature ? 'new feature' : 'old feature'}</span>
+
+      <span>{values.exampleFlag}</span>
       {/* Some other content */}
       <Suspense fallback={null}>
         <ConfidentialFlagValues values={values} />
