@@ -1,4 +1,9 @@
 name: Simple Labeler
+
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   pull_request:
     types: [opened, ready_for_review]
