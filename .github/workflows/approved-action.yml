@@ -1,0 +1,47 @@
+name: approved action
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  label-on-approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for approvals
+        id: check-approvals
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          OWNER=${{ github.repository_owner }}
+          REPO=${{ github.event.repository.name }}
+          TOKEN=${{ secrets.GITHUB_TOKEN }}
+
+          # Fetch reviews using curl
+          REVIEWS=$(curl -s -H "Accept: application/vnd.github+json" \
+                        -H "Authorization: Bearer $TOKEN" \
+                        https://api.github.com/repos/$OWNER/$REPO/pulls/$PR_NUMBER/reviews)
+
+          # Count the number of approvals
+          APPROVALS=$(echo "$REVIEWS" | jq '[.[] | select(.state == "APPROVED")] | length')
+
+          echo "Number of approvals: $APPROVALS"
+          echo "::set-output name=approvals::$APPROVALS"
+
+      - name: Add label if approvals meet threshold
+        if: steps.check-approvals.outputs.approvals >= 1  # Change the threshold here
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          OWNER=${{ github.repository_owner }}
+          REPO=${{ github.event.repository.name }}
+          TOKEN=${{ secrets.GITHUB_TOKEN }}
+
+          # Add the label
+          curl -s -X POST -H "Accept: application/vnd.github+json" \
+               -H "Authorization: Bearer $TOKEN" \
+               -H "Content-Type: application/json" \
+               -d '{"labels":["approved"]}' \
+               https://api.github.com/repos/$OWNER/$REPO/issues/$PR_NUMBER/labels was approved"
