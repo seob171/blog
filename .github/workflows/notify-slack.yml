@@ -39,6 +39,7 @@ jobs:
       - name: Notify Slack
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          BODY: ${{ github.event.comment.body }}
         run: |
           const pull_requst = context.payload.pull_request; #pull_request 객체 가져오기
           
@@ -48,4 +49,4 @@ jobs:
           }
           
           const pr_body = pull_requst.body;
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"${{pr_body}}"}' $SLACK_WEBHOOK_URL
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"$BODY"}' $SLACK_WEBHOOK_URL
