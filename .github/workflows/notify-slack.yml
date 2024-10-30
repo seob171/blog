@@ -40,4 +40,12 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"🚀 A PR has just been merged automatically!"}' $SLACK_WEBHOOK_URL
+          const pull_requst = context.payload.pull_request; #pull_request 객체 가져오기
+          
+          if (pull_requst === undefined) {  # pull_requst가 없는 경우
+            console.log("The corresponding PR cannot be verified.")
+            return;
+          }
+          
+          const pr_body = pull_requst.body;
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"${{pr_body}}"}' $SLACK_WEBHOOK_URL
