@@ -44,4 +44,4 @@ jobs:
                -H "Authorization: Bearer $TOKEN" \
                -H "Content-Type: application/json" \
                -d '{"labels":["approved"]}' \
-               https://api.github.com/repos/$OWNER/$REPO/issues/$PR_NUMBER/labels was approved"
+               https://api.github.com/repos/$OWNER/$REPO/issues/$PR_NUMBER/labels
