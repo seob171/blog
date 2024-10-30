@@ -14,7 +14,6 @@ const Page = async () => {
         <span>테스트 코드 작성</span>
         <span>테스트 코드 작성</span>
         <span>테스트 코드 작성</span>
-        <span>테스트 코드 작성</span>
       </div>
     );
   }
