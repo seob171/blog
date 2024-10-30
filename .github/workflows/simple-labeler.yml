@@ -7,8 +7,11 @@ permissions:
 on:
   pull_request:
     types: [opened, ready_for_review]
+  pull_request_review:
+    types: [ submitted ]
 jobs:
   simple-labeler:
+    if: github.event_name == 'pull_request'  # pull_request 이벤트에서만 실행
     runs-on: [ubuntu-latest]
     steps:
       - name: Label to PR
@@ -17,3 +20,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           labels: "D-3"
           duplicate: "D-*"
+  approved:
+    if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Label to PR
+        uses: naver/simple-labeler@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          labels: "approved"
