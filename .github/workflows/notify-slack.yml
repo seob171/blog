@@ -1,7 +1,7 @@
 name: Automated PR Merges & Slack Notifications
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 on:
