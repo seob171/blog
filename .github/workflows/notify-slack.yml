@@ -1,0 +1,43 @@
+name: Automated PR Merges & Slack Notifications
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request:
+    types: [close]
+
+jobs:
+  notify-slack:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Setup Node.js 20
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      # Setup GitHub CLI
+      - name: Setup GitHub CLI
+        run: |
+          if ! gh --version; then
+            sudo apt-get install gh
+          fi
+
+      # Authenticate GitHub CLI using GITHUB_TOKEN
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+
+      # Notify Slack
+      - name: Notify Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"🚀 A PR has just been merged automatically!"}' $SLACK_WEBHOOK_URL
