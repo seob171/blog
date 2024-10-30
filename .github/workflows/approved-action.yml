@@ -29,7 +29,6 @@ jobs:
           APPROVALS=$(echo "$REVIEWS" | jq '[.[] | select(.state == "APPROVED")] | length')
 
           echo "Number of approvals: $APPROVALS"
-          echo "::set-output name=approvals::$APPROVALS"
 
       - name: Add label if approvals meet threshold
         if: steps.check-approvals.outputs.approvals >= 1  # Change the threshold here
