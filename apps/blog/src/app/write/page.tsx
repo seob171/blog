@@ -6,7 +6,12 @@ const Page = async () => {
   const isWriteFeatureCompleted = await showWriteFeature();
 
   if (!isWriteFeatureCompleted) {
-    return <div>Write Page 준비중...</div>;
+    return (
+      <div className={'flex flex-col gap-2'}>
+        <span>Write Page 준비중...</span>
+        <span>테스트 코드 작성</span>
+      </div>
+    );
   }
 
   return (
