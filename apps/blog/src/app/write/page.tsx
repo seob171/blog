@@ -9,7 +9,11 @@ const Page = async () => {
 
   if (!isWriteFeatureCompleted) notFound();
 
-  return <div>Write Page</div>;
+  return (
+    <div>
+      <span>Write Page</span>
+    </div>
+  );
 };
 
 export default Page;
