@@ -1,4 +1,4 @@
-name: Automated PR Merges & Slack Notifications
+name: Slack Notifications
 
 permissions:
   contents: write
@@ -6,7 +6,7 @@ permissions:
 
 on:
   pull_request:
-    types: [close]
+    types: [closed]
 
 jobs:
   notify-slack:
