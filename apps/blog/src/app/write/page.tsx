@@ -10,6 +10,8 @@ const Page = async () => {
       <div className={'flex flex-col gap-2'}>
         <span>Write Page 준비중...</span>
         <span>테스트 코드 작성</span>
+        <span>테스트 코드 작성</span>
+        <span>테스트 코드 작성</span>
       </div>
     );
   }
